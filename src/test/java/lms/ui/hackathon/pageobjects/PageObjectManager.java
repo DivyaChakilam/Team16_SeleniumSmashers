@@ -2,11 +2,7 @@ package lms.ui.hackathon.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 
-import lms.hackathon.ui.pageobjects.BatchPage;
-import lms.hackathon.ui.pageobjects.DashboardPage;
-import lms.hackathon.ui.pageobjects.LoginPage;
-import lms.hackathon.ui.pageobjects.ProgramPage;
-import lms.hackathon.ui.pageobjects.UserPage;
+
 import lms.ui.hackathon.configs.CommonConfigs;
 
 
@@ -20,7 +16,7 @@ public class PageObjectManager {
 		public BatchPage batchPage;
 		public ProgramPage programPage;
 		public ClassPage classPage;
-		public LogoutPage commonPage;
+		public LogoutPage logoutPage;
 
 		public PageObjectManager(WebDriver driver, CommonConfigs commonConfigs ) {
 			this.driver = driver;
