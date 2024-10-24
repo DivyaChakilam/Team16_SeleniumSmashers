@@ -45,7 +45,8 @@ public class LoginPage {
 		return util.getPageTitle();
 		//return driver.getTitle();
 	}	
-
+	
+	/*
 		public String getLoginHeadingText() {
 			return driver.findElement(LoginHeadingText).getText().trim();
 		}
