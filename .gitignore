@@ -7,11 +7,3 @@
 /ExtentReport/
 /logs/
 /PDFReport/
-/allure-results/
-.DS_Store
-src/.DS_Store
-src/test/.DS_Store
-src/test/java/.DS_Store
-src/test/java/lms/ui/.DS_Store
-src/test/java/lms/ui/hackathon/.DS_Store
-
