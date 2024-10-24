@@ -1,12 +1,12 @@
 #Author: Divya
 
-@tag
+@programDelete
 Feature: Manage Program
 Background: Admin Login
    Given Admin is on the dashboard page after login
    When Admin clicks Program on the navigation bar
    
-  @tag1 @DeleteProgram
+  @deltebutton #@DeleteProgram
   Scenario: Verify Delete feature in program 
     When Admin clicks on delete button for a program
     Then Admin will get confirm deletion popup

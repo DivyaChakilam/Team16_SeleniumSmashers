@@ -3,27 +3,31 @@ package lms.ui.hackathon.stepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.ProgramPage;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 
 public class ProgramSteps {
 	TestContextSetUp testContextSetUp ;
+	public DashboardPage dashboardPage;
 	public ProgramPage programPage;
 	
 	public ProgramSteps(TestContextSetUp testContextSetUp) {
 		this.testContextSetUp = testContextSetUp;
 		this.programPage = testContextSetUp.pageObjManager.getProgramPage();
+		dashboardPage = testContextSetUp.pageObjManager.getDashboardPage();
 	}
 	
 	@Given("Admin is on the dashboard page after login")
 	public void admin_login() {
-		programPage.login();
-	    
+		programPage.login(); //--> should be coming from Madhuvi's Login Page
+		 
 	}
 
 	@When("Admin clicks Program on the navigation bar")
-	public void admin_clicks_on_program() {
-		programPage.programTabClick();
+	public void admin_clicks_on_program() throws Exception {
+		//programPage.programTabClick();
+		programPage.goToMenu("Program");
 	   
 	}
 

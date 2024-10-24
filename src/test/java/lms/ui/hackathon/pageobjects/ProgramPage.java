@@ -3,8 +3,11 @@ package lms.ui.hackathon.pageobjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ProgramPage {
+import lms.ui.hackathon.utilities.ElementUtil;
+
+public class ProgramPage extends CommonAndPaginationFeatures {
 	private WebDriver driver;
+	private ElementUtil util;
 	public String deltedProgram;
 	
 	/*******************************By Locators****************************************/
@@ -27,12 +30,22 @@ public class ProgramPage {
 	
 
 	public ProgramPage(WebDriver driver) {
+		super(driver);
 		this.driver = driver;
+		util = new ElementUtil(this.driver);
+
 	}
+	
+	
+	
 	public void login() {
-		driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
+		util.doSendKeys(userLoc, "Sdet@gmail.com");
+		//driver.findElement(userLoc).sendKeys();
 		driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-		driver.findElement(loginButton).click();
+		
+		util.doClick(loginButton);
+		//driver.findElement(loginButton).click();
+		
 		
 	}
 	public void programTabClick() {

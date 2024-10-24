@@ -54,7 +54,7 @@ Then Admin should see"Password" and "(*)" symbol in the first text field
 Scenario: Verify the alignment input field for the login
 Given Admin launch the browser.
 When Admin gives the correct LMS portal URL.
-Then Admin should see input field on the centre of the page\
+Then Admin should see input field on the centre of the page
 
 Scenario: verify Login button is present
 Given Admin launch the browser.

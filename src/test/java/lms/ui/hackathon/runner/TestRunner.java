@@ -12,15 +12,10 @@ import lms.ui.hackathon.configs.ConfigLoader;
 
 @CucumberOptions(features = "src/test/resources/Features/", 
 		glue = {"lms.ui.hackathon.stepDefinitions"},
-		 tags="@test",
+		 tags="@deltebutton",
 		 dryRun=false
 		/*plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
-=======
-@CucumberOptions(features = "src/test/resources/Features", 
-		glue = { "lms.ui.hackathon.stepDefinitions" },
-		// tags="@loginPage-21",
-		plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
->>>>>>> Stashed changes
+
 				"junit:target/Cucumber.xml",
 				// "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",

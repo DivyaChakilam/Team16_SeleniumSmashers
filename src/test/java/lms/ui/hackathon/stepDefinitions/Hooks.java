@@ -34,32 +34,52 @@ public class Hooks {
 	@Before
 	public void setUp() throws Throwable {
 		
+		System.out.println("Inside @Before");
+
 		String browserValueFromTestNG = null;
 		
 		if(ConfigLoader.getBrowserType() != null) {
 			browserValueFromTestNG = ConfigLoader.getBrowserType();
 		
-		
+		//initializing properties file
 		prop = ConfigurationManager.initProp();
+		
+		//getting the properties url
+		config = new CommonConfigs();
 		config.setUrl(prop.getProperty("url"));
+		
+		//initializing driver
+		df = new DriverFactory();
 		driver = df.initDriver(prop, browserValueFromTestNG);
+		
+		//initializing POMManger
 		testContextSetUp = new TestContextSetUp();
-			
+		
 		}
 	}
 	
-	
+	@Before("@programDelete")
+	public void quickLogin() {
+		
+		System.out.println("Inside Conditional @Before for the tag @programDelete");
+
+		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
+		
+	}
 	
 	@After
 	public void AfterScenario() throws Throwable
 	{
-		testContextSetUp.base.WebDriverManager().quit();
+		//testContextSetUp.base.WebDriverManager().quit();
+		if(driver!=null) {
+			driver.quit();
+		}
 	}
 
 	@AfterStep
 	public void AddScreenshot(Scenario scenario) throws Throwable
 	{
-		WebDriver driver =testContextSetUp.base.WebDriverManager();
+		//WebDriver driver =testContextSetUp.base.WebDriverManager();
 		if(scenario.isFailed())
 		{
 			//screenshot
