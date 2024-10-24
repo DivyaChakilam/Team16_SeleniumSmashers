@@ -1,16 +1,13 @@
 package lms.ui.hackathon.pageobjects;
 
 import org.openqa.selenium.WebDriver;
-
-
 import lms.ui.hackathon.configs.CommonConfigs;
-
 
 
 public class PageObjectManager {
 		
 		public WebDriver driver;
-		private CommonConfigs commonConfigs;
+		//private CommonConfigs commonConfigs;
 		public LoginPage loginPage;
 		public DashboardPage dashboardPage;
 		public BatchPage batchPage;
@@ -18,9 +15,9 @@ public class PageObjectManager {
 		public ClassPage classPage;
 		public LogoutPage logoutPage;
 
-		public PageObjectManager(WebDriver driver, CommonConfigs commonConfigs ) {
+		public PageObjectManager(WebDriver driver/* , CommonConfigs commonConfigs */) {
 			this.driver = driver;
-			this.commonConfigs = commonConfigs;
+			//this.commonConfigs = commonConfigs;
 		}
 		public LoginPage getLoginPage() {
 			loginPage = new LoginPage(driver);
