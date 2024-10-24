@@ -1,5 +1,6 @@
 Feature: Login  Page Verification
 
+@test
 Scenario: Verify Admin is able to land on login page
 Given Admin launch the browser.
 When Admin gives the correct LMS portal URL.

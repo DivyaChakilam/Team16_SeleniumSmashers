@@ -6,10 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import lms.ui.hackathon.configs.CommonConfigs;
+import lms.ui.hackathon.configs.ConfigurationManager;
+import lms.ui.hackathon.utilities.ElementUtil;
 
 
 public class LoginPage {
-	public WebDriver driver;
+	private WebDriver driver;
+	private ElementUtil util;
 	
 	@FindBy(xpath="//img[@class='images']") WebElement loginPageImage; 
 	@FindBy(xpath="(//img[@class='images'])[1]") WebElement Loginpageimageframe;
@@ -30,14 +33,16 @@ public class LoginPage {
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
+		util = new ElementUtil(this.driver);
 	}
 	
-	public void getloginUrl() {
-		driver.get(CommonConfigs.url);
-	}
+	/*
+	 * public void getloginUrl() { //driver.get(CommonConfigs.url); }
+	 */
 	
 	public String getPageTitle() {
-		return driver.getTitle();
+		return util.getPageTitle()
+		//return driver.getTitle();
 	}	
 		public String getLoginHeadingText() {
 			return driver.findElement(LoginHeadingText).getText().trim();

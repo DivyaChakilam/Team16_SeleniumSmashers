@@ -1,19 +1,29 @@
 package lms.ui.hackathon.stepDefinitions;
 
-import io.cucumber.java.en.*;
+//import org.openqa.selenium.WebDriver;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import lms.ui.hackathon.configs.CommonConfigs;
+import lms.ui.hackathon.configs.ConfigurationManager;
 import lms.ui.hackathon.pageobjects.LoginPage;
 import lms.ui.hackathon.utilities.TestContextSetUp;
+//import numpy.seleniumsmasher.lms.factory.DriverFactory;
+import numpy.seleniumsmasher.lms.factory.DriverFactory;
 
-public class LoginSteps {
+public class LoginSteps{
+	
 	public LoginPage loginpage;
 	private CommonConfigs commonConfigs;
 	TestContextSetUp testContSetup;
+	//WebDriver driver;
+	
 	
 	public LoginSteps(TestContextSetUp testContSetup) {
+		//driver = DriverFactory.getDriver();
 		this.testContSetup = testContSetup;
 		this.loginpage = testContSetup.pageObjManager.getLoginPage();
-
 	}
 	
 	@Given("Admin launch the browser.")
@@ -24,8 +34,8 @@ public class LoginSteps {
 
 	@When("Admin gives the correct LMS portal URL.")
 	public void admin_gives_the_correct_lms_portal_url() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		DriverFactory.getDriver().get(commonConfigs.getUrl());
+
 	}
 
 	@Then("Admin should land on the login page.")

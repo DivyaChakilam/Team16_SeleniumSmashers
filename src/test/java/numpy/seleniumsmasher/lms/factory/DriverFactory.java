@@ -21,35 +21,45 @@ public class DriverFactory {
 
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
 
-	public WebDriver initDriver(Properties prop) throws MalformedURLException, URISyntaxException {
-
-		String browserName = "chrome";
-		System.out.println("Browser name is = " + browserName);
+	public WebDriver initDriver(Properties prop, String browserFromTestNG) throws MalformedURLException, URISyntaxException {
+		
+		String browserNameForExecution = null;
+		
+		//if browser is empty from TestNG
+		if(browserFromTestNG != null) {
+			browserNameForExecution = browserFromTestNG;
+		}else {
+			browserNameForExecution = prop.getProperty("browser").trim();
+		}
+			
+		
+		
+		System.out.println("Browser name for execution is = " + browserNameForExecution);
 
 		optionsManager = new BroswerOptionsManager(prop);
 
-		if (browserName.trim().equalsIgnoreCase("chrome")) {
+		if (browserNameForExecution.trim().equalsIgnoreCase("chrome")) {
 
 			// if remote flag is true
 			if (Boolean.parseBoolean(prop.getProperty("remote").trim())) {
 				
-				init_remoteDriver(browserName);
+				init_remoteDriver(browserNameForExecution);
 				
 			} else // if remote flag is false, run locally
 				tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			
-		} else if (browserName.trim().equalsIgnoreCase("firefox")) {
+		} else if (browserNameForExecution.trim().equalsIgnoreCase("firefox")) {
 			
 			// if remote flag is true
 			if (Boolean.parseBoolean(prop.getProperty("remote").trim())) {
-					init_remoteDriver(browserName);
+					init_remoteDriver(browserNameForExecution);
 			} else
 			tlDriver.set(new FirefoxDriver(optionsManager.getFirefoxOptions()));
 
-		} else if (browserName.trim().equalsIgnoreCase("safari")) {
+		} else if (browserNameForExecution.trim().equalsIgnoreCase("safari")) {
 			tlDriver.set(new SafariDriver());
 
-		} else if (browserName.trim().equalsIgnoreCase("edge")) {
+		} else if (browserNameForExecution.trim().equalsIgnoreCase("edge")) {
 			tlDriver.set(new EdgeDriver(optionsManager.getEdgeOptions()));
 
 		} else {
