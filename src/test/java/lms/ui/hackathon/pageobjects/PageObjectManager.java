@@ -46,6 +46,8 @@ public class PageObjectManager {
 			classPage = new ClassPage(driver);
 			return classPage;
 		}
+		
+		
 		public LogoutPage getLogoutPage() {
 			logoutPage = new LogoutPage(driver);
 			return logoutPage;
