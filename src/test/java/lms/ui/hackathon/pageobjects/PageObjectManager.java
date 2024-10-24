@@ -1,10 +1,7 @@
 package lms.ui.hackathon.pageobjects;
 
 import org.openqa.selenium.WebDriver;
-
-
 import lms.ui.hackathon.configs.CommonConfigs;
-
 
 
 public class PageObjectManager {
