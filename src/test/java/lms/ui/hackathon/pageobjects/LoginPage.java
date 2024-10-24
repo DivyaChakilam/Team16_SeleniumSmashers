@@ -41,10 +41,10 @@ public class LoginPage {
 	 */
 	
 	public String getPageTitle() {
-		return util.getPageTitle()
+		return util.getPageTitle();
 		//return driver.getTitle();
 	}	
-		public String getLoginHeadingText() {
+	/*	public String getLoginHeadingText() {
 			return driver.findElement(LoginHeadingText).getText().trim();
 		}
 		public boolean userNameFieldExist() {
@@ -80,5 +80,5 @@ public class LoginPage {
 
 		public String getloginBtnLabelText() {
 			return driver.findElement(loginbtnLabel).getText().trim();
-		}
+		} */
 }
