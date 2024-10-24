@@ -2,3 +2,9 @@
 .project
 .classpath
 /.settings/
+/test-output/
+/AllureReports/
+/ExtentReport/
+/logs/
+/PDFReport/
+/allure-results/

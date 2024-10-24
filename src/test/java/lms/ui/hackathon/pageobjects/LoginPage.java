@@ -14,6 +14,7 @@ public class LoginPage {
 	private WebDriver driver;
 	private ElementUtil util;
 	
+	/*
 	@FindBy(xpath="//img[@class='images']") WebElement loginPageImage; 
 	@FindBy(xpath="(//img[@class='images'])[1]") WebElement Loginpageimageframe;
 	@FindBy(xpath="//p[normalize-space()='Please login to LMS application']") WebElement LoginHeadingText;
@@ -30,7 +31,7 @@ public class LoginPage {
 	
 	@FindBy (xpath="//mat-error[@id='mat-error-0']") WebElement errorMessage1;
 	@FindBy (xpath="//mat-error[@id='mat-error-1']") WebElement errorMessage2;
-
+	*/
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
 		util = new ElementUtil(this.driver);
@@ -41,9 +42,11 @@ public class LoginPage {
 	 */
 	
 	public String getPageTitle() {
-		return util.getPageTitle()
+		return util.getPageTitle();
 		//return driver.getTitle();
 	}	
+	
+	/*
 		public String getLoginHeadingText() {
 			return driver.findElement(LoginHeadingText).getText().trim();
 		}
@@ -80,5 +83,5 @@ public class LoginPage {
 
 		public String getloginBtnLabelText() {
 			return driver.findElement(loginbtnLabel).getText().trim();
-		}
+		} */
 }

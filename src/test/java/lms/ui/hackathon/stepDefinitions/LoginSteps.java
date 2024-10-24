@@ -104,7 +104,7 @@ public class LoginSteps{
 	    throw new io.cucumber.java.PendingException();
 	}
 
-	@Then("Admin should see input field on the centre of the page\\")
+	@Then("Admin should see input field on the centre of the pages")
 	public void admin_should_see_input_field_on_the_centre_of_the_page() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
