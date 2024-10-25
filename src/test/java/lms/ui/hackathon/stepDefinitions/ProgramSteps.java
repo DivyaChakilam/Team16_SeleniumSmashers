@@ -22,6 +22,7 @@ public class ProgramSteps {
 	
 	@Given("Admin is on the dashboard page after login")
 	public void admin_login() {
+		
 		programPage.login(); //--> should be coming from Madhuvi's Login Page
 		 
 	}
@@ -172,9 +173,9 @@ public class ProgramSteps {
 	   
 	}
 	@When("Admin clicks {string} on the navigation bar")
-	public void admin_clicks_on_the_navigation_bar(String string) throws Exception {
-		System.out.println("Admins Clicks "+string);
-		programPage = (ProgramPage) dashboardPage.goToMenu(string);
+	public void admin_clicks_on_the_navigation_bar(String menuName) throws Exception {
+		System.out.println("Admins Clicks "+menuName);
+		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
 	}
 	@Then("Admin should be navigated to Program module")
 	public void admin_should_be_navigated_to_program_module() {
@@ -191,7 +192,9 @@ public class ProgramSteps {
 
 	@Then("Admin should see the heading {string}")
 	public void admin_should_see_the_heading(String string) {
-	   boolean isLMSHeader= programPage.isLMSHeader();
+	   //boolean isLMSHeader= programPage.isLMSHeader();
+		   boolean isLMSHeader= programPage.LMSHeaderExists();
+
 	   Assert.assertEquals(isLMSHeader, true);
 	}
 
@@ -231,14 +234,14 @@ public class ProgramSteps {
 
 	@Then("Admin should see Search bar with text as {string}")
 	public void admin_should_see_search_bar_with_text_as(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	   boolean searchbar= programPage.verifySearchbar();
+	   Assert.assertEquals(searchbar, true);
 	}
 
 	@Then("Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit\\/Delete")
 	public void admin_should_see_data_table_with_column_header_on_the_manage_program_page_as_program_name_program_description_program_status_edit_delete() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    boolean verifyheader=programPage.verifyProgramHeader();
+	    Assert.assertEquals(verifyheader, true);
 	}
 
 	@Then("Admin should see checkbox default state as unchecked beside Program Name column header as")
