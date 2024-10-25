@@ -191,8 +191,8 @@ public class ProgramSteps {
 
 	@Then("Admin should see the heading {string}")
 	public void admin_should_see_the_heading(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	   boolean isLMSHeader= programPage.isLMSHeader();
+	   Assert.assertEquals(isLMSHeader, true);
 	}
 
 	@Then("Admin should see the module names as in order {string}")
@@ -203,18 +203,64 @@ public class ProgramSteps {
 
 	@Then("Admin should see Logout in menu bar")
 	public void admin_should_see_logout_in_menu_bar() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    boolean isLogout=programPage.isLogout();
+	    Assert.assertEquals(isLogout, true);
 	}
 
 	@Given("Admin is on program page")
-	public void admin_is_on_program_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void admin_is_on_program_page() throws Exception {
+		programPage.goToMenu("Program");
 	}
 
 	@Then("Admin should see sub menu in menu bar as {string}")
 	public void admin_should_see_sub_menu_in_menu_bar_as(String string) {
+	 boolean isAddnewprogram=   programPage.isAddnewprogram();
+	 Assert.assertEquals(isAddnewprogram, true);
+	}
+	@Then("Admin should able to see Program name, description, and status for each program")
+	public void admin_should_able_to_see_program_name_description_and_status_for_each_program() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see a Delete button in left top is disabled")
+	public void admin_should_see_a_delete_button_in_left_top_is_disabled() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see Search bar with text as {string}")
+	public void admin_should_see_search_bar_with_text_as(String string) {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit\\/Delete")
+	public void admin_should_see_data_table_with_column_header_on_the_manage_program_page_as_program_name_program_description_program_status_edit_delete() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see checkbox default state as unchecked beside Program Name column header as")
+	public void admin_should_see_checkbox_default_state_as_unchecked_beside_program_name_column_header_as() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see check box default state as unchecked on the left side in all rows against program name")
+	public void admin_should_see_check_box_default_state_as_unchecked_on_the_left_side_in_all_rows_against_program_name() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see the sort arrow icon beside to each column header except Edit and Delete")
+	public void admin_should_see_the_sort_arrow_icon_beside_to_each_column_header_except_edit_and_delete() {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new io.cucumber.java.PendingException();
+	}
+
+	@Then("Admin should see the Edit and Delete buttons on each row of the data table")
+	public void admin_should_see_the_edit_and_delete_buttons_on_each_row_of_the_data_table() {
 	    // Write code here that turns the phrase above into concrete actions
 	    throw new io.cucumber.java.PendingException();
 	}

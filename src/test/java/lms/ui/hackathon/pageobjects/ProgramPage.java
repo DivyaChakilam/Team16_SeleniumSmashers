@@ -28,6 +28,10 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
 	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
 	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
+	private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
+	private By logOutMenu = By.id("Logout");
+	private By Logout = By.xpath("//span[normalize-space()='Logout']");
+	
 
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -70,5 +74,17 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return util.getElement(manageProgram) != null ? true:false;
 	}
 	
+	public boolean isLMSHeader()
+	{
+		return util.getElement(LMSHeader) != null ? true:false;
+	}
 	
+	public boolean isLogout()
+	{
+		return util.getElement(Logout) != null ? true:false;
+	}
+	public boolean isAddnewprogram()
+	{
+		return util.getElement(addNewProgramLoc) != null ? true:false;
+	}
 }
