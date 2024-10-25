@@ -9,4 +9,6 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 		super(driver);
 		this.driver = driver;
 	}
+	
+	
 }

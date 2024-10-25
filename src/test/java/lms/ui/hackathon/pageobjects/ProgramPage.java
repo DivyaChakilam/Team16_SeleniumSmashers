@@ -19,18 +19,24 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By deleteLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]");
 	//span/button[contains(@class,'p-button-danger')]/../../../../td[2]
 	private By deletedTextLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]/../../../../td[2]");
-	private By deleteMultipleLoc = By.xpath("//div/button[contains(@class,'p-button-danger')]");
+	//private By deleteMultipleLoc = By.xpath("//div/button[contains(@class,'p-button-danger')]");
 	private By yesButtonLoc = By.xpath("//span[contains(text(),'Yes')]");
 	private By noButtonLoc = By.xpath("//span[contains(text(),'No')]");
 	private By XButtonLoc = By.xpath("//*[contains(@class,'p-dialog-header-close')]");
 	private By checkboxesLoc = By.className("p-checkbox-icon");//this gives List of all checkboxes
-	private By searchBoxLoc = By.id("filterGlobal");
+	//private By searchBoxLoc = By.id("filterGlobal");
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
 	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
 	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
-	private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
-	private By logOutMenu = By.id("Logout");
-	private By Logout = By.xpath("//span[normalize-space()='Logout']");
+	//private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
+	//private By logOutMenu = By.id("Logout");
+	//private By Logout = By.xpath("//span[normalize-space()='Logout']");
+	private By headerprogramName = By.xpath("//th[@psortablecolumn='programName']");
+	private By headerProgramDescription = By.xpath("//th[@psortablecolumn='programDescription']");
+	private By headerProgramStatus = By.xpath("//th[@psortablecolumn='programStatus']");
+	private By headerEditDelete = By.xpath("//th[normalize-space()='Edit / Delete']");
+	private By searchBox = By.id("filterGlobal");
+
 	
 
 	public ProgramPage(WebDriver driver) {
@@ -74,17 +80,25 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return util.getElement(manageProgram) != null ? true:false;
 	}
 	
-	public boolean isLMSHeader()
-	{
-		return util.getElement(LMSHeader) != null ? true:false;
-	}
-	
-	public boolean isLogout()
-	{
-		return util.getElement(Logout) != null ? true:false;
-	}
+	/*
+	 * public boolean isLMSHeader() { return util.getElement(LMSHeader) != null ?
+	 * true:false; }
+	 * 
+	 
+	 */
 	public boolean isAddnewprogram()
 	{
 		return util.getElement(addNewProgramLoc) != null ? true:false;
+	}
+	public boolean verifyProgramHeader()
+	{
+		System.out.println("In verifyProgramHeader");
+		return (util.getElement(headerprogramName) != null ? true:false) && (util.getElement(headerProgramDescription) != null ? true:false)
+				&&(util.getElement(headerProgramStatus) != null ? true:false) && (util.getElement(headerEditDelete) != null ? true:false);
+	}
+	public boolean verifySearchbar()
+	{
+		System.out.println("In verifySearchbar");
+		return util.getElement(searchBox) != null ? true:false;
 	}
 }

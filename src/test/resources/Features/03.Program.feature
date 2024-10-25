@@ -12,7 +12,7 @@ Background: Admin Login
    
    
    
-  @deltebutton #@DeleteProgram
+  @deltebutton @DeleteProgram
   Scenario: Verify Delete feature in program 
     When Admin clicks on delete button for a program
     Then Admin will get confirm deletion popup
@@ -164,32 +164,32 @@ Background: Admin Login
    When Admin clicks "Program" on the navigation bar
    Then Admin should see a Delete button in left top is disabled
    
-   @tag25 @ManageProgramPagevalidation
+   @tag26 @ManageProgramPagevalidation
    Scenario: Verify the Search button 
    When Admin clicks "Program" on the navigation bar
    Then Admin should see Search bar with text as "Search..."
    
-    @tag26 @ManageProgramPagevalidation
+    @tag27 @ManageProgramPagevalidation
    Scenario: Verify column header name of data table
    When Admin clicks "Program" on the navigation bar
    Then Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit/Delete
 
-   @tag27 @ManageProgramPagevalidation
+   @tag28 @ManageProgramPagevalidation
    Scenario: Verify checkbox default state beside Program Name column header
    When Admin clicks "Program" on the navigation bar
    Then Admin should see checkbox default state as unchecked beside Program Name column header as 
    
-   @tag28 @ManageProgramPagevalidation
+   @tag29 @ManageProgramPagevalidation
    Scenario: Verify checkboxes default state beside each Program names in the data table 
    When Admin clicks "Program" on the navigation bar
    Then Admin should see check box default state as unchecked on the left side in all rows against program name 
    
-   @tag29 @ManageProgramPagevalidation
+   @tag30 @ManageProgramPagevalidation
    Scenario: Verify Sort icon in manage program
    When Admin clicks "Program" on the navigation bar
    Then Admin should see the sort arrow icon beside to each column header except Edit and Delete 
    
-   @tag30 @ManageProgramPagevalidation
+   @tag31 @ManageProgramPagevalidation
    Scenario: Verify edit and delete icon in manage program
    When Admin clicks "Program" on the navigation bar
    Then Admin should see the Edit and Delete buttons on each row of the data table
