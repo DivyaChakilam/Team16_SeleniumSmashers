@@ -27,7 +27,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By searchBoxLoc = By.id("filterGlobal");
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
 	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
-	
+	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
 
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -41,10 +41,16 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	public void login() {
 		util.doSendKeys(userLoc, "Sdet@gmail.com");
 		//driver.findElement(userLoc).sendKeys();
-		driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-		
+		//driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
+		util.doSendKeys(passwordLoc, "LmsHackathon@2024");
 		util.doClick(loginButton);
 		//driver.findElement(loginButton).click();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
@@ -57,6 +63,11 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 	public void validatePopup() {
 		
+	}
+	
+	public boolean isInProgramPage()
+	{
+		return util.getElement(manageProgram) != null ? true:false;
 	}
 	
 	
