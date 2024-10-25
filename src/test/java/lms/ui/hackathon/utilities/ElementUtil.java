@@ -137,7 +137,7 @@ public class ElementUtil {
 	public List<WebElement> getElements(By locator) {
 		return driver.findElements(locator);
 	}
-	
+		
 
 	public void doSendKeys(By locator, Keys keys) {
 		WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
