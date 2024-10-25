@@ -62,10 +62,11 @@ public class Hooks {
 	public void quickLogin() {
 		
 		System.out.println("Inside Conditional @Before for the tag @programDelete");
-if(driver == null)
-{
-	System.out.println("driver is null @programDelete");
-}
+		
+		if(driver == null)
+		{
+			System.out.println("driver is null @programDelete");
+		}
 		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
 		
 	}
