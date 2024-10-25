@@ -45,7 +45,7 @@ public class ClassPage extends CommonAndPaginationFeatures{
 	 * This method checks of Manage Class Header exists and returns a boolean value
 	 * @return
 	 */
-	public Boolean LMSHeaderExists() {
+	public Boolean manageClassHeaderExists() {
 		return util.isElementDisplayed(manageClassHeader);
 	}
 	
