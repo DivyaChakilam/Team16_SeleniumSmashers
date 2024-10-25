@@ -18,7 +18,8 @@ public class CommonAndPaginationFeatures {
 	private By logOutMenu = By.id("Logout");
 	
 	//Multiple Delete Btn and Search Box
-	private By multipleDeleteBtn = By.className("p-button-icon pi pi-trash");
+	private By multipleDeleteBtn = By.className("p-button-icon");
+	//private By multipleDeleteBtn = By.className("p-button-icon pi pi-trash");
 	private By searchBox = By.id("filterGlobal");
 
 	// Pagination Features

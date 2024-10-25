@@ -1,10 +1,16 @@
 #Author: Divya
+#Author: Dilina
 
 @programDelete
 Feature: Manage Program
 Background: Admin Login
    Given Admin is on the dashboard page after login
    When Admin clicks Program on the navigation bar
+   
+   
+   
+   
+   
    
   @deltebutton #@DeleteProgram
   Scenario: Verify Delete feature in program 
@@ -110,7 +116,37 @@ Background: Admin Login
     Given Admin is on last page of Program module table
     When Admin clicks "First page" link on the program table
     Then Admin should see the very first page record on the table with Previous page link are disabled
-  
+    
+  @tag17 @Navigation
+  Scenario: Verify that Admin is able to navigate to Program module
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should be navigated to Program module
+   
+  @tag18 @MenuBar
+  Scenario: Verify any broken links on program page
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should not have any broken links for Program module
+   
+  @tag19 @MenuBar
+  Scenario: Verify heading in menu bar
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should see the heading "LMS - Learning Management System"
+
+  @tag20 @MenuBar
+  Scenario: Verify other module's name displayed in menu bar
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should see the module names as in order "Home Program Batch Class Admin Assignment Attendance"
+   
+  @tag21 @MenuBar
+  Scenario: Verify Logout displayed in menu bar
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should see Logout in menu bar
+   
+  @tag22 @MenuBar
+  Scenario: Verify sub menu displayed in program menu bar
+   Given Admin is on program page
+   When Admin clicks "Program" on the navigation bar
+   Then Admin should see sub menu in menu bar as "Add New Program"
       
     
     
