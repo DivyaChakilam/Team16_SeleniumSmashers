@@ -1,14 +1,18 @@
 package lms.ui.hackathon.configs;
 
+import org.openqa.selenium.WebDriver;
+
 public class CommonConfigs {
 	
 	private static String browserType = null;
 	String userName;
 	String password;
-	String url;
+	//String url;
 	String loginUrl;
 	String registerUrl;
 	
+	public static ThreadLocal<String> tlUrl = new ThreadLocal<String>();
+
 	
 	public static void setBrowserType(String browser) {
 		browserType = browser;
@@ -37,12 +41,13 @@ public class CommonConfigs {
 		this.password = password;
 	}
 	
-	public String getUrl() {
-		return url;
+	public synchronized static String getUrl() {
+		return tlUrl.get();
 	}
 	
 	public void setUrl(String url) {
-		this.url = url;
+		//this.url = url;
+		tlUrl.set(url);
 	}
 
 	public String getLoginUrl() {
