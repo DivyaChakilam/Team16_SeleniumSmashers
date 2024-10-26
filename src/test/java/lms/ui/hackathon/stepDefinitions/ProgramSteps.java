@@ -246,26 +246,26 @@ public class ProgramSteps {
 
 	@Then("Admin should see checkbox default state as unchecked beside Program Name column header as")
 	public void admin_should_see_checkbox_default_state_as_unchecked_beside_program_name_column_header_as() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	   boolean checkbox= programPage.verifyCheckbox();
+	   Assert.assertEquals(checkbox, false);
 	}
 
 	@Then("Admin should see check box default state as unchecked on the left side in all rows against program name")
 	public void admin_should_see_check_box_default_state_as_unchecked_on_the_left_side_in_all_rows_against_program_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		boolean vpcb=programPage.verifyProgramCheckboxes();
+		Assert.assertEquals(vpcb, false);
+	    
 	}
 
 	@Then("Admin should see the sort arrow icon beside to each column header except Edit and Delete")
 	public void admin_should_see_the_sort_arrow_icon_beside_to_each_column_header_except_edit_and_delete() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	  boolean sorticon=  programPage.verifyProgramSortIcon();
+	  Assert.assertEquals(sorticon, true);
 	}
 
 	@Then("Admin should see the Edit and Delete buttons on each row of the data table")
 	public void admin_should_see_the_edit_and_delete_buttons_on_each_row_of_the_data_table() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    
 	}
 
 
