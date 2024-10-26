@@ -54,7 +54,7 @@ public class Hooks {
 		
 		//initializing POMManger
 		testContextSetUp = new TestContextSetUp();
-		
+
 		}
 	}
 	
@@ -72,7 +72,7 @@ public class Hooks {
 	{
 		//testContextSetUp.base.WebDriverManager().quit();
 		if(driver!=null) {
-			driver.quit();
+			//driver.quit();
 		}
 	}
 

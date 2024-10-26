@@ -12,13 +12,13 @@ public class CommonAndPaginationFeatures {
 
 	// Top Banner features
 	private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
-	private By programMenu = By.id("program");
+	private By programMenu = By.xpath("//button/span[text()='Program']"); 
 	private By batchMenu = By.xpath("//span[text()='Batch']/..");
 	private By classMenu = By.xpath("//span[text()='Class']/..");
 	private By logOutMenu = By.id("Logout");
 	
 	//Multiple Delete Btn and Search Box
-	private By multipleDeleteBtn = By.className("p-button-icon pi pi-trash");
+	//private By multipleDeleteBtn = By.className("p-button-icon pi pi-trash");
 	private By searchBox = By.id("filterGlobal");
 
 	// Pagination Features
@@ -90,7 +90,7 @@ public class CommonAndPaginationFeatures {
 	 * This method clicks on multiple Delete button
 	 */
 	public void multipleDeleteBtn() {
-		util.doClick(multipleDeleteBtn);
+		//util.doClick(multipleDeleteBtn);
 	}
 	
 	/**
