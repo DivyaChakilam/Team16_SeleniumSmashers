@@ -12,7 +12,7 @@ import lms.ui.hackathon.configs.ConfigLoader;
 
 @CucumberOptions(features = "src/test/resources/Features/", 
 		glue = {"lms.ui.hackathon.stepDefinitions"},
-		 tags="@tag26",
+		 tags="@tag29",
 		 dryRun=false
 		/*plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
 

@@ -1,7 +1,10 @@
 package lms.ui.hackathon.pageobjects;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import lms.ui.hackathon.utilities.ElementUtil;
 
@@ -27,16 +30,22 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	//private By searchBoxLoc = By.id("filterGlobal");
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
 	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
+	
+	//Feature Navigation,Menu Bar ,Manage Program Validation ,Add new Program ,Edit Program
+	
 	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
-	//private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
-	//private By logOutMenu = By.id("Logout");
-	//private By Logout = By.xpath("//span[normalize-space()='Logout']");
+	
 	private By headerprogramName = By.xpath("//th[@psortablecolumn='programName']");
 	private By headerProgramDescription = By.xpath("//th[@psortablecolumn='programDescription']");
 	private By headerProgramStatus = By.xpath("//th[@psortablecolumn='programStatus']");
 	private By headerEditDelete = By.xpath("//th[normalize-space()='Edit / Delete']");
 	private By searchBox = By.id("filterGlobal");
-
+	private By headercheckbox = By.xpath("//thead//div[@role='checkbox']");
+	private By programCheckboxes = By.xpath("//div[contains(@class,'p-checkbox-box') and contains(@class,'p-component')]");
+    private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+    private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
+    private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
+    
 	
 
 	public ProgramPage(WebDriver driver) {
@@ -101,4 +110,34 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		System.out.println("In verifySearchbar");
 		return util.getElement(searchBox) != null ? true:false;
 	}
+	//checking checkbox is selected or not
+	public boolean verifyCheckbox()
+	{
+		System.out.println("In verifyCheckbox");
+		return util.getElement(headercheckbox).isSelected() ;
+	}
+	//loop through each checkbox webelement to see if the checkboxes are selected or not
+	
+	public boolean verifyProgramCheckboxes()
+	{
+		System.out.println("In verifyProgramCheckboxes");
+		List<WebElement> elements=util.getElements(programCheckboxes);
+		for(WebElement e : elements ) {
+			
+			if(e.isSelected())
+			{
+				return true;
+			}
+						
+		}
+		return false;
+		
+	}
+	public boolean verifyProgramSortIcon()
+	{
+		System.out.println("In verifyProgramSortIcon");
+		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
+				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
+	}
+	
 }
