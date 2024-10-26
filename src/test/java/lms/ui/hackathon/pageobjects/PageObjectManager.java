@@ -45,10 +45,10 @@ public class PageObjectManager {
 			return classPage;
 		}
 		
-		
 		public LogoutPage getLogoutPage() {
 			logoutPage = new LogoutPage(driver);
 			return logoutPage;
 		}
+		
 
 }

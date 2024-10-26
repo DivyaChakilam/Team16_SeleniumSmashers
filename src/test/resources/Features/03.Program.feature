@@ -7,27 +7,22 @@ Background: Admin Login
    Given Admin is on the dashboard page after login
    When Admin clicks Program on the navigation bar
    
-   
-   
-   
-   
-  
-  @deltebutton @DeleteProgram 
+  @DeleteProgram1
   Scenario: Verify Delete feature in program 
     When Admin clicks on delete button for a program
     Then Admin will get confirm deletion popup
 
-	@tag2 @DeleteProgram
+	 @DeleteProgram2
   Scenario: Verify Admin is able to click 'Yes'
     When Admin clicks on "Yes" button
     Then Admin can see 'Successful Program Deleted' message
     
-  @tag3 @DeleteProgram
+   @DeleteProgram3
   Scenario: Verify Admin is able to delete program
-    When Admin Searches for "Deleted Program name"
+    When Admin Searches for Deleted Program name
     Then There should be zero results
     
-  @tag4 @DeleteProgram
+  @DeleteProgram4
  	Scenario Outline: Verify Admin is able to click options 'No' and 'X'
     Given Admin is on Confirm deletion form
     When Admin clicks on "<option>" button
@@ -37,7 +32,7 @@ Background: Admin Login
     |  No    |
     |   X    |
     
-  @tag5 @DeleteProgram
+  @DeleteProgram5
  	Scenario: Verify Admin is able to select multiple programs
     When Admin selects more than one program by clicking on the checkbox
     Then Programs get selected
@@ -45,7 +40,7 @@ Background: Admin Login
   @tag6 @DeleteProgram
  	Scenario: Verify Admin is able to delete Multiple programs
     When Admin clicks on the delete button on the left top of the program page
-    Then Admin lands on Confirmation form
+    Then Admin will get confirm deletion popup
     
   @tag7 @DeleteProgram
  	Scenario: Verify Admin is able to click 'Yes'
@@ -54,8 +49,8 @@ Background: Admin Login
     Then Admin can see 'Successful Program Deleted' message
     
   @tag8 @DeleteProgram
- 	Scenario: Verify Admin is able to delete program(Multiple deleted)
-    When Admin Searches for "Deleted Program names"
+ 	Scenario: Verify Admin is able to deleted programs
+    When Admin Searches for Deleted Program names
     Then There should be zero results
     
   @tag9 @DeleteProgram
@@ -68,50 +63,69 @@ Background: Admin Login
     |  No    |
     |   X    |
     
-  @tag10  @SearchProgram
- 	Scenario Outline: Verify Admin is able to search results found for program name/Description
+    @SearchProgram1
+ 		Scenario Outline: Verify Admin is able to search results found for program name/Description
     When Admin enter the program to search By "<option>"
     Then Admin should able to see Program name, description, and status for searched program name
     Examples:
     |       option      |
-    |    Program Name   |
-    |Program Description|
-    |Partial Prog Name  |
+    |    ProgramName   |
+    |ProgramDescription|
+    |PartialProgName  |
     
-  @tag11 @SearchProgram
+ 	@SearchProgram2
  	Scenario: Verify Admin is able to search results not found
     When Admin enter the program to search By program name that does not exist
     Then There should be zero results
     
-  @tag12 @SortProgram
- 	Scenario: Verify sorting of Program name in Ascending order/Descending order
-    When Admin clicks on Arrow next to column Name
+  @SortProgram
+ 	Scenario Outline: Verify sorting of Program name in Ascending order/Descending order
+    When Admin clicks on Arrow next to "<column Name>"
+    Then Admin See the "<column Name>" is sorted in Ascending order/Descending order
+     Examples:
+    |column Name|
     |Program Name|
     |Program Description|
-    |Program Status |
-    Then Admin See the Column Name is sorted in Ascending order/Descending order
-    |Program Name|
-    |Program Description|
-    |Program Status |
+    |Program Status|
     
-  @tag13 @Pagination
+    #@SortProgram1
+ #	Scenario Outline: Verify sorting of Program name in Ascending order
+    #When Admin clicks on Arrow next to "<column Name>" to sort in asc
+    #Then Admin See the "<column Name>" is sorted in Ascending order
+     #Examples:
+    #|column Name|
+    #|Program Name|
+    #|Program Description|
+    #|Program Status|
+    #
+     #@SortProgram2
+ #	Scenario Outline: Verify sorting of Program name in Descending order
+    #When Admin clicks on Arrow next to "<column Name>" to sort in desc
+    #Then Admin See the "<column Name>" is sorted in Descending order
+     #Examples:
+    #|column Name|
+    #|Program Name|
+    #|Program Description|
+    #|Program Status|
+    
+  @Pagination1
  	Scenario: Verify Admin is able to click 'Next page' link
     When Admin clicks "Next page" link on the program table
     Then Admin should see the Pagination has Next active link
    
     
-  @tag14 @Pagination
+  @Pagination2
  	Scenario: Verify Admin is able to click 'Last page' link
     When Admin clicks "Last page" link on the program table
     Then Admin should see the last page record on the table with Next page link are disabled
-    
-  @tag15 @Pagination
+   
+  @Pagination3
  	Scenario: Verify Admin is able to click 'Previous page' link
     Given Admin is on last page of Program module table
     When Admin clicks "Previous page" link on the program table
     Then Admin should see the previous page record on the table with pagination has previous page link
     
-  @tag16 @Pagination
+   @Pagination4
  	Scenario Outline: Verify Admin is able to click First page link
     Given Admin is on last page of Program module table
     When Admin clicks "First page" link on the program table
