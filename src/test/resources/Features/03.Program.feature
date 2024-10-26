@@ -208,6 +208,111 @@ Background: Admin Login
    When Admin clicks "Program" on the navigation bar
    Then Admin should see the Edit and Delete buttons on each row of the data table
    
+  # @tag32 @ManageProgramPagevalidation
+   #Scenario: Verify edit and delete icon in manage program
+  # When Admin clicks "Program" on the navigation bar
+   #Then "Admin should see the text as ""Showing x to y of z entries"" along with Pagination icon below the table. 
+  #x- starting record number on that page
+  #y-ending record number on that page
+ # z-Total number of records"
+ 
+ #@tag33 @ManageProgramPagevalidation
+ #  Scenario: Verify footer message in manage program
+ #  When Admin clicks "Program" on the navigation bar
+ #  Then "Admin should see the footer as ""In total there are z programs"".
+ #  z- Total number of records"
+
+
+   
+   
+   
+   
+   @tag36 @AddNewProgram
+   Scenario: Verify add New Program
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see pop up window for program details
+   
+   @tag36 @AddNewProgram
+   Scenario: Verify title of the pop up window
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see window title as "Program Details"
+
+
+   @tag37 @AddNewProgram
+   Scenario: Verify mandatory fields with red "*" mark 
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see red "*" mark beside mandatory field "Name"
+   
+   @tag38 @AddNewProgram
+   Scenario: Verify empty form submission 
+   Given Admin is on Program details form 
+   When Admin clicks save button without entering mandatory 
+   Then Admin gets message '<field> is required'
+   
+   @tag39 @AddNewProgram
+   Scenario: Verify cancel button 
+   Given Admin is on Program details form 
+   When Admin clicks Cancel button 
+   Then Admin can see Program Details form disappears 
+   
+   @tag40 @AddNewProgram
+   Scenario: Verify enter program name 
+   Given Admin is on Program details form 
+   When Admin enters the Name in the text box
+   Then Admin can see the text entered
+   
+   @tag41 @AddNewProgram
+   Scenario: Verify enter description 
+   Given Admin is on Program details form 
+   When Admin enters the Description in text box
+   Then Admin can see the text entered in description box
+   
+    @tag42 @AddNewProgram
+   Scenario: Verify select Status 
+   Given Admin is on Program details form 
+   When Admin selects the status of the program by clicking on the radio button "(Active/InActive)"
+   Then Admin can see 'Active/Inactive' status selected
+
+   @tag43 @AddNewProgram
+   Scenario: Verify Admin is able to save the program details
+   Given Admin is on Program details form 
+   When Admin enter valid details for mandatory fields and Click on save button
+   Then Admin gets message 'Successful Program created'
+   
+   @tag44 @AddNewProgram
+   Scenario: Verify cancel program details
+   Given Admin is on Program details form 
+   When Admin Click on cancel button
+   Then Admin can see program details form disappear
+   
+    @tag45 @AddNewProgram
+   Scenario: Verify added Program is created
+   Given Admin is on Program module
+   When Admin searches with newly created "Program Name"
+   Then Records of the newly created  "Program Name" is displayed and match the data entered
+   
+   @tag46 @AddNewProgram
+   Scenario: Verify close window with "X" 
+   Given Admin is on program details form
+   When Admin Click on "X" button
+   Then Admin can see program details form disappear
+
+
+
+
+
+ 
+
+
+
+
+   
+   
+   
+   
    
 
    
