@@ -18,7 +18,9 @@ public class CommonAndPaginationFeatures {
 	private By logOutMenu = By.id("Logout");
 	
 	//Multiple Delete Btn and Search Box
-	//private By multipleDeleteBtn = By.className("p-button-icon pi pi-trash");
+
+	private By multipleDeleteBtn = By.className("p-button-icon");
+	
 	private By searchBox = By.id("filterGlobal");
 
 	// Pagination Features
@@ -83,6 +85,13 @@ public class CommonAndPaginationFeatures {
 	public Boolean LMSHeaderExists() {
 		return util.isElementDisplayed(LMSHeader);
 	}
+	
+	/**
+	 * This method checks if LogOut menu is present in the banner
+	 * @return
+	 */
+	public boolean isLogout() { 
+		return util.getElement(logOutMenu) != null ? true:false; }
 	
 	//******************** Multiple Delete Btn and Search Box Methods ******************************
 

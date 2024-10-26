@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import lms.ui.hackathon.utilities.ElementUtil;
 
@@ -34,11 +36,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By deleteLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]");
 	//span/button[contains(@class,'p-button-danger')]/../../../../td[2]
 	private By deletedTextLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]/../../../../td[2]");
-	private By deleteMultipleLoc = By.xpath("//div/button[contains(@class,'p-button-danger')]"); 
-	private By yesButtonLoc = By.xpath("//span[contains(text(),'Yes')]"); 
-	private By noButtonLoc = By.xpath("//span[contains(text(),'No')]"); 
-	private By XButtonLoc = By.xpath("//*[contains(@class,'p-dialog-header-close')]");
-	private By checkboxesLoc = By.className("p-checkbox-icon");
+
 	//this gives List of all checkboxes private By searchBoxLoc = By.id("filterGlobal");
 	private By manageProgramLoc = By.xpath("//div[@class='box'][1]");
 	private By footerLoc = By.xpath("//span[contains(@class,'p-paginator-current')]");
@@ -49,7 +47,31 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By NextPage = By.xpath("//span[contains(@class,'angle-right')]/..");
 	private By LastPage = By.xpath("//span[contains(@class,'double-right')]/..");
 
-
+	//private By deleteMultipleLoc = By.xpath("//div/button[contains(@class,'p-button-danger')]");
+	private By yesButtonLoc = By.xpath("//span[contains(text(),'Yes')]");
+	private By noButtonLoc = By.xpath("//span[contains(text(),'No')]");
+	private By XButtonLoc = By.xpath("//*[contains(@class,'p-dialog-header-close')]");
+	private By checkboxesLoc = By.className("p-checkbox-icon");//this gives List of all checkboxes
+	//private By searchBoxLoc = By.id("filterGlobal");
+	/***********sortloc by programname, description, status. option should be passed dynamically***********/
+	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
+	
+	//Feature Navigation,Menu Bar ,Manage Program Validation ,Add new Program ,Edit Program
+	
+	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
+	
+	private By headerprogramName = By.xpath("//th[@psortablecolumn='programName']");
+	private By headerProgramDescription = By.xpath("//th[@psortablecolumn='programDescription']");
+	private By headerProgramStatus = By.xpath("//th[@psortablecolumn='programStatus']");
+	private By headerEditDelete = By.xpath("//th[normalize-space()='Edit / Delete']");
+	private By searchBox = By.id("filterGlobal");
+	private By headercheckbox = By.xpath("//thead//div[@role='checkbox']");
+	private By programCheckboxes = By.xpath("//div[contains(@class,'p-checkbox-box') and contains(@class,'p-component')]");
+    private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+    private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
+    private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
+    
+	
 	public ProgramPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -68,17 +90,17 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 
 
-	public void login() {
-		util.doSendKeys(userLoc, "Sdet@gmail.com");
-		//driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
-		//driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-		util.doSendKeys(passwordLoc, "LmsHackathon@2024");
-
-		util.doClick(loginButton);
-		//driver.findElement(loginButton).click();
-
-
-	}
+	
+	  public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
+	  //driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
+	  //driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
+	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
+	  
+	  util.doClick(loginButton); //driver.findElement(loginButton).click();
+	  
+	  
+	  }
+	 
 	public void clickProgram() throws InterruptedException {
 
 		Actions action = new Actions(driver);
@@ -177,10 +199,75 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	
 
 
+
 	/**********************Common methods : wait helpers **********************************************/
 	public void waitForElementToBeVisible(By locator) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
+
+	public void programTabClick() {
+		driver.findElement(programLoc).click();		
+	}
+
+	public void validatePopup() {
+		
+	}
+	
+	public boolean isInProgramPage()
+	{
+		return util.getElement(manageProgram) != null ? true:false;
+	}
+	
+	/*
+	 * public boolean isLMSHeader() { return util.getElement(LMSHeader) != null ?
+	 * true:false; }
+	 * 
+	 
+	 */
+	public boolean isAddnewprogram()
+	{
+		return util.getElement(addNewProgramLoc) != null ? true:false;
+	}
+	public boolean verifyProgramHeader()
+	{
+		System.out.println("In verifyProgramHeader");
+		return (util.getElement(headerprogramName) != null ? true:false) && (util.getElement(headerProgramDescription) != null ? true:false)
+				&&(util.getElement(headerProgramStatus) != null ? true:false) && (util.getElement(headerEditDelete) != null ? true:false);
+	}
+	public boolean verifySearchbar()
+	{
+		System.out.println("In verifySearchbar");
+		return util.getElement(searchBox) != null ? true:false;
+	}
+	//checking checkbox is selected or not
+	public boolean verifyCheckbox()
+	{
+		System.out.println("In verifyCheckbox");
+		return util.getElement(headercheckbox).isSelected() ;
+	}
+	//loop through each checkbox webelement to see if the checkboxes are selected or not
+	
+	public boolean verifyProgramCheckboxes()
+	{
+		System.out.println("In verifyProgramCheckboxes");
+		List<WebElement> elements=util.getElements(programCheckboxes);
+		for(WebElement e : elements ) {
+			
+			if(e.isSelected())
+			{
+				return true;
+			}
+						
+		}
+		return false;
+		
+	}
+	public boolean verifyProgramSortIcon()
+	{
+		System.out.println("In verifyProgramSortIcon");
+		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
+				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
+	}
 
 }

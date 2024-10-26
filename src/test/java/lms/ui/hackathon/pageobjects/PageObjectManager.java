@@ -25,6 +25,7 @@ public class PageObjectManager {
 		}
 
 		public DashboardPage getDashboardPage() {
+			if(dashboardPage == null)
 			dashboardPage = new DashboardPage(driver);
 			return dashboardPage;
 		}
