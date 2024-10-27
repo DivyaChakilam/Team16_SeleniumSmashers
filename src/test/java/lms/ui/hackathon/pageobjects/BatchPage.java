@@ -28,9 +28,10 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	private By deleteIcons=By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]"); 
     private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
 	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']']");
-	private By sortIconRows=By.xpath("//i[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']");
+	private By batchProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+    private By batchDescriptionSortIcon = By.xpath("//th[@psortablecolumn='batchDescription']/p-sorticon");
+	private By NextPage = By.xpath("//span[contains(@class,'angle-right')]/..");
 
-	
 	//Add New Batch
 	
      private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
@@ -68,24 +69,15 @@ public class BatchPage extends CommonAndPaginationFeatures{
 		return flag;
 	}
 	
-	public boolean isSortIconForEachRow() {
-		
-		boolean flag = false;
-		if(util.getElementSize(sortIconRows) == 3)
-		{
-			flag =true;
-		}else flag = false;
-		
-		return flag;
-	}
+
 	
 	public Boolean BatchHeaderExists() {
 		return util.isElementDisplayed(manageBatchHeader);
 	}	
 		
-	public String pagination() {
+	public boolean IspaginationActive() {
 		
-		return util.getElementText(paginationtext);	
+		return driver.findElement(NextPage).isEnabled();
 	}
 	
 	public Boolean IsDisabledDeleteIcon() {
@@ -135,10 +127,13 @@ public class BatchPage extends CommonAndPaginationFeatures{
     }
     
 	public boolean IsdataTableHeaderDisplayed() {
+		
+		System.out.println("IsdataTableHeaderDisplayed");
 		return util.isElementDisplayed(dataTableHeader);
     }
 	
 	public boolean IsdataTableCheckBoxDisplayed() {
+		System.out.println("IsdataTableCheckBoxDisplayed");
 		return util.isElementDisplayed(dataTableCheckBox);	
 	}
 	
@@ -148,8 +143,16 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	    return new BatchDetailsPage(driver);
 	}
 	
-	// Validate Edit Icon
-	
-	
+	public boolean verifyBatchSortIcon()
+	{
+		System.out.println("In verifyBatchSortIcon");
+		return (util.getElement(batchProgramNameSortIcon) != null ? true:false) && (util.getElement(batchDescriptionSortIcon) != null ? true:false)
+				&&(util.getElement(batchProgramNameSortIcon) != null ? true:false);
+	}
+
 }
+	
+	
+
+
 
