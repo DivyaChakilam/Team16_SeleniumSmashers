@@ -39,6 +39,7 @@ public class ClassPage extends CommonAndPaginationFeatures{
 		super(driver);
 		this.driver = driver;
 		util = new ElementUtil(this.driver);
+		util.doClick(programMenu);
 	}
 	
 	/**
@@ -52,11 +53,15 @@ public class ClassPage extends CommonAndPaginationFeatures{
 	/**
 	 * This method navigates user to Class Details page
 	 * @return
+	 * @throws InterruptedException 
 	 */
 	public ClassDetailsPage goToAddNewClassPage() {
-		
+		util.doClick(programMenu);
 		util.doClick(addNewClassBtn);
 		return new ClassDetailsPage(driver);
 	}
+	
+	
+	
 
 }

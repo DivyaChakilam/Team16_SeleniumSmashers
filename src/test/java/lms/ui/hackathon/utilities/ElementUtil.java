@@ -246,6 +246,10 @@ public class ElementUtil {
 	public String getAttributeVal(By locator, String attributeName) {
 		return elementWithFluentWaitLocated(locator, 10, 100).getAttribute(attributeName);
 	}
+	
+	public String getAttributeVal(WebElement ele, String attributeName) {
+		return ele.getAttribute(attributeName);
+	}
 
 	public void attachFileUsingSendKeys(By locator, String filePath) {
 		try {
