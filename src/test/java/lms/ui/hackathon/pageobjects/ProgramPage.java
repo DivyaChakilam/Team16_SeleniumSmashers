@@ -71,6 +71,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
     private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
     private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
     
+    private By addNewProgramBtn = By.xpath("//button[text()='Add New Program']");
 	
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -269,5 +270,15 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
 	}
+	
+public ProgramDetailsPage goToAddNewProgramPage() {
+	System.out.println("In goToAddNewProgramPage");
+		util.doClick(addNewProgramBtn);
+		return new ProgramDetailsPage(driver);
+	}
+public void searchText(String text)
+{
+	util.getElement(searchBox).sendKeys(text);
+}
 
 }
