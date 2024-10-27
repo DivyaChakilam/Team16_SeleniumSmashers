@@ -1,5 +1,8 @@
 package lms.ui.hackathon.stepDefinitions;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -74,9 +77,21 @@ public class ClassSteps {
 	
 	@Then("Admin should see a mix of input fields and text boxes totalling to {int} in the class details window")
 	public void admin_should_see_a_mix_of_input_fields_and_text_boxes_totalling_to_in_the_class_details_window(Integer fieldCount) {
-
 		Assert.assertEquals(classDetailsPage.fieldCount(), fieldCount);
-		;
+	}
+	
+	@Given("Admin enters mandatory fields only")
+	public void admin_enters_mandatory_fields_only() {
+		//classDetailsPage.selectDropDownMenu("staff name","Getha Takur");
+		//System.out.println(classDetailsPage.selectCalendarDate("31"));;
+		//classDetailsPage.selectCalendarDate("27");
+        
+		classDetailsPage.openCalendar();
+		List<String> dates = Arrays.asList("10/30/2024", "10/29/2024", "10/31/2025", "10/28/2024");
+
+		classDetailsPage.enterMultipleDates(dates);
+		System.out.println(classDetailsPage.getEnteredDateValueInEditBox());;
+
 	}
 
 
