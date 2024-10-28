@@ -11,11 +11,13 @@ public class CommonAndPaginationFeatures {
 	private ElementUtil util;
 
 	// Top Banner features
+
 	protected By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
 	protected By programMenu = By.xpath("//button/span[text()='Program']"); 
 	protected By batchMenu = By.xpath("//span[text()='Batch']/..");
 	protected By classMenu = By.xpath("//span[text()='Class']/..");
 	protected By logOutMenu = By.id("Logout");
+
 	
 	//Multiple Delete Btn and Search Box
 	protected By multipleDeleteBtn = By.className("p-button-icon");
@@ -85,12 +87,18 @@ public class CommonAndPaginationFeatures {
 		return util.isElementDisplayed(LMSHeader);
 	}
 	
+
 	/**
 	 * This method checks if LogOut menu is present in the banner
 	 * @return
 	 */
 	public boolean isLogout() { 
 		return util.getElement(logOutMenu) != null ? true:false; }
+
+	public boolean logoutBtnExists() {
+		return util.isElementPresent(logOutMenu);
+	}
+
 	
 	//******************** Multiple Delete Btn and Search Box Methods ******************************
 

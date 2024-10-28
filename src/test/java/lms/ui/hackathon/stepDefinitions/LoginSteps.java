@@ -1,23 +1,21 @@
 package lms.ui.hackathon.stepDefinitions;
 
-//import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lms.ui.hackathon.configs.CommonConfigs;
-import lms.ui.hackathon.configs.ConfigurationManager;
+import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.LoginPage;
 import lms.ui.hackathon.utilities.TestContextSetUp;
-//import numpy.seleniumsmasher.lms.factory.DriverFactory;
 import numpy.seleniumsmasher.lms.factory.DriverFactory;
 
 public class LoginSteps{
 	
 	public LoginPage loginpage;
-	private CommonConfigs commonConfigs;
 	TestContextSetUp testContSetup;
-	//WebDriver driver;
+	DashboardPage dashboardPage;
+	String errorMsg;
 	
 	
 	public LoginSteps(TestContextSetUp testContSetup) {
@@ -26,172 +24,176 @@ public class LoginSteps{
 		this.loginpage = testContSetup.pageObjManager.getLoginPage();
 	}
 	
-	@Given("Admin launch the browser.")
-	public void admin_launch_the_browser() {
-	    
+	@When("Admin gives the correct LMS portal URL")
+	public void launch_LMSPortal() {
+		DriverFactory.getDriver().get(CommonConfigs.getUrl());
+	}
+	
+
+	@When("Admin gives the invalid LMS portal URL")
+	public void launch_invalidLMSPortal() {
+		loginpage.getinvalidloginUrl();
+	}
+
+	@Then("Admin should land on the home page")
+	public void get_lms_title() {
+		String actualTitle = loginpage.getPageTitle();
+		Assert.assertEquals("LMS", actualTitle.trim());
+	}
+	
+	//this is good. Keeping it
+	@When("Admin enters valid credentials {string} and {string} and clicks login button")
+	public void admin_enters_valid_credentials_and_and_clicks_login_button(String username, String password) throws Exception {
+		System.out.println("Enter Valid Credentials");
+		loginpage.EnterUserName(username);
+		loginpage.EnterPassword(password);
+		System.out.println("Click Login Button");
+		dashboardPage = (DashboardPage)loginpage.clickOnloginButton();
+
+	}
+	
+	@When("Admin enters valid credentials {string} and {string} and clicks login button through keypad")
+	public void admin_enters_valid_credentials_and_and_clicks_login_button_through_keypad(String username, String password) throws Exception {
+		System.out.println("Enter Valid Credentials");
+		loginpage.EnterUserName(username);
+		loginpage.EnterPassword(password);
+		System.out.println("Click Login Button Through Keypad");
+		dashboardPage = (DashboardPage)loginpage.clickOnloginButtonThroughKeypad();
+	}
+	
+	
+	@When("Admin enters invalid credentials {string} and {string} and clicks login button")
+	public void admin_enters_invalid_credentials_and_and_clicks_login_button(String invalidUsername, String invalidPwd) throws Exception {
+		System.out.println("Enter InValid Credentials");
+		loginpage.EnterUserName(invalidUsername);
+		loginpage.EnterPassword(invalidPwd);
+		System.out.println("Click Login Button");
+		errorMsg = (String)loginpage.clickOnloginButton();
+	}
+
+	
+	@When("Admin enters valid credentials and clicks login button")
+	public void user_enters_valid_credentials() throws Exception {
+		String Uname = "sdetorganizers@gmail.com";
+		String Pwd = "UIHackathon@02";
+		System.out.println("Enter Valid Credentials");
+		loginpage.EnterUserName(Uname);
+		loginpage.EnterPassword(Pwd);
+		System.out.println("Click Login Button");
+		loginpage.clickOnloginButton();
+	}
+
+	@When("Admin enters credentials {string} and {string} and clicks login button")
+	public void user_enters_valid_credentials(String Uname, String Pwd) throws Exception {
+		System.out.println("Enter Valid Credentials");
+		loginpage.EnterUserName(Uname);
+		loginpage.EnterPassword(Pwd);
+		System.out.println("Click Login Button");
+		dashboardPage = (DashboardPage)loginpage.clickOnloginButton();
+	}
+
+	@When("Admin enters credentials {string} and {string} and clicks login button through keypad")
+	public void user_enters_valid_credentials_clicksLoginThroughKeypad(String Uname, String Pwd)
+			throws InterruptedException {
 		
-	}
-
-	@When("Admin gives the correct LMS portal URL.")
-	public void admin_gives_the_correct_lms_portal_url() {
-		DriverFactory.getDriver().get(commonConfigs.getUrl());
-
-	}
-
-	@Then("Admin should land on the login page.")
-	public void admin_should_land_on_the_login_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("Admin gives the incorrect LMS portal URL.")
-	public void admin_gives_the_incorrect_lms_portal_url() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should recieve page not found error.")
-	public void admin_should_recieve_page_not_found_error() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should recieve the link is broken error.")
-	public void admin_should_recieve_the_link_is_broken_error() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see correct spellings in all fields.")
-	public void admin_should_see_correct_spellings_in_all_fields() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see logo on the left  side.")
-	public void admin_should_see_logo_on_the_left_side() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see company name below the app name")
-	public void admin_should_see_company_name_below_the_app_name() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see {string}")
-	public void admin_should_see(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see two text field")
-	public void admin_should_see_two_text_field() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see {string} and {string} symbol in the first text field")
-	public void admin_should_see_and_symbol_in_the_first_text_field(String string, String string2) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see\"Password\" and {string} symbol in the first text field")
-	public void admin_should_see_password_and_symbol_in_the_first_text_field(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see input field on the centre of the pages")
-	public void admin_should_see_input_field_on_the_centre_of_the_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see login button")
-	public void admin_should_see_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see login button on the centre of the page.")
-	public void admin_should_see_login_button_on_the_centre_of_the_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should see user and password text in gray color")
-	public void admin_should_see_user_and_password_text_in_gray_color() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Given("Admin is in login Page.")
-	public void admin_is_in_login_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("Admin enter valid credentials and clicks login button")
-	public void admin_enter_valid_credentials_and_clicks_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin should land on dashboard page\\(centre of the page will be empty , menu bar is present).")
-	public void admin_should_land_on_dashboard_page_centre_of_the_page_will_be_empty_menu_bar_is_present() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("Admin enter invalid credentials and clicks login button")
-	public void admin_enter_invalid_credentials_and_clicks_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin gets Error message {string}.")
-	public void admin_gets_error_message(String string) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("Admin enter value only in password and clicks login button")
-	public void admin_enter_value_only_in_password_and_clicks_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@When("Admin enter value only in Adminname and clicks login button")
-	public void admin_enter_value_only_in_adminname_and_clicks_login_button() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Then("Admin gets Error message")
-	public void admin_gets_error_message() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-
-	@Given("Admin is on login Page.")
-	public void admin_is_on_login_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+		  System.out.println("Enter Valid Credentials");
+		  loginpage.EnterUserName(Uname); loginpage.EnterPassword(Pwd);
+		  System.out.println("Click Login Button");
+		 loginpage.clickOnloginButtonThroughKeypad();
+		 
 	}
 
 	@Then("Admin should land on dashboard page")
-	public void admin_should_land_on_dashboard_page() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	public void Admin_should_land_on_dashboard_page() throws InterruptedException {
+		
+		Assert.assertTrue(dashboardPage.logoutBtnExists());
+		//Assert.assertEquals(true, loginpage.returnlogoutbutton().isDisplayed());
+
 	}
 
-	@When("Admin enter valid credentials and clicks login button through mouse")
-	public void admin_enter_valid_credentials_and_clicks_login_button_through_mouse() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	@Then("Admin should see the Error message please check expected {string} displays")
+	public void Error_Msg_Validation(String expMsg) {
+
+		//String actualMsg = loginpage.getLoginErrorMgs().trim();
+		String actualMsg = errorMsg;
+		Assert.assertEquals(true, actualMsg.contains(expMsg.trim()),
+				expMsg + " is not displayed and it is displaying the following wrong message " + actualMsg);
+
 	}
+
+	@When("Admin should see {string}")
+	public void LoginPageValidation(String expField) {
+		if (expField.contains("Please login to LMS application")) {
+			Assert.assertTrue(loginpage.getLoginHeadingText().contains("Please login to LMS application"),
+					"'Please login to LMS application' field is not displayed");
+			System.out.println("'Please login to LMS application' field is  displayed");
+		} else if (expField.contains("username")) {
+			Assert.assertTrue(loginpage.userNameFieldExist(), "'username' field is not displayed");
+			System.out.println("'username' field is  displayed");
+		} else if (expField.contains("password")) {
+			Assert.assertTrue(loginpage.passwordFieldExist(), "'password' field is not displayed");
+			System.out.println("'password' field is  displayed");
+		} else if (expField.contains("userfieldlabel")) {
+			Assert.assertTrue(loginpage.getusernameLabelText().contains("User *"),
+					"'usernameLabel' field is not displayed");
+			System.out.println("'User *' label field is  displayed");
+		} else if (expField.contains("passwordfieldlabel")) {
+			Assert.assertTrue(loginpage.getpasswordLabelText().contains("Password *"),
+					"'usernameLabel' field is not displayed");
+			System.out.println("'Password *' label field is  displayed");
+		} else if (expField.contains("login")) {
+			Assert.assertTrue(loginpage.loginButtonExists(), "'login' button is not displayed");
+			System.out.println("'Login' button is  displayed");
+		} else if (expField.contains("logBtnlabel")) {
+			Assert.assertTrue(loginpage.getloginBtnLabelText().contains("Login"),
+					"'login' button label is not displayed");
+			System.out.println("'Login' button label is  displayed");
+		}
+
+	}
+	
+	@Then ("Admin should recieve 404 page not found error")
+	public void ValidatePageNotFoundMessage() {
+		Assert.assertTrue(loginpage.getPageTitle().contains("Application Error"),
+				"'page not found page' is not displayed");
+		System.out.println("'page not found page'  is displayed");
+	}
+	
+	
+	@Then ("Admin should see user in {string} color")
+	public void colorvalidation(String expcolor)
+	{
+		if (expcolor.contains("usercolor")) {
+			Assert.assertTrue(loginpage.getusercolorText().trim().contains("rgba(0, 0, 0, 0.54)"),
+					"'Gray color' is not displayed for 'User'");
+			System.out.println("'Gray color' is displayed for 'User'");
+		} 
+		else if (expcolor.contains("passwordcolor")) {
+			Assert.assertTrue(loginpage.getpasswordcolorText().trim().contains("rgba(0, 0, 0, 0.54)"),
+					"'Gray color' is not displayed for 'Password'");
+			System.out.println("'Gray color' is displayed for 'Password'");
+		} 
+	}
+	
+
+	
+	@Then ("Admin should see input and loginbutton are in center of login page")
+	public void alignmentloginFieldsValidation()
+	{
+			Assert.assertTrue(loginpage.getloginfieldsposition().trim().contains("center"),
+					"Input and login button are not center alligned");
+			System.out.println("Input and login button are center alligned");
+		
+	}
+	
+	@Then ("Admin should see expected logo image in login page")
+	public void loginFieldsImageValidation()
+	{
+			Assert.assertTrue(loginpage.getloginimage().trim().contains("assets/img/LMS-logo.jpg"),
+					"Expected image source is not displayed in loginpage");
+			System.out.println("Expected image source is displayed in loginpage");
+		
+	}
+	
 	
 }
