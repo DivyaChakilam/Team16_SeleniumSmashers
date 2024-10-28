@@ -27,7 +27,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	private By editIcons= By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
 	private By deleteIcons=By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]"); 
     private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
-	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']']");
+	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']");
 	private By batchProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
     private By batchDescriptionSortIcon = By.xpath("//th[@psortablecolumn='batchDescription']/p-sorticon");
 	private By NextPage = By.xpath("//span[contains(@class,'angle-right')]/..");
@@ -37,11 +37,6 @@ public class BatchPage extends CommonAndPaginationFeatures{
      private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
      private By BatchPopupFrame=By.xpath("//div[contains(@role,'dialog')]"); 
 	
-	//Edit icon Validation
-	
-	private By beditIcon=By.xpath("//span[@class='p-button-icon pi pi-pencil']");
-	private By editBatchPopup=By.xpath("//div[contains(@role, 'dialog')]"); 
-	private By statusINactiveRadiobtn=By.xpath("//input[@*='INACTIVE']");
 	
 	public BatchPage(WebDriver driver) {
 		super(driver);
@@ -144,6 +139,8 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	
 	public String getBatchSubMenu() {
 		System.out.println("In getBatchSubMenu");  
+		System.out.println(util.getElementText(addNewBatchBtn));  
+
 	    return util.getElementText(addNewBatchBtn);
 	}
 	
