@@ -18,6 +18,7 @@ public class ProgramSteps {
 	TestContextSetUp testContextSetUp;
 	public DashboardPage dashboardPage;
 	public ProgramPage programPage;
+	public ProgramDetailsPage programDetailsPage;
 	String programNameDeleted = "";
 	String invalidProgramName = "ljf5@1";
 	String programName = "piechart";
@@ -25,13 +26,14 @@ public class ProgramSteps {
 	String ProgramPartialName = "pie";
 	List<String> originalList = new ArrayList<String>();
 	List<String> sortedList = new ArrayList<String>();
+	String editedName="";
 
-	ProgramDetailsPage programDetailsPage;
 
 	public ProgramSteps(TestContextSetUp testContextSetUp) {
 		this.testContextSetUp = testContextSetUp;
 		this.programPage = testContextSetUp.pageObjManager.getProgramPage();
 		this.dashboardPage = testContextSetUp.pageObjManager.getDashboardPage();
+		this.programDetailsPage = testContextSetUp.pageObjManager.getProgramDetailsPage();
 	}
 
 	@Given("Admin is on the dashboard page after login")
@@ -370,7 +372,7 @@ public class ProgramSteps {
 
 	@Given("Admin is on Program details form")
 	public void admin_is_on_program_details_form() throws Exception {
-		programPage.login();
+		/*programPage.login();*/
 		programPage = (ProgramPage) dashboardPage.goToMenu("Program");
 		programDetailsPage = programPage.goToAddNewProgramPage();
 	}
@@ -457,11 +459,12 @@ public class ProgramSteps {
 	}
 	@Then("Admin gets message Successful Program created")
 	public void admin_gets_message_successful_program_created() {
-		programDetailsPage.isProgramCreatedSuccessfully();
+		boolean isSuccess = programDetailsPage.isProgramCreatedSuccessfully();
+		Assert.assertEquals(isSuccess, true);
 	}
 
-	@When("Admin Click on cancel button")
-	public void admin_click_on_cancel_button() {
+	@When("Admin Clicks on cancel button")
+	public void admin_clicks_on_cancel_button() {
 		// Write code here that turns the phrase above into concrete actions
 		throw new io.cucumber.java.PendingException();
 	}
@@ -486,5 +489,92 @@ public class ProgramSteps {
 	public void admin_click_on_button(String string) {
 		
 	}
+	@When("Admin clicks on Edit option for particular program")
+	public void admin_clicks_on_edit_option_for_particular_program() {
+		programPage.editFirstProgram();
+	}
+
+	@Then("Admin lands on Program details form")
+	public void admin_lands_on_program_details_form() {
+		
+		String title = programDetailsPage.getProgramDetailsTitle();
+		System.out.println("title is " + title);
+		Assert.assertEquals(title, "Program Details");
+	}
+
+	@When("Admin edits the program name and click on save button")
+	public void admin_edits_the_program_name_and_click_on_save_button() {
+		programPage.editFirstProgram();
+		editedName= programDetailsPage.editName();
+		programDetailsPage.clickProgramDetailsSave();
+		
+	}
+
+	@Then("Updated program name is seen by the Admin")
+	public void updated_program_name_is_seen_by_the_admin() {
+		boolean isSuccess = programDetailsPage.isProgramEditedSuccessfully();
+		Assert.assertEquals(isSuccess, true);
+	}
+
+	@When("Admin edits the description text and click on save button")
+	public void admin_edits_the_description_text_and_click_on_save_button() {
+		programPage.editFirstProgram();
+		programDetailsPage.editDescription();
+		programDetailsPage.clickProgramDetailsSave();
+	}
+
+	@Then("Admin can see the description is updated")
+	public void admin_can_see_the_description_is_updated() {
+		boolean isSuccess = programDetailsPage.isProgramEditedSuccessfully();
+		Assert.assertEquals(isSuccess, true);
+	}
+
+	@When("Admin can change the status of the program and click on save button")
+	public void admin_can_change_the_status_of_the_program_and_click_on_save_button() {
+		programPage.editFirstProgram();
+		programDetailsPage.ToggleStatus();
+		programDetailsPage.clickProgramDetailsSave();
+	}
+
+	@Then("Status updated can be viewed by the Admin")
+	public void status_updated_can_be_viewed_by_the_admin() {
+		boolean isSuccess = programDetailsPage.isProgramEditedSuccessfully();
+		Assert.assertEquals(isSuccess, true);
+	}
+
+	@When("Admin click on save button")
+	public void admin_click_on_save_button() {
+		programPage.editFirstProgram();
+		programDetailsPage.clickProgramDetailsSave();
+	}
+
+	@Then("Admin can see the updated program details")
+	public void admin_can_see_the_updated_program_details() {
+		boolean isSuccess = programDetailsPage.isProgramEditedSuccessfully();
+		Assert.assertEquals(isSuccess, true);
+	}
+	@When("Admin clicks Cancel button on a Program")
+	public void admin_clicks_cancel_button_on_a_program() {
+		programPage.editFirstProgram();
+		programDetailsPage.clickProgramDetailsCancel();
+	}
+	
+
+	@When("Admin searches with newly updated {string}")
+	public void admin_searches_with_newly_updated(String string) {
+		programPage.editFirstProgram();
+		editedName= programDetailsPage.editName();
+		programDetailsPage.clickProgramDetailsSave();
+	    System.out.println("editedName ->"+editedName);
+	    programPage.searchText(editedName);
+	}
+
+	@Then("Admin verifies that the details are correctly updated.")
+	public void admin_verifies_that_the_details_are_correctly_updated() {
+		boolean result = programPage.verifySearchResult();
+		Assert.assertEquals(result, true);
+	    
+	}
+
 
 }

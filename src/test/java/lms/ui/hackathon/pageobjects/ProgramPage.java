@@ -72,6 +72,9 @@ public class ProgramPage extends CommonAndPaginationFeatures {
     private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
     
     private By addNewProgramBtn = By.xpath("//button[text()='Add New Program']");
+    
+    private By firstProgramEditButton = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')][1]");
+    private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
 	
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -98,6 +101,12 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
 	  
 	  util.doClick(loginButton); //driver.findElement(loginButton).click();
+	  try {
+		Thread.sleep(2000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	  
 	  
 	  }
@@ -280,5 +289,19 @@ public void searchText(String text)
 {
 	util.getElement(searchBox).sendKeys(text);
 }
+public void editFirstProgram()
+{
+	Actions action = new Actions(driver);
+	waitForElementToBeVisible(firstProgramEditButton);
+	WebElement editButton = driver.findElement(firstProgramEditButton);
+	
+	action.doubleClick(editButton).perform();
+	
+}
+public boolean verifySearchResult()
+{
+	return util.getElement(programPageSearchResult) != null ? true:false;
+}
+
 
 }

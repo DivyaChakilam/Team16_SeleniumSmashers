@@ -19,9 +19,10 @@ public class ProgramDetailsPage {
 	private By cancelButton = By.xpath("//span[text()='Cancel']");
 	private By nameTextbox = By.id("programName");
 	private By descriptionTextbox = By.id("programDescription");
-	private By activeRadio = By.xpath("(//div[@class='p-radiobutton-box'])[1]");
-	private By inactiveRadio = By.xpath("(//div[@class='p-radiobutton-box'])[2]");
+	private By activeRadio = By.xpath("//input[@id='Active']");
+	private By inactiveRadio = By.xpath("//input[@id='Inactive']");
 	private By successMsg = By.xpath("//div[text()='Program Created Successfully']");
+	private By successEditMsg = By.xpath("//div[text()='Program Updated']");
 	
 	public ProgramDetailsPage(WebDriver driver) {
 		this.driver = driver;
@@ -130,6 +131,39 @@ public class ProgramDetailsPage {
 	
 	public Boolean isProgramCreatedSuccessfully() {
 		return util.isElementPresent(successMsg);
+	}
+	
+	public String editName()
+	{
+	 String edited = util.getElement(nameTextbox).getAttribute("value")+"Edited";
+	 util.doSendKeys(nameTextbox, edited);
+	 return edited;
+	}
+	public void editDescription()
+	{
+	 String edited = util.getElement(descriptionTextbox).getAttribute("value")+"Edited";
+	 util.doSendKeys(descriptionTextbox, edited);
+	
+	}
+	
+	public Boolean isProgramEditedSuccessfully() {
+		return util.isElementPresent(successEditMsg);
+	}
+	
+	public void ToggleStatus()
+	{
+		boolean isactive = util.getElement(activeRadio).isSelected();
+		if(isactive)
+		{
+			util.doClick(inactiveRadio);
+			//util.getElement(inactiveRadio).click();
+		}
+		else
+		{
+			util.doClick(activeRadio);
+			//util.getElement(activeRadio).click();
+		}
+		
 	}
 	
 

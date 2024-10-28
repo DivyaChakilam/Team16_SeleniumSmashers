@@ -131,6 +131,8 @@ Background: Admin Login
     When Admin clicks "First page" link on the program table
     Then Admin should see the very first page record on the table with Previous page link are disabled
     
+    
+    #-------
   @tag17 @Navigation
   Scenario: Verify that Admin is able to navigate to Program module
    When Admin clicks Program "Program" on the navigation bar
@@ -225,7 +227,7 @@ Background: Admin Login
 
    
    
-   
+  #------- 
    
    @tag35 @AddNewProgram
    Scenario: Verify add New Program
@@ -295,6 +297,7 @@ Background: Admin Login
    Examples:
    | Name        | Description  | Option |
    |SeleniumSmashers  | Selenium Learning  | Active |
+   |SeleniumDreamers  | Selenium Dreamers Learning | Active |
    
     @tag44 @AddNewProgram
    Scenario: Verify added Program is created
@@ -307,6 +310,67 @@ Background: Admin Login
    Given Admin is on Program details form
    When Admin Click on "X" button
    Then Admin can see program details form disappear
+   
+   #-----------
+@tag46 @EditProgram
+   Scenario: Verify Edit option 
+   When Admin clicks on Edit option for particular program
+   Then Admin lands on Program details form
+   
+   @tag47 @EditProgram
+   Scenario: Verify title of the pop up window 
+   When Admin clicks on Edit option for particular program
+   Then Admin should see window title as "Program Details"
+   
+   @tag48 @EditProgram
+   Scenario: Verify mandatory fields with red "*" mark 
+   When Admin clicks on Edit option for particular program
+   Then Admin should see red "*" mark beside mandatory field "Name"
+   
+    @tag49 @EditProgram
+   Scenario: Verify edit Program Name 
+   When Admin edits the program name and click on save button
+   Then Updated program name is seen by the Admin
+   
+   @tag50 @EditProgram
+   Scenario: Verify edit Description 
+   When Admin edits the description text and click on save button
+   Then Admin can see the description is updated
+   
+   @tag51 @EditProgram
+   Scenario: Verify edit Status 
+   When Admin can change the status of the program and click on save button
+   Then Status updated can be viewed by the Admin
+   
+   @tag52 @EditProgram
+   Scenario: Verify Admin is able to click Save 
+   When Admin click on save button
+   Then Admin can see the updated program details
+   
+   @tag53 @EditProgram
+   Scenario: Verify Admin is able to click Cancel 
+   When Admin clicks Cancel button on a Program
+   Then Admin can see Program Details form disappears
+   
+   @tag54 @EditProgram
+   Scenario: Verify edited Program details 
+   When Admin searches with newly updated "Program Name"
+   Then Admin verifies that the details are correctly updated.
+   
+   @tag55 @EditProgram
+   Scenario: Verify close the window with "X" 
+   When Admin Click on "X" button
+   Then Admin can see program details form disappear
+
+
+
+
+
+
+
+
+
+
 
 
 
