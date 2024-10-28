@@ -20,7 +20,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	//Batch Page Validation
 	
 	private By manageBatchHeader = By.xpath("//div[contains(text(),'Manage Batch')]");
-	private By paginationtext= By.xpath("//p-paginator/div/span[1]");
+	//private By paginationtext= By.xpath("//p-paginator/div/span[1]");
 	private By DisDeleteIcon = By.xpath("//button[@class='p-button-danger p-button p-component p-button-icon-only']");
 	private By DeleteIcon = By.xpath("//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]/span[1]");
 	private By checkBoxRows=By.xpath("//table/tbody/tr//div[@role='checkbox']");
@@ -70,7 +70,6 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	}
 	
 
-	
 	public Boolean BatchHeaderExists() {
 		return util.isElementDisplayed(manageBatchHeader);
 	}	
@@ -143,11 +142,21 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	    return new BatchDetailsPage(driver);
 	}
 	
+	public String getBatchSubMenu() {
+		System.out.println("In getBatchSubMenu");  
+	    return util.getElementText(addNewBatchBtn);
+	}
+	
 	public boolean verifyBatchSortIcon()
 	{
 		System.out.println("In verifyBatchSortIcon");
 		return (util.getElement(batchProgramNameSortIcon) != null ? true:false) && (util.getElement(batchDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(batchProgramNameSortIcon) != null ? true:false);
+	}
+	
+	public Boolean IsBatchDetailsPopupPageDisplayed() {
+		
+		return util.isElementDisplayed(BatchPopupFrame);	
 	}
 
 }

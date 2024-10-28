@@ -250,6 +250,12 @@ public class ElementUtil {
 		ele.sendKeys(Keys.BACK_SPACE);
 
 	}
+	
+    public void clearField(By locator) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+    }
 
 	public String getAttributeVal(By locator, String attributeName) {
 		return elementWithFluentWaitLocated(locator, 10, 100).getAttribute(attributeName);
@@ -266,6 +272,18 @@ public class ElementUtil {
 
 		}
 	}
+	// Method to check if a field is editable
+    public boolean isFieldEditable(By locator) {
+        WebElement element = driver.findElement(locator);
+        try {
+            // Try to send keys and catch exception if it is not editable
+            element.sendKeys("test");  // Attempt to type something
+            element.clear();           // Clear after testing
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 	public void scrollToBottomOfPage() {
 		Actions action = new Actions(driver);
