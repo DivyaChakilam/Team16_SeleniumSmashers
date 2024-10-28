@@ -14,6 +14,7 @@ import lms.ui.hackathon.configs.ConfigLoader;
 		glue = {"lms.ui.hackathon.stepDefinitions"},
 
 		 tags="@DeleteProgram9",
+
 		 dryRun=false
 		/*plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
 

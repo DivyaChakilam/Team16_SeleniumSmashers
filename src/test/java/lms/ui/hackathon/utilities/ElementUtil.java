@@ -65,8 +65,16 @@ public class ElementUtil {
 
 		try {
 
-			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(20))
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
 					.until(ExpectedConditions.visibilityOf(getElement(locator)));
+			if(ele == null)
+			{
+				System.out.println("ele is null");
+			}
+			else
+			{
+				System.out.println("ele is not null"+ele.toString());
+			}
 
 			if (ele.isDisplayed()) {
 				if (ele.isEnabled()) {
@@ -149,7 +157,7 @@ public class ElementUtil {
 	public void doSendKeys(By locator, String text) {
 		try {
 
-			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
 					.until(ExpectedConditions.visibilityOf(getElement(locator)));
 
 			if (ele.isDisplayed()) {
@@ -242,9 +250,19 @@ public class ElementUtil {
 		ele.sendKeys(Keys.BACK_SPACE);
 
 	}
+	
+    public void clearField(By locator) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+    }
 
 	public String getAttributeVal(By locator, String attributeName) {
 		return elementWithFluentWaitLocated(locator, 10, 100).getAttribute(attributeName);
+	}
+	
+	public String getAttributeVal(WebElement ele, String attributeName) {
+		return ele.getAttribute(attributeName);
 	}
 
 	public void attachFileUsingSendKeys(By locator, String filePath) {
@@ -254,6 +272,18 @@ public class ElementUtil {
 
 		}
 	}
+	// Method to check if a field is editable
+    public boolean isFieldEditable(By locator) {
+        WebElement element = driver.findElement(locator);
+        try {
+            // Try to send keys and catch exception if it is not editable
+            element.sendKeys("test");  // Attempt to type something
+            element.clear();           // Clear after testing
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 	public void scrollToBottomOfPage() {
 		Actions action = new Actions(driver);

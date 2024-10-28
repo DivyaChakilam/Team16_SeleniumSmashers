@@ -72,11 +72,16 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By searchBox = By.id("filterGlobal");
 	private By headercheckbox = By.xpath("//thead//div[@role='checkbox']");
 	private By programCheckboxes = By.xpath("//div[contains(@class,'p-checkbox-box') and contains(@class,'p-component')]");
-	private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
-	private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
-	private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
 
-
+    private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+    private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
+    private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
+    
+    private By addNewProgramBtn = By.xpath("//button[text()='Add New Program']");
+    
+    private By firstProgramEditButton = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')][1]");
+    private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
+	
 	public ProgramPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -103,6 +108,23 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	util.doClick(loginButton); //driver.findElement(loginButton).click();
 	}
 
+	
+//	  public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
+//	  //driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
+//	  //driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
+//	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
+//	  
+//	  util.doClick(loginButton); //driver.findElement(loginButton).click();
+//	  try {
+//		Thread.sleep(2000);
+//	} catch (InterruptedException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	  
+//	  
+//	  }
+	 
 	public void clickProgram() throws InterruptedException {
 
 		Actions action = new Actions(driver);
@@ -297,5 +319,29 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
 	}
+	
+public ProgramDetailsPage goToAddNewProgramPage() {
+	System.out.println("In goToAddNewProgramPage");
+		util.doClick(addNewProgramBtn);
+		return new ProgramDetailsPage(driver);
+	}
+public void searchText(String text)
+{
+	util.getElement(searchBox).sendKeys(text);
+}
+public void editFirstProgram()
+{
+	Actions action = new Actions(driver);
+	waitForElementToBeVisible(firstProgramEditButton);
+	WebElement editButton = driver.findElement(firstProgramEditButton);
+	
+	action.doubleClick(editButton).perform();
+	
+}
+public boolean verifySearchResult()
+{
+	return util.getElement(programPageSearchResult) != null ? true:false;
+}
+
 
 }

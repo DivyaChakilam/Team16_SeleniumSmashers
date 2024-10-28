@@ -11,23 +11,22 @@ public class CommonAndPaginationFeatures {
 	private ElementUtil util;
 
 	// Top Banner features
-	private By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
-	private By programMenu = By.xpath("//button/span[text()='Program']"); 
-	private By batchMenu = By.xpath("//span[text()='Batch']/..");
-	private By classMenu = By.xpath("//span[text()='Class']/..");
-	private By logOutMenu = By.id("Logout");
+	protected By LMSHeader = By.xpath("//span[normalize-space()='LMS - Learning Management System']");
+	protected By programMenu = By.xpath("//button/span[text()='Program']"); 
+	protected By batchMenu = By.xpath("//span[text()='Batch']/..");
+	protected By classMenu = By.xpath("//span[text()='Class']/..");
+	protected By logOutMenu = By.id("Logout");
 	
 	//Multiple Delete Btn and Search Box
+	protected By multipleDeleteBtn = By.className("p-button-icon");
+	protected By searchBox = By.id("filterGlobal");
 
-	private By multipleDeleteBtn = By.className("p-button-icon");
-	
-	private By searchBox = By.id("filterGlobal");
 
 	// Pagination Features
-	private By doubleLeftArrowBtn = By.xpath("//span[contains(@class,'double-left')]/..");
-	private By singleLeftArrowBtn = By.xpath("//span[contains(@class,'angle-left')]/..");
-	private By singleRightArrowBtn = By.xpath("//span[contains(@class,'angle-right')]/..");
-	private By doubleRightArrowBtn = By.xpath("//span[contains(@class,'double-right')]/..");
+	protected By doubleLeftArrowBtn = By.xpath("//span[contains(@class,'double-left')]/..");
+	protected By singleLeftArrowBtn = By.xpath("//span[contains(@class,'angle-left')]/..");
+	protected By singleRightArrowBtn = By.xpath("//span[contains(@class,'angle-right')]/..");
+	protected By doubleRightArrowBtn = By.xpath("//span[contains(@class,'double-right')]/..");
 	// Later: Write dynamic locator for total number of programs/batches/classes --> WIP
 
 	

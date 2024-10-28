@@ -132,82 +132,259 @@ Background: Admin Login
     When Admin clicks "First page" link on the program table
     Then Admin should see the very first page record on the table with Previous page link are disabled
     
+    
+    #-------
   @tag17 @Navigation
   Scenario: Verify that Admin is able to navigate to Program module
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should be navigated to Program module
    
   @tag18 @MenuBar
   Scenario: Verify any broken links on program page
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should not have any broken links for Program module
    
   @tag19 @MenuBar
   Scenario: Verify heading in menu bar
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the heading "LMS - Learning Management System"
 
   @tag20 @MenuBar
   Scenario: Verify other module's name displayed in menu bar
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the module names as in order "Home Program Batch Class Admin Assignment Attendance"
    
   @tag21 @MenuBar
   Scenario: Verify Logout displayed in menu bar
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see Logout in menu bar
    
   @tag22 @MenuBar
   Scenario: Verify sub menu displayed in program menu bar
    Given Admin is on program page
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see sub menu in menu bar as "Add New Program"
    
     @tag23 @ManageProgramPagevalidation
   Scenario: Verify heading in manage program
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the heading "Manage Program"
    
    @tag24 @ManageProgramPagevalidation
    Scenario: Verify view details of programs
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should able to see Program name, description, and status for each program
    
    
    @tag25 @ManageProgramPagevalidation
    Scenario: Verify the Multiple Delete button state 
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see a Delete button in left top is disabled
    
    @tag26 @ManageProgramPagevalidation
    Scenario: Verify the Search button 
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see Search bar with text as "Search..."
    
     @tag27 @ManageProgramPagevalidation
    Scenario: Verify column header name of data table
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit/Delete
 
    @tag28 @ManageProgramPagevalidation
    Scenario: Verify checkbox default state beside Program Name column header
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see checkbox default state as unchecked beside Program Name column header as 
    
    @tag29 @ManageProgramPagevalidation
    Scenario: Verify checkboxes default state beside each Program names in the data table 
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see check box default state as unchecked on the left side in all rows against program name 
    
    @tag30 @ManageProgramPagevalidation
    Scenario: Verify Sort icon in manage program
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the sort arrow icon beside to each column header except Edit and Delete 
    
    @tag31 @ManageProgramPagevalidation
    Scenario: Verify edit and delete icon in manage program
-   When Admin clicks "Program" on the navigation bar
+   When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the Edit and Delete buttons on each row of the data table
+   
+  # @tag32 @ManageProgramPagevalidation
+   #Scenario: Verify edit and delete icon in manage program
+  # When Admin clicks Program "Program" on the navigation bar
+   #Then "Admin should see the text as ""Showing x to y of z entries"" along with Pagination icon below the table. 
+  #x- starting record number on that page
+  #y-ending record number on that page
+ # z-Total number of records"
+ 
+ #@tag33 @ManageProgramPagevalidation
+ #  Scenario: Verify footer message in manage program
+ #  When Admin clicks Program "Program" on the navigation bar
+ #  Then "Admin should see the footer as ""In total there are z programs"".
+ #  z- Total number of records"
+
+
+   
+   
+  #------- 
+   
+   @tag35 @AddNewProgram
+   Scenario: Verify add New Program
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see pop up window for program details
+   
+   @tag36 @AddNewProgram
+   Scenario: Verify title of the pop up window
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see window title as "Program Details"
+
+
+   @tag37 @AddNewProgram
+   Scenario: Verify mandatory fields with red "*" mark 
+   Given Admin is on Program module  
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see red "*" mark beside mandatory field "Name"
+   
+   @tag38 @AddNewProgram
+   Scenario: Verify empty form submission 
+   Given Admin is on Program details form 
+   When Admin clicks save button without entering mandatory 
+   Then Admin gets message '<field> is required'
+   
+   @tag39 @AddNewProgram
+   Scenario: Verify cancel button 
+   Given Admin is on Program details form 
+   When Admin clicks Cancel button 
+   Then Admin can see Program Details form disappears 
+   
+   @tag40 @AddNewProgram
+   Scenario Outline:  Verify enter program name 
+   Given Admin is on Program details form 
+   When Admin enters the Name "<Name>" in the text box
+   Then Admin can see the text entered
+   Examples:
+    | Name |
+    |  Selenium Smashers    |
+
+   
+   @tag41 @AddNewProgram
+   Scenario Outline:  Verify enter description 
+   Given Admin is on Program details form 
+   When Admin enters the Description "<Description>" in text box
+   Then Admin can see the text entered in description box
+   Examples:
+    | Description |
+    |  Selenium Learning    |
+   
+    @tag42 @AddNewProgram
+   Scenario Outline:  Verify select Status 
+   Given Admin is on Program details form 
+   When Admin selects the status of the program by clicking on the radio "<option>" button "(Active/InActive)"
+   Then Admin can see "<option>" status selected
+   Examples:
+    | option |
+    |  Active    |
+    |  InActive    |
+
+   @tag43 @AddNewProgram
+   Scenario Outline:  Verify Admin is able to save the program details
+   Given Admin is on Program details form 
+   When Admin enter valid details for mandatory fields "<Name>" "<Description>" "<Option>" and Click on save button
+   Then Admin gets message Successful Program created
+   Examples:
+   | Name        | Description  | Option |
+   |SeleniumSmashers  | Selenium Learning  | Active |
+   |SeleniumDreamers  | Selenium Dreamers Learning | Active |
+   
+    @tag44 @AddNewProgram
+   Scenario: Verify added Program is created
+   Given Admin is on Program module
+   When Admin searches with newly created "SeleniumSmashers"
+   Then Records of the newly created  "SeleniumSmashers" is displayed and match the data entered
+   
+   @tag45 @AddNewProgram
+   Scenario: Verify close window with "X" 
+   Given Admin is on Program details form
+   When Admin Click on "X" button
+   Then Admin can see program details form disappear
+   
+   #-----------
+@tag46 @EditProgram
+   Scenario: Verify Edit option 
+   When Admin clicks on Edit option for particular program
+   Then Admin lands on Program details form
+   
+   @tag47 @EditProgram
+   Scenario: Verify title of the pop up window 
+   When Admin clicks on Edit option for particular program
+   Then Admin should see window title as "Program Details"
+   
+   @tag48 @EditProgram
+   Scenario: Verify mandatory fields with red "*" mark 
+   When Admin clicks on Edit option for particular program
+   Then Admin should see red "*" mark beside mandatory field "Name"
+   
+    @tag49 @EditProgram
+   Scenario: Verify edit Program Name 
+   When Admin edits the program name and click on save button
+   Then Updated program name is seen by the Admin
+   
+   @tag50 @EditProgram
+   Scenario: Verify edit Description 
+   When Admin edits the description text and click on save button
+   Then Admin can see the description is updated
+   
+   @tag51 @EditProgram
+   Scenario: Verify edit Status 
+   When Admin can change the status of the program and click on save button
+   Then Status updated can be viewed by the Admin
+   
+   @tag52 @EditProgram
+   Scenario: Verify Admin is able to click Save 
+   When Admin click on save button
+   Then Admin can see the updated program details
+   
+   @tag53 @EditProgram
+   Scenario: Verify Admin is able to click Cancel 
+   When Admin clicks Cancel button on a Program
+   Then Admin can see Program Details form disappears
+   
+   @tag54 @EditProgram
+   Scenario: Verify edited Program details 
+   When Admin searches with newly updated "Program Name"
+   Then Admin verifies that the details are correctly updated.
+   
+   @tag55 @EditProgram
+   Scenario: Verify close the window with "X" 
+   When Admin Click on "X" button
+   Then Admin can see program details form disappear
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+   
+   
+   
    
    
 

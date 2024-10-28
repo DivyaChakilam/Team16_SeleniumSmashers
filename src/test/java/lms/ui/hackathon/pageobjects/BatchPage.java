@@ -20,7 +20,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	//Batch Page Validation
 	
 	private By manageBatchHeader = By.xpath("//div[contains(text(),'Manage Batch')]");
-	private By paginationtext= By.xpath("//p-paginator/div/span[1]");
+	//private By paginationtext= By.xpath("//p-paginator/div/span[1]");
 	private By DisDeleteIcon = By.xpath("//button[@class='p-button-danger p-button p-component p-button-icon-only']");
 	private By DeleteIcon = By.xpath("//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]/span[1]");
 	private By checkBoxRows=By.xpath("//table/tbody/tr//div[@role='checkbox']");
@@ -28,9 +28,10 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	private By deleteIcons=By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]"); 
     private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
 	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']']");
-	private By sortIconRows=By.xpath("//i[@class='p-sortable-column-icon pi pi-fw pi-sort-alt']");
+	private By batchProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+    private By batchDescriptionSortIcon = By.xpath("//th[@psortablecolumn='batchDescription']/p-sorticon");
+	private By NextPage = By.xpath("//span[contains(@class,'angle-right')]/..");
 
-	
 	//Add New Batch
 	
      private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
@@ -68,24 +69,14 @@ public class BatchPage extends CommonAndPaginationFeatures{
 		return flag;
 	}
 	
-	public boolean isSortIconForEachRow() {
-		
-		boolean flag = false;
-		if(util.getElementSize(sortIconRows) == 3)
-		{
-			flag =true;
-		}else flag = false;
-		
-		return flag;
-	}
-	
+
 	public Boolean BatchHeaderExists() {
 		return util.isElementDisplayed(manageBatchHeader);
 	}	
 		
-	public String pagination() {
+	public boolean IspaginationActive() {
 		
-		return util.getElementText(paginationtext);	
+		return driver.findElement(NextPage).isEnabled();
 	}
 	
 	public Boolean IsDisabledDeleteIcon() {
@@ -135,10 +126,13 @@ public class BatchPage extends CommonAndPaginationFeatures{
     }
     
 	public boolean IsdataTableHeaderDisplayed() {
+		
+		System.out.println("IsdataTableHeaderDisplayed");
 		return util.isElementDisplayed(dataTableHeader);
     }
 	
 	public boolean IsdataTableCheckBoxDisplayed() {
+		System.out.println("IsdataTableCheckBoxDisplayed");
 		return util.isElementDisplayed(dataTableCheckBox);	
 	}
 	
@@ -148,8 +142,26 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	    return new BatchDetailsPage(driver);
 	}
 	
-	// Validate Edit Icon
+	public String getBatchSubMenu() {
+		System.out.println("In getBatchSubMenu");  
+	    return util.getElementText(addNewBatchBtn);
+	}
 	
+	public boolean verifyBatchSortIcon()
+	{
+		System.out.println("In verifyBatchSortIcon");
+		return (util.getElement(batchProgramNameSortIcon) != null ? true:false) && (util.getElement(batchDescriptionSortIcon) != null ? true:false)
+				&&(util.getElement(batchProgramNameSortIcon) != null ? true:false);
+	}
 	
+	public Boolean IsBatchDetailsPopupPageDisplayed() {
+		
+		return util.isElementDisplayed(BatchPopupFrame);	
+	}
+
 }
+	
+	
+
+
 
