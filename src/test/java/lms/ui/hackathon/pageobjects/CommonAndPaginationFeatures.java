@@ -98,7 +98,7 @@ public class CommonAndPaginationFeatures {
 	 * This method clicks on multiple Delete button
 	 */
 	public void multipleDeleteBtn() {
-		//util.doClick(multipleDeleteBtn);
+		util.doClick(multipleDeleteBtn);
 	}
 	
 	/**

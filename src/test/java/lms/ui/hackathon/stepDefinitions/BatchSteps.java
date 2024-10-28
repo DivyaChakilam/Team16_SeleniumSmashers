@@ -133,10 +133,10 @@ public class BatchSteps {
 		Assert.assertTrue(batchPage.isSortIconForEachRow());
 	}
 
-	@When("Admin clicks {string} on the navigation bar")
-	public void admin_clicks_on_the_navigation_bar(String string) {
-	    
-	}
+//	@When("Admin clicks {string} on the navigation bar")
+//	public void admin_clicks_on_the_navigation_bar(String string) {
+//	    
+//	}
 
 	@Then("the Batch page should display the sub-menu options")
 	public void the_batch_page_should_display_the_sub_menu_options() {
