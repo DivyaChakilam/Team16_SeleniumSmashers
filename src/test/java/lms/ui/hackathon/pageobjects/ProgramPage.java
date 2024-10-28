@@ -81,7 +81,12 @@ public class ProgramPage extends CommonAndPaginationFeatures {
     
     private By firstProgramEditButton = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')][1]");
     private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
-	
+    private By LMSHeadermodulesProgram = By.xpath("//div[@class='ng-star-inserted']/button[1]");
+    private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
+    private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
+    private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
+    
+    private By totalRecords = By.xpath("//app-root/app-program[@class='ng-star-inserted']//mat-card/mat-card-content[@class='mat-card-content']/p-table/div/div[2]/div[.=' In total there are 27 programs. ']");
 	public ProgramPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -342,6 +347,15 @@ public boolean verifySearchResult()
 {
 	return util.getElement(programPageSearchResult) != null ? true:false;
 }
+public Boolean verifyLMSHeadermodulesProgram(){
+	return util.getElement(LMSHeadermodulesProgram).getText().equals("Program")&&
+			util.getElement(LMSHeadermodulesBatch).getText().equals("Batch")&&
+			util.getElement(LMSHeadermodulesClass).getText().equals("Class")&&
+			util.getElement(LMSHeadermodulesLogout).getText().equals("Logout");
+			
+			
+}
+public void 
 
 
 }

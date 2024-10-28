@@ -152,7 +152,7 @@ Background: Admin Login
   @tag20 @MenuBar
   Scenario: Verify other module's name displayed in menu bar
    When Admin clicks Program "Program" on the navigation bar
-   #Then Admin should see the module names as in order "Home Program Batch Class Admin Assignment Attendance"
+   Then Admin should see the module names as in order "Program Batch Class Logout"
    
   @tag21 @MenuBar
   Scenario: Verify Logout displayed in menu bar
