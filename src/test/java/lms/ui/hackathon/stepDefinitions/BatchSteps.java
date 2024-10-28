@@ -24,7 +24,7 @@ public class BatchSteps {
 		this.testContextSetup = testContextSetup;
 		this.batchPage=testContextSetup.pageObjManager.getBatchPage();
 		dashboardPage = testContextSetup.pageObjManager.getDashboardPage();
-		batchDetailsPage=testContextSetup.pageObjManager.getBatchDetailsPage();
+		//batchDetailsPage=testContextSetup.pageObjManager.getBatchDetailsPage();
 
 	}
 	
@@ -150,6 +150,7 @@ public class BatchSteps {
 		}
 	    
 	}
+
 
 
 	@Then("the Batch page should display the sub-menu options")

@@ -40,6 +40,7 @@ public class Hooks {
 		
 		if(ConfigLoader.getBrowserType() != null) {
 			browserValueFromTestNG = ConfigLoader.getBrowserType();
+			System.out.println("Value of browserValueFromTestNG = " + browserValueFromTestNG);
 		
 		//initializing properties file
 		prop = ConfigurationManager.initProp();

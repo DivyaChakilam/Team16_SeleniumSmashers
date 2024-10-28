@@ -1,107 +1,71 @@
-Feature: Login  Page Verification
+@login
+Feature: Login Page Verification
+	
+	Background:
+    When Admin gives the correct LMS portal URL
+    Then Admin should land on the home page
 
-@test
-Scenario: Verify Admin is able to land on login page
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should land on the login page.
+	
+  Scenario: Validate logo is displayed in loginPage
+    Then Admin should see expected logo image in login page
 
-Scenario: Verify Admin is able to land on home page with invalid URL
-Given Admin launch the browser.
-When Admin gives the incorrect LMS portal URL.
-Then Admin should recieve page not found error.
+  Scenario: Validate field allignments in loginPage
+    Then Admin should see input and loginbutton are in center of login page
 
-Scenario: Verify for broken link
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should recieve the link is broken error.
+  Scenario: Validate Page Not found
+    When Admin gives the invalid LMS portal URL
+    Then Admin should recieve 404 page not found error
 
-Scenario: Verify the text spelling in the page 
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see correct spellings in all fields.
 
-Scenario: Admin should see logo on the left  side
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see logo on the left  side.
+  Scenario Outline: Validate login with valid credentials
+    When Admin enters valid credentials '<Uname>' and '<Pwd>' and clicks login button
+    Then Admin should land on dashboard page
 
-Scenario: Verify company name
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see company name below the app name
+    Examples: 
+      | Uname                    | Pwd            |
+      | sdet@gmail.com | LmsHackathon@2024  |
 
-Scenario: Validate sign in content
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see "Please login to LMS application"
+#@login_negative
+  Scenario Outline: Validate login page elements and invalid credentials
+    When Admin enters invalid credentials '<Uname>' and '<Pwd>' and clicks login button
+    Then Admin should see the Error message please check expected '<msg>' displays
 
-Scenario: Verify text field is present
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see two text field
+    Examples: 
+      | Uname                    | Pwd          | msg                                            |
+      | sdetorgani@gmail.co  | LmsHackathon@2024   | Invalid username and password Please try again |
+      | sdet@gmail.com | Hackathon@   | Invalid username and password Please try again |
+     #|              | LmsHackathon@2024 | Please enter your user name  |
+     #| sdet@gmail.com |            | Please enter your password    |
+     #|            |             | Please enter username and password Please try again |
 
-Scenario: Verify text on the first text field
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see "User" and "(*)" symbol in the first text field
+	#@login_positive
+  Scenario Outline: Validate login with valid credentials by clicking Login button through Keypad
+    When Admin enters valid credentials '<Uname>' and '<Pwd>' and clicks login button through keypad
+    Then Admin should land on dashboard page
 
-Scenario: Verify text on the second text field
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see"Password" and "(*)" symbol in the first text field
+    Examples: 
+      | Uname                    | Pwd            |
+      | sdet@gmail.com | LmsHackathon@2024 |
 
-Scenario: Verify the alignment input field for the login
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see input field on the centre of the page
 
-Scenario: verify Login button is present
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see login button
+  Scenario Outline: Validate Fields are displayed in LoginPage
+    When Admin should see '<expectedField>'
 
-Scenario: Verify the alignment of the login button
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see login button on the centre of the page.
+    Examples: 
+      | expectedField                   |
+      | Please login to LMS application |
+      | username                        |
+      | password                        |
+      | userfieldlabel                  |
+      | passwordfieldlabel              |
+      | login                           |
+      | logBtnlabel                     |
 
-Scenario: Verify the alignment of the login button
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see login button on the centre of the page.
 
-Scenario: Verify input descriptive test in user and password field
-Given Admin launch the browser.
-When Admin gives the correct LMS portal URL.
-Then Admin should see user and password text in gray color
+  Scenario Outline: Validate loginpage color
+    When Admin should see user in '<expectedField>' color
 
-Scenario: Validate login with valid credentials
-Given Admin is in login Page.
-When Admin enter valid credentials and clicks login button 
-Then Admin should land on dashboard page(centre of the page will be empty , menu bar is present).  
-
-Scenario: Validate login with invalid credentials 
-Given Admin is in login Page.
-When Admin enter invalid credentials and clicks login button
-Then Admin gets Error message "Invalid username and password Please try again".
-
-Scenario: Validate login credentials with null Adminname
-Given Admin is in login Page.
-When Admin enter value only in password and clicks login button 
-Then Admin gets Error message "Please enter your user name".
-
-Scenario: Validate login credentials with null Adminname
-Given Admin is in login Page.
-When Admin enter value only in Adminname and clicks login button 
-Then Admin gets Error message 
-
-Scenario: verify login button action through keyboard
-Given Admin is on login Page.
-When Admin enter value only in Adminname and clicks login button 
-Then Admin should land on dashboard page
-
-Scenario: verify login button action through mouse
-Given Admin is on login Page.
-When Admin enter valid credentials and clicks login button through mouse
-Then Admin should land on dashboard page
+    Examples: 
+      | expectedField |
+      | usercolor     |
+      | passwordcolor |

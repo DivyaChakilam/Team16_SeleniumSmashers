@@ -14,10 +14,10 @@ public class PageObjectManager {
 		public ProgramPage programPage;
 		public ClassPage classPage;
 		public LogoutPage logoutPage;
+		public ProgramDetailsPage programDetails;
 
-		public PageObjectManager(WebDriver driver/* , CommonConfigs commonConfigs */) {
+		public PageObjectManager(WebDriver driver) {
 			this.driver = driver;
-			//this.commonConfigs = commonConfigs;
 		}
 		public LoginPage getLoginPage() {
 			loginPage = new LoginPage(driver);
@@ -48,6 +48,10 @@ public class PageObjectManager {
 		public LogoutPage getLogoutPage() {
 			logoutPage = new LogoutPage(driver);
 			return logoutPage;
+		}
+		public ProgramDetailsPage getProgramDetailsPage() {
+			programDetails = new ProgramDetailsPage(driver);
+			return programDetails;
 		}
 		
 
