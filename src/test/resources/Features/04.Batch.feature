@@ -76,10 +76,10 @@ Feature: Batch Page Functionality Verification
      When User selects program name as "<ProgramName>"
      Then the batch name prefix should match the selected program name "<ProgramName>"
        Examples:
-    | ProgramName              |
-    | Selenium Smashers        |
+    | ProgramName             |
+    | SeleniumCodestars        |
 
-  @batchtag16 
+  @batchtag17 
   Scenario Outline: Validate batch name suffix box should accept only numbers
     Given User is on the Batch Details pop-up window
     When User enters "<BatchName>" and "<BatchCode>" 
