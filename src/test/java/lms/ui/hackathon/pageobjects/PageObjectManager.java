@@ -16,9 +16,8 @@ public class PageObjectManager {
 		public LogoutPage logoutPage;
 		public ProgramDetailsPage programDetails;
 
-		public PageObjectManager(WebDriver driver/* , CommonConfigs commonConfigs */) {
+		public PageObjectManager(WebDriver driver) {
 			this.driver = driver;
-			//this.commonConfigs = commonConfigs;
 		}
 		public LoginPage getLoginPage() {
 			loginPage = new LoginPage(driver);
