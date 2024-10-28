@@ -2,6 +2,7 @@ package lms.ui.hackathon.pageobjects;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.List;
@@ -22,6 +23,10 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	//public String deltedProgram;
 	WebDriverWait wait =  null;
 	List<String> originalList = new ArrayList<String>();
+	List<String> ascendingOrderList = new ArrayList<String>();
+	List<String> descendingOrderList = new ArrayList<String>();
+	public String successMessage;
+	List<String> selectedProgramNames = new ArrayList<>();
 
 	/*******************************By Locators****************************************/
 	private By userLoc = By.id("username");
@@ -34,10 +39,10 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By confirmPopUp = By.xpath("//span[contains(text(),'Confirm')]");
 	private By addNewProgramLoc = By.xpath("//button[contains(text(),'Add New Program')]");
 	private By deleteLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]");
-	//span/button[contains(@class,'p-button-danger')]/../../../../td[2]
 	private By deletedTextLoc = By.xpath("//span/button[contains(@class,'p-button-danger')]/../../../../td[2]");
 
-	//this gives List of all checkboxes private By searchBoxLoc = By.id("filterGlobal");
+	//this gives List of all checkboxes 
+	private By searchBoxLoc = By.id("filterGlobal");
 	private By manageProgramLoc = By.xpath("//div[@class='box'][1]");
 	private By footerLoc = By.xpath("//span[contains(@class,'p-paginator-current')]");
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
@@ -51,15 +56,15 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By yesButtonLoc = By.xpath("//span[contains(text(),'Yes')]");
 	private By noButtonLoc = By.xpath("//span[contains(text(),'No')]");
 	private By XButtonLoc = By.xpath("//*[contains(@class,'p-dialog-header-close')]");
-	private By checkboxesLoc = By.className("p-checkbox-icon");//this gives List of all checkboxes
-	//private By searchBoxLoc = By.id("filterGlobal");
+	private By successMessageLoc = By.xpath("//div[contains(@class,'p-toast-message-text')]");
+	//private By checkboxesLoc = By.xpath("//div[@role='checkbox']");//this gives List of all checkboxes
 	/***********sortloc by programname, description, status. option should be passed dynamically***********/
 	//private By sortOptionsLoc = By.xpath("//th[contains(text(),'"+sortOption+"')]/p-sorticon/i")
-	
+
 	//Feature Navigation,Menu Bar ,Manage Program Validation ,Add new Program ,Edit Program
-	
+
 	private By manageProgram = By.xpath("//div[contains(text(),'Manage Program')]");
-	
+
 	private By headerprogramName = By.xpath("//th[@psortablecolumn='programName']");
 	private By headerProgramDescription = By.xpath("//th[@psortablecolumn='programDescription']");
 	private By headerProgramStatus = By.xpath("//th[@psortablecolumn='programStatus']");
@@ -67,11 +72,11 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By searchBox = By.id("filterGlobal");
 	private By headercheckbox = By.xpath("//thead//div[@role='checkbox']");
 	private By programCheckboxes = By.xpath("//div[contains(@class,'p-checkbox-box') and contains(@class,'p-component')]");
-    private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
-    private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
-    private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
-    
-	
+	private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+	private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
+	private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
+
+
 	public ProgramPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -90,17 +95,14 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 
 
-	
-	  public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
-	  //driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
-	  //driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
-	  
-	  util.doClick(loginButton); //driver.findElement(loginButton).click();
-	  
-	  
-	  }
-	 
+
+	public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
+	//driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
+	//driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
+	util.doSendKeys(passwordLoc, "LmsHackathon@2024");
+	util.doClick(loginButton); //driver.findElement(loginButton).click();
+	}
+
 	public void clickProgram() throws InterruptedException {
 
 		Actions action = new Actions(driver);
@@ -109,7 +111,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		//performing double click on program as there is an overlay "Add New Program" after single click which is intercepting me to perform other operations
 		action.doubleClick(programButton).perform();
 	}
-/*********** deleting the record by index*******************/
+	/*********** deleting the record by index*******************/
 	//	public String deleteSingleRecord(int rowNum) {
 	//		//int totalRecordToDelete = count;
 	//		Actions action = new Actions(driver);
@@ -122,19 +124,38 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	//		return deletedProgram;
 	//	}
 
-	public String click_on_checkBox(int fromRowNum , int toRowNum) {
-		List<WebElement> checkboxEnable = new ArrayList<WebElement>();
-		checkboxEnable=driver.findElements(checkbox);
-		for(int i=fromRowNum; i<=toRowNum; i++) {
-			if ( checkboxEnable.get(i).isEnabled()) {
-				checkboxEnable.get(i).click();
-				checkboxEnable.get(i).click();
+	public List<String> click_on_checkBox(int fromRowNum , int toRowNum) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		List<WebElement> checkboxEnable = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkbox));
+		for (int i = fromRowNum; i <= toRowNum; i++) {
+			WebElement checkboxElement = checkboxEnable.get(i);
+			wait.until(ExpectedConditions.elementToBeClickable(checkboxElement));
+			if (checkboxElement.isEnabled()) {
+				checkboxElement.click();
+				// Capture the program name in this row for later validation
+				String programName = driver.findElement(By.xpath("//tr[" + (i + 1) + "]/td[2]")).getText();
+				selectedProgramNames.add(programName);
 			}
 		}
 
-		String prgmName = driver.findElement(By.xpath("//tr["+fromRowNum+"]/td[2]")).getText();
-		return prgmName;
+		return selectedProgramNames;
 	}
+	public boolean validateCheckBoxSelection(int fromRowNum, int toRowNum) {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		List<WebElement> checkboxEnable = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(checkbox));
+		boolean allSelected = true; // Flag to ensure all checkboxes are selected
+		for (int i = fromRowNum; i <= toRowNum; i++) {
+			WebElement checkboxElement = checkboxEnable.get(i);
+			// Validate if the checkbox is selected
+			if (!checkboxElement.isSelected()) {
+				System.out.println("Checkbox in row " + (i + 1) + " is not selected as expected.");
+				allSelected = false;
+			}
+		}
+
+		return allSelected;
+	}
+
 	public boolean verifyPopupIsAppeared() {
 		return driver.findElement(confirmPopUp).isDisplayed();
 	}
@@ -146,6 +167,13 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 	public void clickCancel() {
 		driver.findElement(XButtonLoc).click();
+	}
+
+	public String succesMessageValidation()
+	{
+
+		successMessage = driver.findElement(successMessageLoc).getText();
+		return successMessage;
 	}
 
 	public boolean checkZeroResults() {
@@ -166,39 +194,39 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return driver.findElement(previosPage).isEnabled();
 	}
 
-	public List<String> clickSortIcon(int headerNum ,String headerName)
+	public void click_On_SortIcon(String headerName)
 	{
 		By sortIcon = By.xpath("//th[contains(text(),'"+headerName+"')]/p-sorticon/i");
 		driver.findElement(sortIcon).click();
+
+	}
+	public List<String> getOriginalList(int headerNum)
+	{
 		By elements = By.xpath("//tbody/tr/td["+headerNum+"]");
 		List<WebElement> elementsList = driver.findElements(elements);
 		// capture text of all webelements into new(original) list
 		originalList = elementsList.stream().map(e -> e.getText()).collect(Collectors.toList());
 		return originalList;
+
 	}
-	public List<String> getSortedList()
+	public List<String> get_Ascending_Order_List()
 	{
 		// Sort the original list in case-insensitive order
-		List<String> sortedList = originalList.stream().sorted(String.CASE_INSENSITIVE_ORDER)
+		ascendingOrderList = originalList.stream()
+				.sorted(String.CASE_INSENSITIVE_ORDER)
 				.collect(Collectors.toList());
-		return sortedList;
+		return ascendingOrderList;
 
 	}
-	
-	/*STEP1) GET ALL THE PROGRAM NAMES FROM THE COLUMN --> STORE IT IN A LIST --> ORIGINAL LIST
-	 * STEP2) CLICK ON SORT ICON
-	 * STEP3) SAVE THE SORTED PROGRAM NAMES FROM STEP2 IN A LIST --> SORTEDLIST
-	 * 
-	 * ASSERTION
-	 * LIST FROM STEP3 EQUALS LIST(FROM STEP1)..stream().sorted(String.CASE_INSENSITIVE_ORDER)
-				.collect(Collectors.toList()
-				
-		LIST SORTED BY LMS SORT ICON VS LIST SORTED BY JAVA.SORT() METHOD;
-	 * */
-	
-	
+	public List<String> get_Descending_Order_List()
+	{
+		// Sort the original list in case-insensitive order
+		descendingOrderList = originalList.stream()
+				.sorted(Collections.reverseOrder(String.CASE_INSENSITIVE_ORDER))
+				.collect(Collectors.toList());
+		return descendingOrderList;
 
-
+	}
 
 	/**********************Common methods : wait helpers **********************************************/
 	public void waitForElementToBeVisible(By locator) {
@@ -211,19 +239,19 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 
 	public void validatePopup() {
-		
+
 	}
-	
+
 	public boolean isInProgramPage()
 	{
 		return util.getElement(manageProgram) != null ? true:false;
 	}
-	
+
 	/*
 	 * public boolean isLMSHeader() { return util.getElement(LMSHeader) != null ?
 	 * true:false; }
 	 * 
-	 
+
 	 */
 	public boolean isAddnewprogram()
 	{
@@ -247,21 +275,21 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return util.getElement(headercheckbox).isSelected() ;
 	}
 	//loop through each checkbox webelement to see if the checkboxes are selected or not
-	
+
 	public boolean verifyProgramCheckboxes()
 	{
 		System.out.println("In verifyProgramCheckboxes");
 		List<WebElement> elements=util.getElements(programCheckboxes);
 		for(WebElement e : elements ) {
-			
+
 			if(e.isSelected())
 			{
 				return true;
 			}
-						
+
 		}
 		return false;
-		
+
 	}
 	public boolean verifyProgramSortIcon()
 	{

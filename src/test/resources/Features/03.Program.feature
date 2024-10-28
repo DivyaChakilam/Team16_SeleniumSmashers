@@ -12,12 +12,13 @@ Background: Admin Login
     When Admin clicks on delete button for a program
     Then Admin will get confirm deletion popup
 
-	 @DeleteProgram2
+	@DeleteProgram2
   Scenario: Verify Admin is able to click 'Yes'
+    Given Admin is on Confirm deletion form
     When Admin clicks on "Yes" button
     Then Admin can see 'Successful Program Deleted' message
     
-   @DeleteProgram3
+  @DeleteProgram3
   Scenario: Verify Admin is able to delete program
     When Admin Searches for Deleted Program name
     Then There should be zero results
@@ -37,23 +38,23 @@ Background: Admin Login
     When Admin selects more than one program by clicking on the checkbox
     Then Programs get selected
     
-  @tag6 @DeleteProgram
+  @DeleteProgram6
  	Scenario: Verify Admin is able to delete Multiple programs
     When Admin clicks on the delete button on the left top of the program page
     Then Admin will get confirm deletion popup
     
-  @tag7 @DeleteProgram
+  @DeleteProgram7
  	Scenario: Verify Admin is able to click 'Yes'
     Given Admin is on Confirmation form
     When Admin clicks on "Yes" button
-    Then Admin can see 'Successful Program Deleted' message
+    Then Admin can see 'Successful Programs Deleted' message
     
-  @tag8 @DeleteProgram
+  @DeleteProgram8
  	Scenario: Verify Admin is able to deleted programs
     When Admin Searches for Deleted Program names
     Then There should be zero results
     
-  @tag9 @DeleteProgram
+  @DeleteProgram9
  	Scenario Outline: Verify Admin is able to click 'NO'/'X' with multiple delete
     Given Admin is on Confirmation form
     When Admin clicks on "<option>" button
@@ -78,35 +79,35 @@ Background: Admin Login
     When Admin enter the program to search By program name that does not exist
     Then There should be zero results
     
-  @SortProgram
- 	Scenario Outline: Verify sorting of Program name in Ascending order/Descending order
-    When Admin clicks on Arrow next to "<column Name>"
-    Then Admin See the "<column Name>" is sorted in Ascending order/Descending order
+  #@SortProgram
+ #	Scenario Outline: Verify sorting of Program name in Ascending order/Descending order
+    #When Admin clicks on Arrow next to "<column Name>"
+    #Then Admin See the "<column Name>" is sorted in Ascending order/Descending order
+     #Examples:
+    #|column Name|
+    #|Program Name|
+    #|Program Description|
+    #|Program Status|
+    
+    @SortProgram1
+ 	Scenario Outline: Verify sorting of Program name/Description/Status in Ascending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in asc
+    Then Admin See the "<column Name>" is sorted in Ascending order
      Examples:
     |column Name|
     |Program Name|
     |Program Description|
     |Program Status|
     
-    #@SortProgram1
- #	Scenario Outline: Verify sorting of Program name in Ascending order
-    #When Admin clicks on Arrow next to "<column Name>" to sort in asc
-    #Then Admin See the "<column Name>" is sorted in Ascending order
-     #Examples:
-    #|column Name|
-    #|Program Name|
-    #|Program Description|
-    #|Program Status|
-    #
-     #@SortProgram2
- #	Scenario Outline: Verify sorting of Program name in Descending order
-    #When Admin clicks on Arrow next to "<column Name>" to sort in desc
-    #Then Admin See the "<column Name>" is sorted in Descending order
-     #Examples:
-    #|column Name|
-    #|Program Name|
-    #|Program Description|
-    #|Program Status|
+  @SortProgram2
+ 	Scenario Outline: Verify sorting of Program name/Description/Status in Descending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in desc
+    Then Admin See the "<column Name>" is sorted in Descending order
+     Examples:
+    |column Name|
+    |Program Name|
+    |Program Description|
+    |Program Status|
     
   @Pagination1
  	Scenario: Verify Admin is able to click 'Next page' link
@@ -125,7 +126,7 @@ Background: Admin Login
     When Admin clicks "Previous page" link on the program table
     Then Admin should see the previous page record on the table with pagination has previous page link
     
-   @Pagination4
+  @Pagination4
  	Scenario Outline: Verify Admin is able to click First page link
     Given Admin is on last page of Program module table
     When Admin clicks "First page" link on the program table
