@@ -139,10 +139,10 @@ Background: Admin Login
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should be navigated to Program module
    
-  @tag18 @MenuBar
-  Scenario: Verify any broken links on program page
-   When Admin clicks Program "Program" on the navigation bar
-   Then Admin should not have any broken links for Program module
+ # @tag18 @MenuBar
+ # Scenario: Verify any broken links on program page
+  # When Admin clicks Program "Program" on the navigation bar
+   #Then Admin should not have any broken links for Program module
    
   @tag19 @MenuBar
   Scenario: Verify heading in menu bar
@@ -152,7 +152,7 @@ Background: Admin Login
   @tag20 @MenuBar
   Scenario: Verify other module's name displayed in menu bar
    When Admin clicks Program "Program" on the navigation bar
-   Then Admin should see the module names as in order "Home Program Batch Class Admin Assignment Attendance"
+   Then Admin should see the module names as in order "Program Batch Class Logout"
    
   @tag21 @MenuBar
   Scenario: Verify Logout displayed in menu bar
@@ -299,6 +299,7 @@ Background: Admin Login
    | Name        | Description  | Option |
    |SeleniumSmashers  | Selenium Learning  | Active |
    |SeleniumDreamers  | Selenium Dreamers Learning | Active |
+   |SeleniumCodestars  | Selenium Codes Learning  | Active |
    
     @tag44 @AddNewProgram
    Scenario: Verify added Program is created

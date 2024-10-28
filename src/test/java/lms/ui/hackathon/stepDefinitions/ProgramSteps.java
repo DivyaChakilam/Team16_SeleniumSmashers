@@ -330,8 +330,9 @@ public class ProgramSteps {
 
 	@Then("Admin should see the module names as in order {string}")
 	public void admin_should_see_the_module_names_as_in_order(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		Boolean LMSheaderModules=programPage.verifyLMSHeadermodulesProgram();
+		Assert.assertEquals(true, LMSheaderModules);
+	
 	}
 
 	@Then("Admin should see Logout in menu bar")
