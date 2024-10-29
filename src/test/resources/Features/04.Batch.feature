@@ -73,11 +73,9 @@ Feature: Batch Page Functionality Verification
   @batchtag16
   Scenario Outline: Validate batch name prefix selects the program name
      Given User is on the Add New Batch pop-up to validate batch name prefix
-     When User selects program name as "<ProgramName>"
-     Then the batch name prefix should match the selected program name "<ProgramName>"
-       Examples:
-    | ProgramName             |
-    | SeleniumCodestars        |
+     When User selects program name
+     Then the batch name prefix should match the selected program name 
+      
 
   @batchtag17 
   Scenario Outline: Validate batch name suffix box should accept only numbers
@@ -105,21 +103,27 @@ Feature: Batch Page Functionality Verification
   @batchtag20
   Scenario Outline: Validate input data missing for mandatory fields
     Given User is on the Add New Batch pop-up to check missing mandatory fields
-    When User leaves "<MissingField>"empty for "<Batchname>", "<BatchCode>", "<BatchDescription>", "<Status>","<NoOfClasses>"
+    When User leaves "<MissingField>" empty for "<Batchname>", "<BatchCode>", "<BatchDescription>", "<Status>", and "<NoOfClasses>"
     Then User should see a validation error message for "<MissingField>" as "<ErrorMsg>"
+
     Examples:
-    | MissingField       | Batchname      | BatchCode | BatchDescription             | Status   | NoOfClasses |ErrorMsg                      |
-    | Batchname          |                | BC001     | Introduction to Batch        | Active   | 10          |Program Name is required.     |
-    | BatchCode          | Java Basics    |           | Introduction to Java         | Active   | 10          |Batch Name is required.       |
-    | BatchDescription   | Java Basics    | JB001     |                              | Active   | 10          |Batch Description is required.|
-    | Status             | Java Basics    | JB001     | Introduction to Java         |          | 10          |Status is required.           |
-    | NoOfClasses        | Java Basics    | JB001     | Introduction to Java         | Active   |             |Number of classes is required.|
+      | MissingField       | Batchname      | BatchCode | BatchDescription             | Status   | NoOfClasses | ErrorMsg                      |
+      | Batchname          |                | BC001     | Introduction to Batch        | Active   | 10          | Program Name is required.     |
+      | BatchCode          | Java Basics    |           | Introduction to Java         | Active   | 10          | Batch Name is required.       |
+      | BatchDescription   | Java Basics    | JB001     |                              | Active   | 10          | Batch Description is required.|
+      | Status             | Java Basics    | JB001     | Introduction to Java         |          | 10          | Status is required.           |
+      | NoOfClasses        | Java Basics    | JB001     | Introduction to Java         | Active   |             | Number of classes is required.|
   
   @batchtag21
-  Scenario: Validate Save button in Batch details pop-up
-    Given User on the Add New Batch pop-up to Validate Save button
-    Then the Save button should be enabled when all mandatory fields are filled
+  Scenario Outline: Validate Save button in Batch details pop-up
+    Given User on the Add New Batch pop-up to Validate Save button 
+    When  User inputs "<Batchname>", "<BatchCode>", "<BatchDescription>", "<Status>", and "<NoOfClasses>" 
+    Then User should be able to save successfully
   
+    Examples:
+    | Batchname            | BatchCode | BatchDescription             | Status   | NoOfClasses |
+    | CoreJava				     | 002       | Introduction to Java         | Active   | 10          |
+    
   @batchtag22
   Scenario: Validate Cancel button in Batch details pop-up
     Given User on the Add New Batch pop-up to Validate Cancel button
