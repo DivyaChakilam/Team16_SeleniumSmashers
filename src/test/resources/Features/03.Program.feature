@@ -9,148 +9,14 @@ Background: Admin Login
    Given Admin enters valid credentials and clicks login button
    Given Admin clicks Program "Program" on the navigation bar
    
-   @tag35 @AddNewProgram
-   Scenario: Verify add New Program
-   When Admin clicks on "New Program" under the "Program" menu bar
-   Then Admin should see pop up window for program details
+   ################ Navigation and Menu Bar Validation ###########################
    
-     
-  @DeleteProgram1
-  Scenario: Verify Delete feature in program 
-    When Admin clicks on delete button for a program
-    Then Admin will get confirm deletion popup
-
-	@DeleteProgram2
-  Scenario: Verify Admin is able to click 'Yes'
-    Given Admin is on Confirm deletion form
-    When Admin clicks on "Yes" button
-    Then Admin can see 'Successful Program Deleted' message
-    
-  @DeleteProgram3
-  Scenario: Verify Admin is able to delete program
-    When Admin Searches for Deleted Program name
-    Then There should be zero results
-    
-  @DeleteProgram4
- 	Scenario Outline: Verify Admin is able to click options 'No' and 'X'
-    Given Admin is on Confirm deletion form
-    When Admin clicks on "<option>" button
-    Then Admin can see Confirmation form disappears and lands on program page
-    Examples:
-    | option |
-    |  No    |
-    |   X    |
-    
-  @DeleteProgram5
- 	Scenario: Verify Admin is able to select multiple programs
-    When Admin selects more than one program by clicking on the checkbox
-    Then Programs get selected
-    
-  @DeleteProgram6
- 	Scenario: Verify Admin is able to delete Multiple programs
-    When Admin clicks on the delete button on the left top of the program page
-    Then Admin will get confirm deletion popup
-    
-  @DeleteProgram7
- 	Scenario: Verify Admin is able to click 'Yes'
-    Given Admin is on Confirmation form
-    When Admin clicks on "Yes" button
-    Then Admin can see 'Successful Programs Deleted' message
-    
-  @DeleteProgram8
- 	Scenario: Verify Admin is able to deleted programs
-    When Admin Searches for Deleted Program names
-    Then There should be zero results
-    
-  @DeleteProgram9
- 	Scenario Outline: Verify Admin is able to click 'NO'/'X' with multiple delete
-    Given Admin is on Confirmation form
-    When Admin clicks on "<option>" button
-    Then Admin can see Programs are still selected and not deleted
-    Examples:
-    | option |
-    |  No    |
-    |   X    |
-    
-    #@SearchProgram1
- #		Scenario Outline: Verify Admin is able to search results found for program name/Description
-    #When Admin enter the program to search By "<option>"
-    #Then Admin should able to see Program name, description, and status for searched program name
-    #Examples:
-    #|       option      |
-    #|    ProgramName   |
-    #|ProgramDescription|
-    #|PartialProgName  |
-    #
- 	@SearchProgram2
- 	Scenario: Verify Admin is able to search results not found
-    When Admin enter the program to search By program name that does not exist
-    Then There should be zero results
-    
-  #@SortProgram
- #	Scenario Outline: Verify sorting of Program name in Ascending order/Descending order
-    #When Admin clicks on Arrow next to "<column Name>"
-    #Then Admin See the "<column Name>" is sorted in Ascending order/Descending order
-     #Examples:
-    #|column Name|
-    #|Program Name|
-    #|Program Description|
-    #|Program Status|
-    
-    @SortProgram1
- 	Scenario Outline: Verify sorting of Program name/Description/Status in Ascending order
-    When Admin clicks on Arrow next to "<column Name>" to sort in asc
-    Then Admin See the "<column Name>" is sorted in Ascending order
-     Examples:
-    |column Name|
-    |Program Name|
-    |Program Description|
-    |Program Status|
-    
-  @SortProgram2
- 	Scenario Outline: Verify sorting of Program name/Description/Status in Descending order
-    When Admin clicks on Arrow next to "<column Name>" to sort in desc
-    Then Admin See the "<column Name>" is sorted in Descending order
-     Examples:
-    |column Name|
-    |Program Name|
-    |Program Description|
-    |Program Status|
-    
-  @Pagination1
- 	Scenario: Verify Admin is able to click 'Next page' link
-    When Admin clicks "Next page" link on the program table
-    Then Admin should see the Pagination has Next active link
-   
-    
-  @Pagination2
- 	Scenario: Verify Admin is able to click 'Last page' link
-    When Admin clicks "Last page" link on the program table
-    Then Admin should see the last page record on the table with Next page link are disabled
-   
-  @Pagination3
- 	Scenario: Verify Admin is able to click 'Previous page' link
-    Given Admin is on last page of Program module table
-    When Admin clicks "Previous page" link on the program table
-    Then Admin should see the previous page record on the table with pagination has previous page link
-    
-  @Pagination4
- 	Scenario Outline: Verify Admin is able to click First page link
-    Given Admin is on last page of Program module table
-    When Admin clicks "First page" link on the program table
-    Then Admin should see the very first page record on the table with Previous page link are disabled
-    
   @tag17 @Navigation
   Scenario: Verify that Admin is able to navigate to Program module
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should be navigated to Program module
    
- # @tag18 @MenuBar
- # Scenario: Verify any broken links on program page
-  # When Admin clicks Program "Program" on the navigation bar
-   #Then Admin should not have any broken links for Program module
-   
-  @tag19 @MenuBar
+   @tag19 @MenuBar
   Scenario: Verify heading in menu bar
    Then Admin should see the heading "LMS - Learning Management System"
 
@@ -168,7 +34,9 @@ Background: Admin Login
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should see sub menu in menu bar as "Add New Program"
    
-    @tag23 @ManageProgramPagevalidation
+   ################ Manage Program Page Validation ###########################
+   
+   @tag23 @ManageProgramPagevalidation
   Scenario: Verify heading in manage program
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the heading "Manage Program"
@@ -214,32 +82,14 @@ Background: Admin Login
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the Edit and Delete buttons on each row of the data table
    
-  # @tag32 @ManageProgramPagevalidation
-   #Scenario: Verify edit and delete icon in manage program
-  # When Admin clicks Program "Program" on the navigation bar
-   #Then "Admin should see the text as ""Showing x to y of z entries"" along with Pagination icon below the table. 
-  #x- starting record number on that page
-  #y-ending record number on that page
- # z-Total number of records"
- 
- #@tag33 @ManageProgramPagevalidation
- #  Scenario: Verify footer message in manage program
- #  When Admin clicks Program "Program" on the navigation bar
- #  Then "Admin should see the footer as ""In total there are z programs"".
- #  z- Total number of records"
-
-
+   ################ Add New Program Page Validation ###########################   
    
+   @tag35 @AddNewProgram
+   Scenario: Verify add New Program
+   When Admin clicks on "New Program" under the "Program" menu bar
+   Then Admin should see pop up window for program details
    
-  #------- 
-   
-   #@tag35 @AddNewProgram
-   #Scenario: Verify add New Program
-   #Given Admin is on Program module  
-   #When Admin clicks on "New Program" under the "Program" menu bar
-   #Then Admin should see pop up window for program details
-   
-   @tag36 @AddNewProgram
+    @tag36 @AddNewProgram
    Scenario: Verify title of the pop up window
    When Admin clicks on "New Program" under the "Program" menu bar
    Then Admin should see window title as "Program Details"
@@ -309,10 +159,28 @@ Background: Admin Login
    Scenario: Verify close window with "X" 
    Given Admin is on Program details form
    When Admin Click on "X" button
-   Then Admin can see program details form disappear
+   Then Admin can see program details form disappear 
+ 
+   ################ Search Program Validation ###########################   
+    
+    @SearchProgram1
+ 		Scenario Outline: Verify Admin is able to search results found for program name/Description
+    When Admin enter the program to search By "<option>"
+    Then Admin should able to see Program name, description, and status for searched "program name"
+    Examples:
+    |       option      |
+    |    ProgramName   |
+    |ProgramDescription|
+    |PartialProgName  |
+    
+ 	@SearchProgram2
+ 	Scenario: Verify Admin is able to search results not found
+    When Admin enter the program to search By program name that does not exist
+    Then There should be zero results
    
-   #-----------
-@tag46 @EditProgram
+   ################ Edit Program Validation ###########################   
+   
+   @tag46 @EditProgram
    Scenario: Verify Edit option 
    When Admin clicks on Edit option for particular program
    Then Admin lands on Program details form
@@ -361,4 +229,133 @@ Background: Admin Login
    Scenario: Verify close the window with "X" 
    When Admin Click on "X" button
    Then Admin can see program details form disappear
+    
+   ################ Sort Program Validation ###########################   
+    
+    @SortProgram1
+ 	Scenario Outline: Verify sorting of "<column Name>" in Ascending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in asc
+    Then Admin See the "<column Name>" is sorted in Ascending order
+     Examples:
+    |column Name|
+    |Program Name|
+    |Program Description|
+    |Program Status|
+    
+  @SortProgram2
+ 	Scenario Outline: Verify sorting of "<column Name>" in Descending order
+    When Admin clicks on Arrow next to "<column Name>" to sort in desc
+    Then Admin See the "<column Name>" is sorted in Descending order
+     Examples:
+    |column Name|
+    |Program Name|
+    |Program Description|
+    |Program Status|
+    
+  ################ Manage Program Pagination Validation ###########################   
+    
+  @Pagination1
+ 	Scenario: Verify Admin is able to click 'Next page' link
+    When Admin clicks "Next page" link on the program table
+    Then Admin should see the Pagination has Next active link
+   
+    
+  @Pagination2
+ 	Scenario: Verify Admin is able to click 'Last page' link
+    When Admin clicks "Last page" link on the program table
+    Then Admin should see the last page record on the table with Next page link are disabled
+   
+  @Pagination3
+ 	Scenario: Verify Admin is able to click 'Previous page' link
+    Given Admin is on last page of Program module table
+    When Admin clicks "Previous page" link on the program table
+    Then Admin should see the previous page record on the table with pagination has previous page link
+    
+  @Pagination4
+ 	Scenario Outline: Verify Admin is able to click First page link
+    Given Admin is on last page of Program module table
+    When Admin clicks "First page" link on the program table
+    Then Admin should see the very first page record on the table with Previous page link are disabled
+    
 
+   
+ # @tag18 @MenuBar
+ # Scenario: Verify any broken links on program page
+  # When Admin clicks Program "Program" on the navigation bar
+   #Then Admin should not have any broken links for Program module
+   
+  
+   
+      
+  # @tag32 @ManageProgramPagevalidation
+   #Scenario: Verify edit and delete icon in manage program
+  # When Admin clicks Program "Program" on the navigation bar
+   #Then "Admin should see the text as ""Showing x to y of z entries"" along with Pagination icon below the table. 
+  #x- starting record number on that page
+  #y-ending record number on that page
+ # z-Total number of records"
+ 
+ #@tag33 @ManageProgramPagevalidation
+   #Scenario: Verify footer message in manage program
+   #When Admin clicks Program "Program" on the navigation bar
+   #Then Admin should see the footer as "In total there are z programs"".z- Total number of records"
+
+
+   
+   
+   
+   #-----------
+  #@tag35 @AddNewProgram
+   #Scenario: Verify add New Program
+   #Given Admin is on Program module  
+   #When Admin clicks on "New Program" under the "Program" menu bar
+   #Then Admin should see pop up window for program details
+
+  ################ Single/Multiple Program Deletion Validation ###########################   
+
+   @DeleteProgram1
+  Scenario: Verify Delete feature in program 
+    When Admin clicks on delete button for a program
+    Then Admin will get confirm deletion popup
+
+
+  @DeleteProgram4
+ 	Scenario Outline: Verify Admin is able to click options 'No' and 'X'
+    Given Admin is on Confirm deletion form
+    When Admin clicks on "<option>" button
+    Then Admin can see Confirmation form disappears and lands on program page
+    Examples:
+    | option |
+    |  No    |
+    |   X    |
+    
+  @DeleteProgram5
+ 	Scenario: Verify Admin is able to select multiple programs
+    When Admin selects more than one program by clicking on the checkbox
+    Then Programs get selected
+    
+  @DeleteProgram6
+ 	Scenario: Verify Admin is able to delete Multiple programs
+    When Admin clicks on the delete button on the left top of the program page
+    Then Admin will get confirm deletion popup
+    
+  @DeleteProgram7
+ 	Scenario: Verify Admin is able to click 'Yes'
+    Given Admin is on Confirmation form
+    When Admin clicks on "Yes" button
+    Then Admin can see 'Successful Programs Deleted' message
+    
+  @DeleteProgram8
+ 	Scenario: Verify Admin is able to deleted programs
+    When Admin Searches for Deleted Program names
+    Then There should be zero results
+    
+  @DeleteProgram9
+ 	Scenario Outline: Verify Admin is able to click 'NO'/'X' with multiple delete
+    Given Admin is on Confirmation form
+    When Admin clicks on "<option>" button
+    Then Admin can see Programs are still selected and not deleted
+    Examples:
+    | option |
+    |  No    |
+    |   X    |

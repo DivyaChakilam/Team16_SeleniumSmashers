@@ -1,9 +1,12 @@
+#Author: Nirmala
+
 @DashBoardPage
 Feature: Dashboard Page Validation
 
   Background: Admin gives the correct LMS portal URL   
-    Given Admin is in Home Page
-    When Admin enter valid credentials and clicks login button
+    #When Admin enter valid credentials and clicks login button
+    Given Admin gives the correct LMS portal URL
+   	Given Admin enters valid credentials and clicks login button
     
   @DashBoardtag2
   Scenario: Verify after login  admin lands on manage program as dashboard page

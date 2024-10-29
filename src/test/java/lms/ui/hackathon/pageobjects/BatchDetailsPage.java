@@ -197,11 +197,13 @@ public class BatchDetailsPage {
 
 	}
 
-	public void clickSaveButton() {
+	public void clickSaveButton(){
 		try {
 			util.doClick(saveBatchBtn);
+			//return new BatchPage(driver);
 		} catch (Exception e) {
 			System.out.println("Failed to click on the Save button: " + e.getMessage());
+			//throw new Exception("Failed to click on Save Button on Batch Details Page");
 		}
 	}
 	

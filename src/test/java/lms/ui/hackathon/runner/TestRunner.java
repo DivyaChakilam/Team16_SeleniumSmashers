@@ -11,17 +11,15 @@ import lms.ui.hackathon.configs.ConfigLoader;
 
 @CucumberOptions(features = "src/test/resources/Features/", 
 		glue = {"lms.ui.hackathon.stepDefinitions"},
-		tags="@tag44", // 
-		//tags="@classTest",
-		 dryRun=true
-		/*plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
+		 dryRun=false,
+		plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
 
 				"junit:target/Cucumber.xml",
-				// "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
+				//"io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
 				"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
 				"rerun:target/failed_scenarios.txt" },
 		// monochrome = true,
-		publish = true*/)
+		publish = true)
 public class TestRunner extends AbstractTestNGCucumberTests {
 
 	@Override

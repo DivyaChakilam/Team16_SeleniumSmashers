@@ -37,10 +37,7 @@ public class ProgramSteps {
 
 	public ProgramSteps(TestContextSetUp testContextSetUp) {
 		this.testContextSetUp = testContextSetUp;
-		// this.programPage = testContextSetUp.pageObjManager.getProgramPage();
 		this.dashboardPage = testContextSetUp.pageObjManager.getDashboardPage();
-		// this.programDetailsPage =
-		// testContextSetUp.pageObjManager.getProgramDetailsPage();
 	}
 
 	@Given("Admin is on the dashboard page after login")
@@ -56,8 +53,13 @@ public class ProgramSteps {
 
 	@When("Admin clicks on delete button for a program")
 	public void admin_clicks_on_delete_button_for_a_program() {
-		programPage.searchText(programName);
-		programPage.clickDeleteBtnForProgram(programName);
+		/*
+		 * programPage.searchText(programName);
+		 * programPage.clickDeleteBtnForProgram(programName);
+		 */
+		
+		programPage.searchText(CommonConfigs.getProgramCreated());
+		programPage.clickDeleteBtnForProgram(CommonConfigs.getProgramCreated());
 	}
 
 	@Then("Admin will get confirm deletion popup")
@@ -67,7 +69,7 @@ public class ProgramSteps {
 
 	@When("Admin clicks on {string} button")
 	public void admin_clicks_on_button(String popUpOption) {
-		String option = popUpOption.toLowerCase();
+		String option = popUpOption.toLowerCase().trim();
 		switch (option) {
 		case "yes":
 			// programPage.clickYes();
@@ -83,24 +85,24 @@ public class ProgramSteps {
 
 	@Then("Admin can see {string} message")
 	public void admin_can_see_message(String confirmMess) {
-		Assert.assertEquals(programPage.succesMessageValidation(), confirmMess);
+		Assert.assertEquals(programPage.succesMessageValidation(), confirmMess.trim());
 	}
 
 	@When("Admin Searches for Deleted Program name")
 	public void admin_searches_for_deleted_program_name() {
-		programPage.searchText(programNameDeleted);
+		programPage.searchText(CommonConfigs.getProgramCreated());
 	}
 
 	@Then("There should be zero results")
 	public void there_should_be_zero_results() {
-		programPage.checkZeroResults();
+		
 		Assert.assertEquals(programPage.checkZeroResults(), true);
 	}
 
 	@Given("Admin is on Confirm deletion form")
 	public void admin_is_on_confirm_deletion_form() {
-		programPage.searchText(programName);
-		programPage.clickDeleteBtnForProgram(programName);
+		programPage.searchText(CommonConfigs.getProgramCreated());
+		programPage.clickDeleteBtnForProgram(CommonConfigs.getProgramCreated());
 	}
 
 	@Then("Admin can see Confirmation form disappears and lands on program page")
@@ -145,16 +147,16 @@ public class ProgramSteps {
 
 	@When("Admin enter the program to search By {string}")
 	public void admin_enter_the_program_to_search_by(String programColumns) {
-		String option = programColumns.toLowerCase();
+		String option = programColumns.toLowerCase().trim();
 		switch (option) {
 		case "programname":
-			programPage.searchText(programName);
+			programPage.searchText(CommonConfigs.getProgramCreated());
 			break;
 		case "ProgramDescription":
-			programPage.searchText(programDescription);
+			programPage.searchText(CommonConfigs.getProgramDesCreated());
 			break;
 		case "PartialProgName":
-			programPage.searchText(ProgramPartialName);
+			programPage.searchText(CommonConfigs.getProgramCreated().substring(0, 12));
 			break;
 		}
 	}
@@ -210,8 +212,8 @@ public class ProgramSteps {
 
 	@When("Admin clicks on Arrow next to {string} to sort in asc")
 	public void admin_clicks_on_arrow_next_to_to_sort_in_asc(String columnName) {
-		programPage.click_On_SortIcon(columnName);
-		switch (columnName) {
+		programPage.click_On_SortIcon(columnName.trim());
+		switch (columnName.trim()) {
 		case "Program Name":
 			originalList = programPage.getOriginalList(2);
 			;
@@ -239,9 +241,9 @@ public class ProgramSteps {
 
 	@When("Admin clicks on Arrow next to {string} to sort in desc")
 	public void admin_clicks_on_arrow_next_to_to_sort_in_desc(String columnName) {
-		programPage.click_On_SortIcon(columnName);
-		programPage.click_On_SortIcon(columnName);
-		switch (columnName) {
+		programPage.click_On_SortIcon(columnName.trim());
+		programPage.click_On_SortIcon(columnName.trim());
+		switch (columnName.trim()) {
 		case "Program Name":
 			originalList = programPage.getOriginalList(2);
 			;

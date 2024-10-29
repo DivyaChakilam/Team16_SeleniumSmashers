@@ -5,11 +5,9 @@ import org.testng.Assert;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import lms.ui.hackathon.configs.CommonConfigs;
 import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.LoginPage;
 import lms.ui.hackathon.utilities.TestContextSetUp;
-import numpy.seleniumsmasher.lms.factory.DriverFactory;
 
 public class DashboardSteps {
 	public DashboardPage dashboardPage;
@@ -19,15 +17,10 @@ public class DashboardSteps {
 	public DashboardSteps(TestContextSetUp testContextSetUp) {
 		this.testContextSetUp = testContextSetUp;
 		this.dashboardPage = testContextSetUp.pageObjManager.getDashboardPage();
-		this.loginpage = testContextSetUp.pageObjManager.getLoginPage();
+		//this.loginpage = testContextSetUp.pageObjManager.getLoginPage();
 
 	}
-	@Given("Admin is in Home Page")
-	public void admin_is_in_home_page() {
-		
 
-		
-	}
 
 	@When("Admin enter valid credentials and clicks login button")
 	public void admin_enter_valid_credentials_and_clicks_login_button() {

@@ -1,7 +1,5 @@
 package lms.ui.hackathon.stepDefinitions;
 
-import java.util.Random;
-
 import org.testng.Assert;
 
 import io.cucumber.java.en.Given;
@@ -10,7 +8,6 @@ import io.cucumber.java.en.When;
 import lms.ui.hackathon.pageobjects.BatchDetailsPage;
 import lms.ui.hackathon.pageobjects.BatchPage;
 import lms.ui.hackathon.pageobjects.DashboardPage;
-import lms.ui.hackathon.utilities.ElementUtil;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 
 public class BatchSteps {
@@ -19,32 +16,16 @@ public class BatchSteps {
 	TestContextSetUp testContextSetup;
 	BatchDetailsPage batchDetailsPage;
 
-
-
 	public BatchSteps(TestContextSetUp testContextSetup) {
 		this.testContextSetup = testContextSetup;
-		this.batchPage=testContextSetup.pageObjManager.getBatchPage();
 		dashboardPage = testContextSetup.pageObjManager.getDashboardPage();
-		this.batchDetailsPage=testContextSetup.pageObjManager.getBatchDetailsPage();
-	}
-
-	@Given("Admin is on Dashboard page")
-	public void admin_is_on_dashboard_page() {
-
-		try {
-			batchPage.login();
-
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Given("Admin Clicks on the Batch menu from the header")
 	public void admin_clicks_on_the_batch_menu_from_the_header() {
 
 		try {
-			batchPage.goToMenu("batch");
+			batchPage = (BatchPage) dashboardPage.goToMenu("batch");
 
 			Thread.sleep(2000);
 		} catch (Exception e) {
@@ -84,10 +65,9 @@ public class BatchSteps {
 	@Then("pagination should be visible and functional")
 	public void pagination_should_be_visible_and_functional() {
 
-		Assert.assertTrue(batchPage.IspaginationActive());  
+		Assert.assertTrue(batchPage.IspaginationActive());
 
 	}
-
 
 	@Then("each data row should have an edit icon")
 	public void each_data_row_should_have_an_edit_icon() {
@@ -107,12 +87,6 @@ public class BatchSteps {
 	public void each_data_row_should_have_a_checkbox() {
 
 		Assert.assertTrue(batchPage.IscheckBoxRowsDisplayed());
-
-	}
-
-	@Given("User on the Batch page to validate Datatable head")
-	public void user_on_the_batch_page_to_validate_datatable_head() {
-
 
 	}
 
@@ -148,8 +122,6 @@ public class BatchSteps {
 
 	}
 
-
-
 	@Then("the Batch page should display the sub-menu options")
 	public void the_batch_page_should_display_the_sub_menu_options() {
 
@@ -169,7 +141,6 @@ public class BatchSteps {
 		try {
 			batchPage.AddNewBatch();
 			Thread.sleep(2000);
-
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -206,7 +177,6 @@ public class BatchSteps {
 	@Then("all fields should be visible in batch details pop message")
 	public void all_fields_should_be_visible_in_batch_details_pop_message() {
 
-
 		Assert.assertTrue(batchDetailsPage.ValidateAddBtachFields());
 	}
 
@@ -232,8 +202,6 @@ public class BatchSteps {
 	public void the_batch_name_prefix_should_match_the_selected_program_name() {
 		Assert.assertEquals(batchDetailsPage.getBatchNameText(), batchDetailsPage.getProgramNameText());
 	}
-	
-
 
 	@Given("User is on the Batch Details pop-up window")
 	public void user_is_on_the_batch_details_pop_up_window() {
@@ -257,13 +225,13 @@ public class BatchSteps {
 	public void user_should_get_error_message_after_entering_alphabets_in_suffix_box() {
 
 		String actualError = batchDetailsPage.getbatchCodeErrorMessage();
-		String expectedError = "This field accept only numbers and max 5 count."; 
+		String expectedError = "This field accept only numbers and max 5 count.";
 		Assert.assertEquals(actualError.toLowerCase(), expectedError.toLowerCase(), "Error message did not match");
 
 	}
 
 	@Given("User on the Add New Batch pop-up to validate not editable")
-	public void user_on_the_add_new_batch_pop_up_to_validate_not_editable(){
+	public void user_on_the_add_new_batch_pop_up_to_validate_not_editable() {
 
 		try {
 			batchPage.AddNewBatch();
@@ -277,42 +245,42 @@ public class BatchSteps {
 	@Then("the batch name prefix field should be non-editable")
 	public void the_batch_name_prefix_field_should_be_non_editable() {
 
-		Assert.assertFalse(batchDetailsPage.isBatchNamePrefixEditable(), "Batch name prefix field is editable, but it should be non-editable.");
+		Assert.assertFalse(batchDetailsPage.isBatchNamePrefixEditable(),
+				"Batch name prefix field is editable, but it should be non-editable.");
 
 	}
 
-
 	@Given("User is on the Add New Batch pop-up to Validate mandatory fields")
-	public void user_is_on_the_add_new_batch_pop_up_to_validate_mandatory_fields()  {
+	public void user_is_on_the_add_new_batch_pop_up_to_validate_mandatory_fields() {
 		try {
-			batchPage.AddNewBatch();
+			batchDetailsPage = batchPage.AddNewBatch();
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@When("User inputs {string}, {string}, {string}, {string}, and {string}")
-	public void user_inputs_and(String batchName, String batchCode, String description, String status, String noOfClasses) {
+	public void user_inputs_and(String batchName, String batchCode, String description, String status,
+			String noOfClasses) {
 
-		batchDetailsPage.selectProgramName();		
-		batchCode=batchDetailsPage.getrandomalpha(5);
+		batchDetailsPage.selectProgramName();
+		batchCode = batchDetailsPage.getrandomalpha(5);
 		batchDetailsPage.enterBatchCode(batchCode);
 		batchDetailsPage.enterBatchDescription(description);
 		batchDetailsPage.selectStatus(status);
 		batchDetailsPage.enterNoOfClasses(noOfClasses);
-		
+
 	}
 
 	@Then("User should be able to save successfully")
-	public void user_should_be_able_to_save_successfully() throws InterruptedException {
+	public void user_should_be_able_to_save_successfully() throws Exception {
 
 		batchDetailsPage.clickSaveButton();
 		Thread.sleep(3000);
 		Assert.assertTrue(batchDetailsPage.isBatchCreatedSuccessfully());
-
 
 	}
 
@@ -327,13 +295,13 @@ public class BatchSteps {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@When("User leaves {string} empty for {string}, {string}, {string}, {string}, and {string}")
-	public void user_leaves_field_empty_for_fields(String missingField, String batchName, String batchCode, String batchDescription, String status, String noOfClasses) {
+	public void user_leaves_field_empty_for_fields(String missingField, String batchName, String batchCode,
+			String batchDescription, String status, String noOfClasses) {
 		// Set the fields based on the MissingField provided in the scenario
 		try {
 			Thread.sleep(2000);
-
 
 			switch (missingField) {
 			case "Batchname":
@@ -361,7 +329,7 @@ public class BatchSteps {
 				batchDetailsPage.enterBatchName(batchName);
 				batchDetailsPage.enterBatchCode(batchCode);
 				batchDetailsPage.enterBatchDescription(batchDescription);
-				//batchDetailsPage.selectStatus(""); // Leave Status empty
+				// batchDetailsPage.selectStatus(""); // Leave Status empty
 				batchDetailsPage.enterNoOfClasses(noOfClasses);
 				break;
 			case "NoOfClasses":
@@ -381,11 +349,12 @@ public class BatchSteps {
 	}
 
 	@Then("User should see a validation error message for {string} as {string}")
-	public void user_should_see_a_validation_error_message_for_field_as_error(String missingField, String expectedErrorMsg) {
+	public void user_should_see_a_validation_error_message_for_field_as_error(String missingField,
+			String expectedErrorMsg) {
 		String actualErrorMsg = batchDetailsPage.VerifyEmptyBatchfields(missingField);
 		System.out.println("Expected: " + expectedErrorMsg);
-		System.out.println("Actual: " +actualErrorMsg);
-		Assert.assertEquals(actualErrorMsg,expectedErrorMsg);
+		System.out.println("Actual: " + actualErrorMsg);
+		Assert.assertEquals(actualErrorMsg, expectedErrorMsg);
 	}
 
 	@Given("User on the Add New Batch pop-up to Validate Save button")
@@ -403,7 +372,6 @@ public class BatchSteps {
 	@Then("the Save button should be enabled when all mandatory fields are filled")
 	public void the_save_button_should_be_enabled_when_all_mandatory_fields_are_filled() {
 
-		
 		batchDetailsPage.clickSaveButton();
 		Assert.assertTrue(batchDetailsPage.isBatchCreatedSuccessfully());
 
@@ -512,7 +480,6 @@ public class BatchSteps {
 			e.printStackTrace();
 		}
 
-
 	}
 
 	@Then("the Batch Name field should be disabled")
@@ -537,13 +504,12 @@ public class BatchSteps {
 	@When("User input invalid data in the description and No. of classes fields")
 	public void user_input_invalid_data_in_the_description_and_no_of_classes_fields() {
 
-		batchDetailsPage.enterBatchDescription("1234");  
-		batchDetailsPage.enterNoOfClasses("-10");        
+		batchDetailsPage.enterBatchDescription("1234");
+		batchDetailsPage.enterNoOfClasses("-10");
 
 		batchDetailsPage.clickSaveButton();
 
 	}
-
 
 	@Then("User should see validation error messages")
 	public void user_should_see_validation_error_messages() {
@@ -559,7 +525,7 @@ public class BatchSteps {
 			e.printStackTrace();
 		}
 
-		Assert.assertEquals(descriptionError,"This field should start with an alphabet and min 2 character.");
+		Assert.assertEquals(descriptionError, "This field should start with an alphabet and min 2 character.");
 	}
 
 	@Given("User editing a batch to Validate Save button")
@@ -584,7 +550,6 @@ public class BatchSteps {
 	@Then("the Save button should be enabled")
 	public void the_save_button_should_be_enabled() {
 
-
 		batchDetailsPage.clickSaveButton();
 		Assert.assertTrue(batchPage.isBatchEditSuccessfully());
 	}
@@ -607,10 +572,6 @@ public class BatchSteps {
 	public void the_changes_should_not_be_saved() {
 		Assert.assertTrue(batchDetailsPage.isPopupClosedClose(), "The pop-up did not close as expected.");
 
-
 	}
 
-
-
 }
-
