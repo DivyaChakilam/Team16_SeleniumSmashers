@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -20,6 +21,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ElementUtil {
+	
 
 	private WebDriver driver;
 	Alert alert;
@@ -136,7 +138,7 @@ public class ElementUtil {
 	public List<WebElement> getElements(By locator) {
 		return driver.findElements(locator);
 	}
-	
+		
 
 	public void doSendKeys(By locator, Keys keys) {
 		WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -157,9 +159,10 @@ public class ElementUtil {
 					try {
 						ele.click();
 						ele.clear();
-						clearExistingText(ele);
+						//clearExistingText(ele);
 						ele.sendKeys(text);
 					} catch (Exception e) {
+						System.out.println(e.getMessage()); 
 					}
 
 				} else {
@@ -212,6 +215,31 @@ public class ElementUtil {
 		}
 		return flag;
 	}
+	
+	public boolean isElementAvailable(By locator) {
+		boolean flag = false;
+		try {
+
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
+					.until(ExpectedConditions.visibilityOf(getElement(locator)));
+
+			if (ele!=null && ele.isDisplayed()) {
+
+				flag = true;
+			}
+
+			else {
+				return flag;
+			}
+
+		} catch (Exception e) {
+			return flag;
+			//e.printStackTrace();
+
+		}
+		return flag;
+	}
+
 
 	/*
 	 * public boolean isElementsDisplayed(By locator) { boolean flag = false; try {
@@ -241,6 +269,12 @@ public class ElementUtil {
 		ele.sendKeys(Keys.BACK_SPACE);
 
 	}
+	
+    public void clearField(By locator) {
+        WebElement element = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+        element.clear();
+    }
 
 	public String getAttributeVal(By locator, String attributeName) {
 		return elementWithFluentWaitLocated(locator, 10, 100).getAttribute(attributeName);
@@ -253,6 +287,18 @@ public class ElementUtil {
 
 		}
 	}
+	// Method to check if a field is editable
+    public boolean isFieldEditable(By locator) {
+        WebElement element = driver.findElement(locator);
+        try {
+            // Try to send keys and catch exception if it is not editable
+            element.sendKeys("test");  // Attempt to type something
+            element.clear();           // Clear after testing
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 	public void scrollToBottomOfPage() {
 		Actions action = new Actions(driver);
@@ -284,7 +330,13 @@ public class ElementUtil {
 		jse.executeScript("arguments[0].value='" + codeString + "';", getElement(locator));
 
 	}
-
+	
+	public boolean isEditablefield(By locator) {
+        WebElement editableElement = getElement(locator);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+        Boolean isContentEditable = (Boolean) js.executeScript("return arguments[0].isContentEditable;", editableElement);
+		return isContentEditable;
+	}
 	public boolean ifFieldIsRequired(By locator) {
 		WebElement ele = elementWithFluentWaitLocated(locator, 5, 100);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -440,5 +492,16 @@ public class ElementUtil {
         return sortedList;
 	}
 
+	public  String getRandomNumbers(int length) {
+		 StringBuilder result = new StringBuilder();
+	        Random random = new Random();
+
+	        for (int i = 0; i < length; i++) {
+	            int digit = random.nextInt(10); // Generates a random number between 0 and 9
+	            result.append(digit);
+	        }
+	        return result.toString();
+	    
+    }
 
 }
