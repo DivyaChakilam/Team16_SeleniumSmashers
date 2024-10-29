@@ -68,17 +68,14 @@ public class BatchDetailsPage {
 
 	public String getBatchNameText()
 	{
-		//String batchName= util.getAttributeVal(batchNameTextField, "ng-reflect-model");
-		//String batchName=  util.getElement(batchProgramNameTextBox).getText();
 		System.out.println("Batch Name ->"+util.getElement(batchNameTextBox).getAttribute("value"));
 		return util.getElement(batchNameTextBox).getAttribute("value");
 	}
+	
 	public String getProgramNameText()
 	{
 	    WebElement selectedTextElement = driver.findElement(batchNameTextField);
-	    //Select select = new Select(selectedTextElement);
-	    //System.out.println("batchNameTextField1-->"+select.getFirstSelectedOption().getText());
-		//String batchName=  util.getElement(batchProgramNameTextBox).getText();
+	  
 		System.out.println("ProgramNameText ->"+selectedTextElement.getAttribute("value"));
 		return selectedTextElement.getAttribute("value");
 	}
@@ -148,7 +145,6 @@ public class BatchDetailsPage {
 		// Open the drop down
 		try {
 			
-
 			driver.findElement(batchprogramNameFieldDropDownBtn).click();
 
 	        // Wait until the first option is visible
@@ -157,41 +153,11 @@ public class BatchDetailsPage {
 
 	        // Click the first option
 	        firstOption.click();
-	        // Click the first option
 
-
-//		util.doClick(batchprogramNameFieldDropDownBtn);
-//		Thread.sleep(2000);
-//		
-//		Actions action = new Actions(driver);
-//		
-//		while(driver.findElements(By.xpath("//ul[contains(@class,'p-dropdown-items')]/p-dropdownitem//span[text()='"+programName+"']")).size()>0) {
-//			
-//			action.keyDown(Keys.DOWN).keyUp(Keys.DOWN).build().perform();
-//			Thread.sleep(2000);
-//		}
-		
-		//  program name to the drop down input field
-		
-		//Thread.sleep(8000);
-		/*
-		//dropdownInput.sendKeys(programName);
-		util.doClick(batchprogramNameFieldDropDownBtn);
-		//util.mouseclickUsingAction(batchprogramNameFieldDropDownBtn);
-		//util.pressdownButtonUsingAction(batchprogramNameFieldDropDownBtn);
-		util.doSendKeys(batchprogramNameFieldDropDownBtn,programName);
-
-		// press ENTER to select the option 
-		util.doSendKeys(batchprogramNameFieldDropDownBtn,Keys.ENTER);*/
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
-	/*public void enterbatchCodeSuffix(String suffix) {
-        driver.findElement(batchNameCode).sendKeys(suffix);
-    }*/
 
 	public String getbatchCodeErrorMessage() {
 		return util.getElementText(batchCodeErrMsg);    
@@ -243,7 +209,6 @@ public class BatchDetailsPage {
 		try {
 			Thread.sleep(1000);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
@@ -254,7 +219,6 @@ public class BatchDetailsPage {
 			return true;
 		else
 			return false;
-		//return util.isElementPresent(batchSuccessMsg);
 	}
 
 	public void clickCancelButton() {
@@ -283,7 +247,6 @@ public class BatchDetailsPage {
 	public String getrandomalpha(int length) {
 		return(util.getRandomNumbers(length));
 	}
-// Edit icon Validation
 	
 	
 
