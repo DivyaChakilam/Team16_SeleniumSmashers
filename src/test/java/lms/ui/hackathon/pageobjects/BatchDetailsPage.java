@@ -79,9 +79,11 @@ public class BatchDetailsPage {
 		System.out.println("ProgramNameText ->"+selectedTextElement.getAttribute("value"));
 		return selectedTextElement.getAttribute("value");
 	}
-	public boolean isBatchNamePrefixEditable() {
-		return util.isEditablefield(batchNameTextField);
-	}
+	
+	
+	  public boolean isBatchNamePrefixEditable() { return
+	  util.isEditablefield(batchNameTextField); }
+	 
 
 	//  New batch created Successfully
 	public void enterBatchName(String batchName) {

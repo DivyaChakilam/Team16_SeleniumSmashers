@@ -1,7 +1,9 @@
 package lms.ui.hackathon.pageobjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import lms.ui.hackathon.utilities.ElementUtil;
 
@@ -16,9 +18,8 @@ public class CommonAndPaginationFeatures {
 	protected By programMenu = By.xpath("//button/span[text()='Program']"); 
 	protected By batchMenu = By.xpath("//span[text()='Batch']/..");
 	protected By classMenu = By.xpath("//span[text()='Class']/..");
-	//protected By logOutMenu = By.id("Logout");
-    
 	protected By logOutMenu = By.xpath("//span[normalize-space()='Logout']");
+
 	
 	//Multiple Delete Btn and Search Box
 	protected By multipleDeleteBtn = By.className("p-button-icon");
@@ -30,7 +31,11 @@ public class CommonAndPaginationFeatures {
 	protected By singleLeftArrowBtn = By.xpath("//span[contains(@class,'angle-left')]/..");
 	protected By singleRightArrowBtn = By.xpath("//span[contains(@class,'angle-right')]/..");
 	protected By doubleRightArrowBtn = By.xpath("//span[contains(@class,'double-right')]/..");
-	// Later: Write dynamic locator for total number of programs/batches/classes --> WIP
+
+	protected By popUp_SuccessMsg = By.id("to be completed");
+
+	// Table related xpath
+	private By tableRows = By.xpath("//tbody[@class='p-datatable-tbody']/tr");
 
 	
 	public CommonAndPaginationFeatures(WebDriver driver) {
@@ -52,17 +57,15 @@ public class CommonAndPaginationFeatures {
 		case "program":
 			util.doClick(programMenu);
 			return new ProgramPage(driver);
-			//break;
+			
 		case "batch":
 			util.doClick(batchMenu);
 			return new BatchPage(driver);
 
-			//break;
 		case "class":
-			util.doClick(classMenu);
+			gotoClassMenuThroughTABBING();
 			return new ClassPage(driver);
 
-			//break;
 		case "logout":
 			util.doClick(logOutMenu);
 			return new LogoutPage(driver);
@@ -89,6 +92,37 @@ public class CommonAndPaginationFeatures {
 	}
 	
 
+	/**
+	 * Check if Success Msg exixts or not
+	 * @return
+	 */
+	public Boolean validateSuccessPopUpMsg() {
+		return util.isElementDisplayed(popUp_SuccessMsg);
+	}
+	
+	/**
+	 * Use Actions class to go to Class Menu
+	 */
+	public void gotoClassMenuThroughTABBING() {
+		
+		util.doClick(programMenu);
+		
+		Actions action = new Actions(driver);
+		action.keyDown(Keys.TAB).keyUp(Keys.TAB) 
+				.keyDown(Keys.TAB).keyUp(Keys.TAB)
+				.keyDown(Keys.ENTER).keyUp(Keys.ENTER)
+				.keyDown(Keys.TAB).keyUp(Keys.TAB) 
+				.keyDown(Keys.TAB).keyUp(Keys.TAB)
+				.build().perform();
+		try {
+			Thread.sleep(8000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * This method checks if LogOut menu is present in the banner
 	 * @return
@@ -180,5 +214,20 @@ public class CommonAndPaginationFeatures {
 		driver.findElement(logOutMenu).click();
 		return new LoginPage(driver);
 	}
+	
+	//********************** Table Related Methods ************************
+	/**
+	 * This method checks if table rows exists
+	 * 
+	 * @return
+	 */
+	public boolean doesTableRowsExists() {
+		if (util.getElementSize(tableRows) > 0) {
+			return true;
+		} else
+			return false;
+	}
+	
+	
 
 }
