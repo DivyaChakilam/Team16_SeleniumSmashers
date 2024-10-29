@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -65,16 +66,8 @@ public class ElementUtil {
 
 		try {
 
-			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(20))
 					.until(ExpectedConditions.visibilityOf(getElement(locator)));
-			if(ele == null)
-			{
-				System.out.println("ele is null");
-			}
-			else
-			{
-				System.out.println("ele is not null"+ele.toString());
-			}
 
 			if (ele.isDisplayed()) {
 				if (ele.isEnabled()) {
@@ -157,7 +150,7 @@ public class ElementUtil {
 	public void doSendKeys(By locator, String text) {
 		try {
 
-			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(10))
 					.until(ExpectedConditions.visibilityOf(getElement(locator)));
 
 			if (ele.isDisplayed()) {
@@ -166,9 +159,10 @@ public class ElementUtil {
 					try {
 						ele.click();
 						ele.clear();
-						clearExistingText(ele);
+						//clearExistingText(ele);
 						ele.sendKeys(text);
 					} catch (Exception e) {
+						System.out.println(e.getMessage()); 
 					}
 
 				} else {
@@ -221,6 +215,31 @@ public class ElementUtil {
 		}
 		return flag;
 	}
+	
+	public boolean isElementAvailable(By locator) {
+		boolean flag = false;
+		try {
+
+			WebElement ele = new WebDriverWait(driver, Duration.ofSeconds(30))
+					.until(ExpectedConditions.visibilityOf(getElement(locator)));
+
+			if (ele!=null && ele.isDisplayed()) {
+
+				flag = true;
+			}
+
+			else {
+				return flag;
+			}
+
+		} catch (Exception e) {
+			return flag;
+			//e.printStackTrace();
+
+		}
+		return flag;
+	}
+
 
 	/*
 	 * public boolean isElementsDisplayed(By locator) { boolean flag = false; try {
@@ -259,10 +278,6 @@ public class ElementUtil {
 
 	public String getAttributeVal(By locator, String attributeName) {
 		return elementWithFluentWaitLocated(locator, 10, 100).getAttribute(attributeName);
-	}
-	
-	public String getAttributeVal(WebElement ele, String attributeName) {
-		return ele.getAttribute(attributeName);
 	}
 
 	public void attachFileUsingSendKeys(By locator, String filePath) {
@@ -315,7 +330,13 @@ public class ElementUtil {
 		jse.executeScript("arguments[0].value='" + codeString + "';", getElement(locator));
 
 	}
-
+	
+	public boolean isEditablefield(By locator) {
+        WebElement editableElement = getElement(locator);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+        Boolean isContentEditable = (Boolean) js.executeScript("return arguments[0].isContentEditable;", editableElement);
+		return isContentEditable;
+	}
 	public boolean ifFieldIsRequired(By locator) {
 		WebElement ele = elementWithFluentWaitLocated(locator, 5, 100);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -471,5 +492,16 @@ public class ElementUtil {
         return sortedList;
 	}
 
+	public  String getRandomNumbers(int length) {
+		 StringBuilder result = new StringBuilder();
+	        Random random = new Random();
+
+	        for (int i = 0; i < length; i++) {
+	            int digit = random.nextInt(10); // Generates a random number between 0 and 9
+	            result.append(digit);
+	        }
+	        return result.toString();
+	    
+    }
 
 }

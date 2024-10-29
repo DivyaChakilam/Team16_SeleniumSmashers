@@ -26,7 +26,6 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	//Batch Page Validation
 	
 	private By manageBatchHeader = By.xpath("//div[contains(text(),'Manage Batch')]");
-	//private By paginationtext= By.xpath("//p-paginator/div/span[1]");
 	private By DisDeleteIcon = By.xpath("//button[@class='p-button-danger p-button p-component p-button-icon-only']");
 	private By DeleteIcon = By.xpath("//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]/span[1]");
 	private By checkBoxRows=By.xpath("//table/tbody/tr//div[@role='checkbox']");
@@ -171,6 +170,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
 		
 		return util.isElementDisplayed(BatchPopupFrame);	
 	}
+	
 	public void clickEditIconButton() {
 		try {
 		
@@ -183,10 +183,8 @@ public class BatchPage extends CommonAndPaginationFeatures{
 			Thread.sleep(2000);
 
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 	
 	public boolean isPopupEditDisplayed() {
@@ -196,7 +194,6 @@ public class BatchPage extends CommonAndPaginationFeatures{
     public boolean isProgramNameFieldDisabled() {
     
     	Boolean isContentEditable=util.isEditablefield(batchProgramNameTextBox);
-    	//WebElement programField = util.getElement(batchProgramNameTextBox);
         return !isContentEditable;
     }
   

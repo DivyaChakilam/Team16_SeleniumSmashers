@@ -36,11 +36,8 @@ public class BatchSteps {
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 	@Given("Admin Clicks on the Batch menu from the header")
@@ -160,8 +157,7 @@ public class BatchSteps {
 			Assert.assertEquals(batchPage.getBatchSubMenu(), "Add New Batch");
 			Thread.sleep(2000);
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -175,8 +171,7 @@ public class BatchSteps {
 			Thread.sleep(2000);
 
 
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -189,8 +184,7 @@ public class BatchSteps {
 			Assert.assertTrue(batchPage.IsBatchDetailsPopupPageDisplayed());
 
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -222,8 +216,7 @@ public class BatchSteps {
 			batchPage.AddNewBatch();
 
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -248,8 +241,7 @@ public class BatchSteps {
 			batchPage.AddNewBatch();
 
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -257,10 +249,8 @@ public class BatchSteps {
 	@When("User enters {string} and {string}")
 	public void user_enters_and(String batchName, String batchCode) {
 
-
 		batchDetailsPage.enterBatchName(batchName);
 		batchDetailsPage.enterBatchCode(batchCode);
-
 	}
 
 	@Then("User should get error message after entering alphabets in suffix box")
@@ -279,8 +269,7 @@ public class BatchSteps {
 			batchPage.AddNewBatch();
 
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -300,23 +289,15 @@ public class BatchSteps {
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(batchDetailsPage.AddBatchTitleDisplayed());
-
+		
 	}
 
 	@When("User inputs {string}, {string}, {string}, {string}, and {string}")
 	public void user_inputs_and(String batchName, String batchCode, String description, String status, String noOfClasses) {
 
-
-		//String batchNameTestData = batchName + // Generate a random character between 'a' and 'z'
-		// char randomChar = (char) (random.nextInt(26) + 'a'); 
-
-		//System.out.println("Random character: " + randomChar());
 		batchDetailsPage.selectProgramName();		
-		//batchDetailsPage.enterBatchName(batchName);
 		batchCode=batchDetailsPage.getrandomalpha(5);
 		batchDetailsPage.enterBatchCode(batchCode);
 		batchDetailsPage.enterBatchDescription(description);
@@ -328,10 +309,8 @@ public class BatchSteps {
 	@Then("User should be able to save successfully")
 	public void user_should_be_able_to_save_successfully() throws InterruptedException {
 
-		//String batchName = batchDetailsPage.getBatchProgramNameText();
-		//System.out.println("admin_can_see_the_text_entered " + batchName);
 		batchDetailsPage.clickSaveButton();
-		//Thread.sleep(3000);
+		Thread.sleep(3000);
 		Assert.assertTrue(batchDetailsPage.isBatchCreatedSuccessfully());
 
 
@@ -348,68 +327,7 @@ public class BatchSteps {
 			e.printStackTrace();
 		}
 	}
-	//(String batchName, String batchCode, String batchDesc, String status, String noOfClasses)
-
-	//	@When("User leaves \"Batchname\"empty for {string}, {string}, {string}, {string},{string}")
-	//	public void user_leaves_batchname_empty_for(String batchName, String batchCode, String batchDesc, String status, String noOfClasses) {
-	//		try {
-	//			Thread.sleep(2000);
-	//		
-	//		//batchDetailsPage.enterBatchName(batchName);
-	//		batchDetailsPage.enterBatchCode(batchCode);
-	//		batchDetailsPage.enterBatchDescription(batchDesc);
-	//		batchDetailsPage.selectStatus(status);
-	//		batchDetailsPage.enterNoOfClasses(noOfClasses);
-	//		} catch (InterruptedException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//
-	//
-	//	@When("User leaves \"BatchCode\"empty for {string}, {string}, {string}, {string},{string}")
-	//	public void user_leaves_batch_code_empty_for(String batchName, String batchCode, String batchDesc, String status, String noOfClasses) {
-	//		//batchDetailsPage.enterBatchName(batchName);
-	//		batchDetailsPage.enterBatchCode(batchCode);
-	//		batchDetailsPage.enterBatchDescription(batchDesc);
-	//		batchDetailsPage.selectStatus(status);
-	//		batchDetailsPage.enterNoOfClasses(noOfClasses);
-	//	}
-	//
-	//	@When("User leaves \"BatchDescription\"empty for {string}, {string}, {string}, {string},{string}")
-	//	public void user_leaves_batch_description_empty_for(String batchName, String batchCode, String batchDesc, String status, String noOfClasses) {
-	//		batchDetailsPage.enterBatchName(batchName);
-	//		batchDetailsPage.enterBatchCode(batchCode);
-	//		batchDetailsPage.enterBatchDescription(batchDesc);
-	//		batchDetailsPage.selectStatus(status);
-	//		batchDetailsPage.enterNoOfClasses(noOfClasses);
-	//	}
-	//
-	//	@When("User leaves \"Status\"empty for {string}, {string}, {string}, {string},{string}")
-	//	public void user_leaves_status_empty_for(String batchName, String batchCode, String batchDesc, String status, String noOfClasses) {
-	//		batchDetailsPage.enterBatchName(batchName);
-	//		batchDetailsPage.enterBatchCode(batchCode);
-	//		batchDetailsPage.enterBatchDescription(batchDesc);
-	//		batchDetailsPage.selectStatus(status);
-	//		batchDetailsPage.enterNoOfClasses(noOfClasses);
-	//	}
-	//
-	//	@When("User leaves \"NoOfClasses\"empty for {string}, {string}, {string}, {string},{string}")
-	//	public void user_leaves_no_of_classes_empty_for(String batchName, String batchCode, String batchDesc, String status, String noOfClasses) {
-	//		batchDetailsPage.enterBatchName(batchName);
-	//		batchDetailsPage.enterBatchCode(batchCode);
-	//		batchDetailsPage.enterBatchDescription(batchDesc);
-	//		batchDetailsPage.selectStatus(status);
-	//		batchDetailsPage.enterNoOfClasses(noOfClasses);
-	//	}
-	//
-	//
-	//	@Then("User should see a validation error message for {string} as {string}")
-	//	public void user_should_see_a_validation_error_message_for_as(String missingFields, String errMsg) {
-	//		
-	//		Assert.assertEquals(batchDetailsPage.VerifyEmptyBatchfields(missingFields),errMsg);
-	//	}
-
+	
 	@When("User leaves {string} empty for {string}, {string}, {string}, {string}, and {string}")
 	public void user_leaves_field_empty_for_fields(String missingField, String batchName, String batchCode, String batchDescription, String status, String noOfClasses) {
 		// Set the fields based on the MissingField provided in the scenario
@@ -457,7 +375,6 @@ public class BatchSteps {
 				throw new IllegalArgumentException("Invalid MissingField: " + missingField);
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -479,7 +396,6 @@ public class BatchSteps {
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -519,7 +435,6 @@ public class BatchSteps {
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -545,11 +460,9 @@ public class BatchSteps {
 	public void user_on_the_batch_page_to_validate_edit_icon_feature() {
 
 		try {
-			//batchDetailsPage.clickEditIconButton();;
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -617,12 +530,8 @@ public class BatchSteps {
 
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
-
 	}
 
 	@When("User input invalid data in the description and No. of classes fields")
@@ -643,19 +552,14 @@ public class BatchSteps {
 		try {
 			descriptionError = batchPage.getBatchEditDescriptionError();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String noOfClassesError = null;
 		try {
-			//noOfClassesError = batchPage.getEditNoOfClassesError();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		Assert.assertEquals(descriptionError,"This field should start with an alphabet and min 2 character.");
-		//Assert.assertEquals("Number of classes must be a positive number", noOfClassesError);
 	}
 
 	@Given("User editing a batch to Validate Save button")
@@ -673,11 +577,8 @@ public class BatchSteps {
 
 			Thread.sleep(3000);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 	@Then("the Save button should be enabled")
