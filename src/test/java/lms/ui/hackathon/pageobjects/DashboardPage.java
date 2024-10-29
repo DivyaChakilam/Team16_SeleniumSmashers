@@ -1,6 +1,7 @@
 package lms.ui.hackathon.pageobjects;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -24,11 +25,12 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 	private WebDriver driver;
 	private ElementUtil util;
 
-	private By loginbutton= By.xpath("//button[@id='login']");
 	private By loginbtnLabel=By.xpath("//span[@class='mat-button-wrapper']");
 
-	private By Username= By.xpath("//input[@id='username']");
-	private By Password=By.xpath("//input[@id='password']");
+	private By userLoc = By.id("username");
+	private By passwordLoc = By.id("password");
+	private By loginButton = By.xpath("//span[@class='mat-button-wrapper']");
+
 	private By lMSTitle=By.xpath("//span[contains(text(),'LMS - Learning Management System')]") ;
 	private By programNameLabel =By.xpath("//span[contains(text(),'Program')]") ;
 	private By batchNameLabel=By.xpath("//span[contains(text(),'Batch')]") ;
@@ -46,12 +48,16 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 		util = new ElementUtil(this.driver);
 	}
 
+	public void loginHomePage() {
+		String LoginPageTitle=util.getElementText(loginToLmsText).trim();
+		System.out.println("The User is on Login Home Page "+ LoginPageTitle);
+	}
 	public void login() {
 		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
-		util.doSendKeys(Username, "Sdet@gmail.com");
-		driver.findElement(Password).sendKeys("LmsHackathon@2024");	
-		util.doClick(loginbutton);
-			
+		util.doSendKeys(userLoc, "Sdet@gmail.com");
+		driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");	
+		util.doClick(loginButton);
+
 	}
 
 	// Dashboard page Title	
@@ -73,98 +79,109 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 
 	// Title Alignment
 	public boolean isTitleAtTopLeftCorner() {
-		Dimension windowSize = driver.manage().window().getSize();
-		Point titlePosition = ((WebElement) lMSTitle).getLocation();
+		Dimension windowSize = this.driver.manage().window().getSize();
+		WebElement lmstit=util.getElement(lMSTitle);
+
+		Point titlePosition = lmstit.getLocation();
 
 		return (titlePosition.getX() <= windowSize.getWidth() / 2) 
 				&& (titlePosition.getY() <= windowSize.getHeight() / 2);
 
 	}
 
-	public boolean navigationResponseTime() {
-		long start = System.currentTimeMillis();
-		// Here perform the navigation actions, like clicking on the login button
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-		wait.until(ExpectedConditions.visibilityOf((WebElement) lMSTitle));
-		long timeToLoad = (System.currentTimeMillis() - start);
-		if(timeToLoad<450)
-			return true;
-		else
-			return false;
+
+	public long navigationResponseTime() {
+		long starttime = System.currentTimeMillis();
+	    WebElement wlmsTitle=util.getElement(lMSTitle);
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+	    wait.until(ExpectedConditions.visibilityOf(wlmsTitle));
+	    long timeToLoad = (System.currentTimeMillis() - starttime);
+	    return timeToLoad;
+		
 	}
 
 	public  boolean CheckBrokenLink(int brokencode) {
 
 		String url= driver.getCurrentUrl();
-		boolean isbrokenlink=false;
+
 		try {
 			HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
 			connection.setConnectTimeout(3000);
 			connection.connect();
-
-			isbrokenlink= (connection.getResponseCode() > brokencode) ? false:true;
+			System.out.println("Response code " +connection.getResponseCode());
+			return connection.getResponseCode() >= brokencode;
 
 		} catch (Exception e) {
 			System.out.println(url + " - is a broken link");
 		}
-		return isbrokenlink;
-       }	
+		return true;
+	}	
 
-	 //Verify navigation bar text
-	 public String getNavigationBarText() {
-		return driver.findElement(navigationBarText).getText();
-	   }
+	public boolean validateNavigationBarText() {
+		String headerList = driver.findElement(navigationBarText).getText();
+        List<String> lstheaderList = Arrays.asList(headerList.split("\\n"));
 
-	 public boolean SpaceCheck() {
+		String[] expectedTexts= {"LMS - Learning Management System","Program","Batch","Class","Logout"};		
+		for (String expected : expectedTexts) {
+			boolean found = false;
+			for (String element : lstheaderList) {
+				if (element.trim().equalsIgnoreCase(expected)) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				return false; 
+			}
+		}
+		return true; 
+	}
+
+
+	public boolean SpaceCheck() {
 		String actualTitle = util.getElementText(lMSTitle).trim();
-		
+
 		System.out.println(actualTitle.equals("LMS - Learning Management System") 
 				? "Admin LMS title is correct!" 
 						: "Admin LMS title is incorrect!");
-		
+
 		return actualTitle.equals("LMS - Learning Management System") ?true:false;
-		
-		
-	  }
-	 
+
+
+	}
+
 	// check if navigation bar text is aligned to the top-right
-	 public boolean isNavigationBarRightTopAligned() {
-		    int navigationBarX = ((WebElement) navigationBarText).getLocation().getX();
-		    int navigationBarY = ((WebElement) navigationBarText).getLocation().getY();
-		    int windowWidth = driver.manage().window().getSize().getWidth();
+	public boolean isNavigationBarRightTopAligned() {
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	    WebElement navtoolbar = wait.until(ExpectedConditions.visibilityOfElementLocated(navigationBarText));
+	    
+	    int toolbarX = navtoolbar.getLocation().getX();
+	    int toolbarY = navtoolbar.getLocation().getY();
+	    int windowWidth = driver.manage().window().getSize().getWidth();
+	    
+	    return toolbarX >= windowWidth - navtoolbar.getSize().getWidth() - 20 && toolbarY <= 20;
+	
 
-		    // Consider the navigation bar to be top-right if X is close to the window's right edge 
-		    // and Y is close to the top edge
-		    boolean isTopRight = navigationBarX >= (windowWidth - 20) && navigationBarY <= 20;
+	}
 
-		    // Optional: Log the result for debugging purposes
-		    if (isTopRight) {
-		        System.out.println("Navigation bar is positioned on the top-right side.");
-		    } else {
-		        System.out.println("Navigation bar is not positioned on the top-right side.");
-		    }
+	// return a list of all the navigation bar elements
+	public List<WebElement> getNavigationBarElements() {
+		return driver.findElements(allElements);
+	}
 
-		    return isTopRight;
+	//  validate the order of navigation bar items
+	public boolean validateNavBarOrder() {
+		String[] expectedOrder= {"Program","Batch","Class","Logout"};
+		List<WebElement> headerList = getNavigationBarElements();
+		for (int i = 0; i < expectedOrder.length; i++) {
+			if (!headerList.get(i).getText().equalsIgnoreCase(expectedOrder[i])) {
+				return false;
+			}
 		}
+		return true;
+	}
 
-	   // return a list of all the navigation bar elements
-	    public List<WebElement> getNavigationBarElements() {
-	        return driver.findElements(allElements);
-	    }
 
-	    //  validate the order of navigation bar items
-	    public boolean validateNavBarOrder() {
-	    	String[] expectedOrder= {"Program","Batch","Class","Logout"};
-	        List<WebElement> headerList = getNavigationBarElements();
-	        for (int i = 0; i < expectedOrder.length; i++) {
-	            if (!headerList.get(i).getText().equalsIgnoreCase(expectedOrder[i])) {
-	                return false;
-	            }
-	        }
-	        return true;
-	    }
-	 
-	 
 
 
 }

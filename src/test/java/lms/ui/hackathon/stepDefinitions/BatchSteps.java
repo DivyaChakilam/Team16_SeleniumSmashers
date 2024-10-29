@@ -605,8 +605,8 @@ public class BatchSteps {
 
 	@Then("the changes should not be saved")
 	public void the_changes_should_not_be_saved() {
+		Assert.assertTrue(batchDetailsPage.isPopupClosedClose(), "The pop-up did not close as expected.");
 
-		//Assert.assertFalse(batchDetailsPage.isPopupClosedCancel(), " batch details popup closes without editing the batch");
 
 	}
 
