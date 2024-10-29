@@ -11,6 +11,7 @@ public class PageObjectManager {
 		public LoginPage loginPage;
 		public DashboardPage dashboardPage;
 		public BatchPage batchPage;
+		public BatchDetailsPage batchDetailsPage;
 		public ProgramPage programPage;
 		public ClassPage classPage;
 		public LogoutPage logoutPage;
@@ -26,13 +27,18 @@ public class PageObjectManager {
 
 		public DashboardPage getDashboardPage() {
 			if(dashboardPage == null)
-			dashboardPage = new DashboardPage(driver);
+				dashboardPage = new DashboardPage(driver);
 			return dashboardPage;
 		}
 
 		public BatchPage getBatchPage() {
 			batchPage = new BatchPage(driver);
 			return batchPage;
+		}
+		
+		public BatchDetailsPage getBatchDetailsPage() {
+			batchDetailsPage = new BatchDetailsPage(driver);
+			return batchDetailsPage;
 		}
 
 		public ProgramPage getProgramPage() {
