@@ -53,7 +53,7 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 		util.doClick(loginbutton);
 			
 	}
-	
+
 	// Dashboard page Title	
 	public String validateDashboardPageTitle() {
 		String dashboardpageTitle=driver.getTitle();
@@ -165,5 +165,6 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 	    }
 	 
 	 
+
 
 }

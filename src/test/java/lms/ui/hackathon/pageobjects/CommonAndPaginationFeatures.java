@@ -16,8 +16,9 @@ public class CommonAndPaginationFeatures {
 	protected By programMenu = By.xpath("//button/span[text()='Program']"); 
 	protected By batchMenu = By.xpath("//span[text()='Batch']/..");
 	protected By classMenu = By.xpath("//span[text()='Class']/..");
-	protected By logOutMenu = By.id("Logout");
-
+	//protected By logOutMenu = By.id("Logout");
+    
+	protected By logOutMenu = By.xpath("//span[normalize-space()='Logout']");
 	
 	//Multiple Delete Btn and Search Box
 	protected By multipleDeleteBtn = By.className("p-button-icon");
@@ -173,6 +174,11 @@ public class CommonAndPaginationFeatures {
 			return "Button not disabled";
 		}
 	}
-	
+
+	public LoginPage clickLogoutBtn() 
+	{
+		driver.findElement(logOutMenu).click();
+		return new LoginPage(driver);
+	}
 
 }

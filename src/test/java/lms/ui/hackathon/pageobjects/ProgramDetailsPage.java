@@ -19,8 +19,10 @@ public class ProgramDetailsPage {
 	private By cancelButton = By.xpath("//span[text()='Cancel']");
 	private By nameTextbox = By.id("programName");
 	private By descriptionTextbox = By.id("programDescription");
-	private By activeRadio = By.xpath("//input[@id='Active']");
-	private By inactiveRadio = By.xpath("//input[@id='Inactive']");
+	//private By activeRadio = By.xpath("//input[@id='Active']");
+	private By activeRadio = By.xpath("(//div[@class='p-radiobutton-box'])[1]");
+	//private By inactiveRadio = By.xpath("//input[@id='Inactive']");
+	private By inactiveRadio = By.xpath("(//div[@class='p-radiobutton-box'])[2]");
 	private By successMsg = By.xpath("//div[text()='Program Created Successfully']");
 	private By successEditMsg = By.xpath("//div[text()='Program Updated']");
 	
