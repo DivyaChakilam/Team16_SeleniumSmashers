@@ -337,7 +337,6 @@ public class ProgramSteps {
 	public void admin_should_see_the_module_names_as_in_order(String string) {
 		Boolean LMSheaderModules=programPage.verifyLMSHeadermodulesProgram();
 		Assert.assertEquals(true, LMSheaderModules);
-
 	}
 
 	@Then("Admin should see Logout in menu bar")

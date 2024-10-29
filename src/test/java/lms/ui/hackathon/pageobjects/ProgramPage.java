@@ -84,7 +84,10 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
 	private By searchResults = By.xpath("//table/tbody/tr");
 
-
+	 private By LMSHeadermodulesProgram = By.xpath("//div[@class='ng-star-inserted']/button[1]");
+	    private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
+	    private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
+	    private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
 
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -368,5 +371,13 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return util.getElement(programPageSearchResult) != null ? true:false;
 	}
 
+	public Boolean verifyLMSHeadermodulesProgram(){
+		return util.getElement(LMSHeadermodulesProgram).getText().equals("Program")&&
+				util.getElement(LMSHeadermodulesBatch).getText().equals("Batch")&&
+				util.getElement(LMSHeadermodulesClass).getText().equals("Class")&&
+				util.getElement(LMSHeadermodulesLogout).getText().equals("Logout");
+				
+				
+	}
 
 }

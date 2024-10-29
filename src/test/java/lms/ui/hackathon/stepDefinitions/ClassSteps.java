@@ -120,13 +120,13 @@ public class ClassSteps {
 	}
 	@When("Admin clicks on delete button for a class")
 	public void admin_clicks_on_delete_button_for_a_class() {
-		classPage.searchText(batchName);
-		programPage.clickDeleteBtnForProgram(batchName);
+		classPage.searchText(batchName);//replace it with class name
+		programPage.clickDeleteBtnForProgram(batchName); //replace it with class name
 	}
 
 	@When("Admin Searches for Deleted Class name")
 	public void admin_searches_for_deleted_class_name() {
-		classPage.searchText(batchName);
+		classPage.searchText(batchName); //replace it with class name
 
 	}
 

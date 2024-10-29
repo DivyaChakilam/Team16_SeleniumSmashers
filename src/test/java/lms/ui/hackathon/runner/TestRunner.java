@@ -12,9 +12,9 @@ import lms.ui.hackathon.configs.ConfigLoader;
 @CucumberOptions(features = "src/test/resources/Features/", 
 		glue = {"lms.ui.hackathon.stepDefinitions"},
 
-		 tags="@DeleteClass1",
+		 tags="@Class",
 
-		 dryRun=false
+		 dryRun=true
 		/*plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
 
 				"junit:target/Cucumber.xml",
