@@ -27,6 +27,9 @@ public class ClassSteps {
 	
 	SoftAssert softAssert;
 	
+	String batchName = "postman662";
+
+	
 	public ClassSteps(TestContextSetUp testContextSetup) {
 		this.testContextSetup = testContextSetup;
 		programPage=testContextSetup.pageObjManager.getProgramPage();
@@ -93,6 +96,38 @@ public class ClassSteps {
 		System.out.println(classDetailsPage.getEnteredDateValueInEditBox());;
 
 	}
+	
+	@When("Admin clicks {string} link on the class table")
+	public void admin_clicks_link_on_the_class_table(String page) {
+		switch (page) {
+		case "Next page":
+			classPage.goToNextPage();
+			break;
+		case "Last page":
+			classPage.goToLastPage();
+			break;
+		case "Previous page":
+			classPage.goToPreviousPage();
+			break;
+		case "First page":
+			classPage.goToFirstPage();
+			break;
+		}	}
 
+	@Given("Admin is on last page of class module table")
+	public void admin_is_on_last_page_of_class_module_table() {
+		classPage.goToLastPage();
+	}
+	@When("Admin clicks on delete button for a class")
+	public void admin_clicks_on_delete_button_for_a_class() {
+		classPage.searchText(batchName);//replace it with class name
+		programPage.clickDeleteBtnForProgram(batchName); //replace it with class name
+	}
+
+	@When("Admin Searches for Deleted Class name")
+	public void admin_searches_for_deleted_class_name() {
+		classPage.searchText(batchName); //replace it with class name
+
+	}
 
 }

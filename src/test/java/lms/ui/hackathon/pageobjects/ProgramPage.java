@@ -27,6 +27,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	List<String> descendingOrderList = new ArrayList<String>();
 	public String successMessage;
 	List<String> selectedProgramNames = new ArrayList<>();
+	boolean isValid = true ;
 
 	/*******************************By Locators****************************************/
 	private By userLoc = By.id("username");
@@ -73,20 +74,21 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By headercheckbox = By.xpath("//thead//div[@role='checkbox']");
 	private By programCheckboxes = By.xpath("//div[contains(@class,'p-checkbox-box') and contains(@class,'p-component')]");
 
-    private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
-    private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
-    private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
-    
-    private By addNewProgramBtn = By.xpath("//button[text()='Add New Program']");
-    
-    private By firstProgramEditButton = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')][1]");
-    private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
-    private By LMSHeadermodulesProgram = By.xpath("//div[@class='ng-star-inserted']/button[1]");
-    private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
-    private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
-    private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
-    
-    private By totalRecords = By.xpath("//app-root/app-program[@class='ng-star-inserted']//mat-card/mat-card-content[@class='mat-card-content']/p-table/div/div[2]/div[.=' In total there are 27 programs. ']");
+	private By ProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
+	private By ProgramDescriptionSortIcon = By.xpath("//th[@psortablecolumn='programDescription']/p-sorticon");
+	private By ProgramStatusSortIcon = By.xpath("//th[@psortablecolumn='programStatus']/p-sorticon");
+
+	private By addNewProgramBtn = By.xpath("//button[text()='Add New Program']");
+
+	private By firstProgramEditButton = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')][1]");
+	private By programPageSearchResult = By.xpath("//*[contains(text(), 'Showing 1')]");
+	private By searchResults = By.xpath("//table/tbody/tr");
+
+	 private By LMSHeadermodulesProgram = By.xpath("//div[@class='ng-star-inserted']/button[1]");
+	    private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
+	    private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
+	    private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
+
 	public ProgramPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -113,23 +115,23 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	util.doClick(loginButton); //driver.findElement(loginButton).click();
 	}
 
-	
-//	  public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
-//	  //driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
-//	  //driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-//	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
-//	  
-//	  util.doClick(loginButton); //driver.findElement(loginButton).click();
-//	  try {
-//		Thread.sleep(2000);
-//	} catch (InterruptedException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//	  
-//	  
-//	  }
-	 
+
+	//	  public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
+	//	  //driver.findElement(userLoc).sendKeys("Sdet@gmail.com");
+	//	  //driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
+	//	  util.doSendKeys(passwordLoc, "LmsHackathon@2024");
+	//	  
+	//	  util.doClick(loginButton); //driver.findElement(loginButton).click();
+	//	  try {
+	//		Thread.sleep(2000);
+	//	} catch (InterruptedException e) {
+	//		// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	}
+	//	  
+	//	  
+	//	  }
+
 	public void clickProgram() throws InterruptedException {
 
 		Actions action = new Actions(driver);
@@ -185,6 +187,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 
 	public boolean verifyPopupIsAppeared() {
 		return driver.findElement(confirmPopUp).isDisplayed();
+
 	}
 	public void clickYes() {
 		driver.findElement(yesButtonLoc).click();
@@ -324,38 +327,57 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
 	}
-	
-public ProgramDetailsPage goToAddNewProgramPage() {
-	System.out.println("In goToAddNewProgramPage");
+
+	public ProgramDetailsPage goToAddNewProgramPage() {
+		System.out.println("In goToAddNewProgramPage");
 		util.doClick(addNewProgramBtn);
 		return new ProgramDetailsPage(driver);
 	}
-public void searchText(String text)
-{
-	util.getElement(searchBox).sendKeys(text);
-}
-public void editFirstProgram()
-{
-	Actions action = new Actions(driver);
-	waitForElementToBeVisible(firstProgramEditButton);
-	WebElement editButton = driver.findElement(firstProgramEditButton);
-	
-	action.doubleClick(editButton).perform();
-	
-}
-public boolean verifySearchResult()
-{
-	return util.getElement(programPageSearchResult) != null ? true:false;
-}
-public Boolean verifyLMSHeadermodulesProgram(){
-	return util.getElement(LMSHeadermodulesProgram).getText().equals("Program")&&
-			util.getElement(LMSHeadermodulesBatch).getText().equals("Batch")&&
-			util.getElement(LMSHeadermodulesClass).getText().equals("Class")&&
-			util.getElement(LMSHeadermodulesLogout).getText().equals("Logout");
-			
-			
-}
-public void 
+	public void searchText(String text)
+	{
+		util.getElement(searchBox).sendKeys(text);
+	}
 
+	public List<WebElement> getSearchResults() {
+		// Locate the rows in the search results table
+		return driver.findElements(searchResults); 
+	}
+	public boolean validateSearchResults(List<WebElement> searchResults, String programName2, String programDescription2, String programPartialName2)
+	{
+
+		for (WebElement row : searchResults) {
+			String programName = row.findElement(By.xpath("td[1]")).getText(); // Adjust based on actual column
+			String description = row.findElement(By.xpath("td[2]")).getText(); // Adjust based on actual column
+			String status = row.findElement(By.xpath("td[3]")).getText(); // Adjust based on actual column
+
+			if (!programName.contains(programName2) && !description.contains(programDescription2)) {
+				System.out.println("Unexpected result: " + programName + ", " + description + ", " + status);
+				isValid = false;
+			}
+		}
+		return isValid;
+	}
+	public void editFirstProgram()
+	{
+		Actions action = new Actions(driver);
+		waitForElementToBeVisible(firstProgramEditButton);
+		WebElement editButton = driver.findElement(firstProgramEditButton);
+
+		action.doubleClick(editButton).perform();
+
+	}
+	public boolean verifySearchResult()
+	{
+		return util.getElement(programPageSearchResult) != null ? true:false;
+	}
+
+	public Boolean verifyLMSHeadermodulesProgram(){
+		return util.getElement(LMSHeadermodulesProgram).getText().equals("Program")&&
+				util.getElement(LMSHeadermodulesBatch).getText().equals("Batch")&&
+				util.getElement(LMSHeadermodulesClass).getText().equals("Class")&&
+				util.getElement(LMSHeadermodulesLogout).getText().equals("Logout");
+				
+				
+	}
 
 }

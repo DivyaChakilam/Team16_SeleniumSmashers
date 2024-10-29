@@ -132,11 +132,9 @@ Background: Admin Login
     When Admin clicks "First page" link on the program table
     Then Admin should see the very first page record on the table with Previous page link are disabled
     
-    
-    #-------
   @tag17 @Navigation
   Scenario: Verify that Admin is able to navigate to Program module
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should be navigated to Program module
    
  # @tag18 @MenuBar
@@ -146,69 +144,69 @@ Background: Admin Login
    
   @tag19 @MenuBar
   Scenario: Verify heading in menu bar
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see the heading "LMS - Learning Management System"
 
   @tag20 @MenuBar
   Scenario: Verify other module's name displayed in menu bar
    When Admin clicks Program "Program" on the navigation bar
    Then Admin should see the module names as in order "Program Batch Class Logout"
-   
+
   @tag21 @MenuBar
   Scenario: Verify Logout displayed in menu bar
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see Logout in menu bar
    
   @tag22 @MenuBar
   Scenario: Verify sub menu displayed in program menu bar
    Given Admin is on program page
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see sub menu in menu bar as "Add New Program"
    
     @tag23 @ManageProgramPagevalidation
   Scenario: Verify heading in manage program
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see the heading "Manage Program"
    
    @tag24 @ManageProgramPagevalidation
    Scenario: Verify view details of programs
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should able to see Program name, description, and status for each program
    
    
    @tag25 @ManageProgramPagevalidation
    Scenario: Verify the Multiple Delete button state 
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see a Delete button in left top is disabled
    
    @tag26 @ManageProgramPagevalidation
    Scenario: Verify the Search button 
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see Search bar with text as "Search..."
    
     @tag27 @ManageProgramPagevalidation
    Scenario: Verify column header name of data table
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit/Delete
 
    @tag28 @ManageProgramPagevalidation
    Scenario: Verify checkbox default state beside Program Name column header
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see checkbox default state as unchecked beside Program Name column header as 
    
    @tag29 @ManageProgramPagevalidation
    Scenario: Verify checkboxes default state beside each Program names in the data table 
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see check box default state as unchecked on the left side in all rows against program name 
    
    @tag30 @ManageProgramPagevalidation
    Scenario: Verify Sort icon in manage program
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see the sort arrow icon beside to each column header except Edit and Delete 
    
    @tag31 @ManageProgramPagevalidation
    Scenario: Verify edit and delete icon in manage program
-   When Admin clicks Program "Program" on the navigation bar
+   When Admin clicks "Program" on the navigation bar
    Then Admin should see the Edit and Delete buttons on each row of the data table
    
   # @tag32 @ManageProgramPagevalidation
@@ -364,44 +362,3 @@ Background: Admin Login
    When Admin Click on "X" button
    Then Admin can see program details form disappear
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-   
-   
-   
-   
-   
-
-   
-
-
-
-
-
-
-   
-
-
-      
-    
-    
-    
-
-    
