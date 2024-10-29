@@ -3,24 +3,21 @@ package lms.ui.hackathon.pageobjects;
 import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import lms.ui.hackathon.utilities.ElementUtil;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import static org.testng.Assert.assertEquals;
+
 
 public class BatchPage extends CommonAndPaginationFeatures {
+
+	public String deltedBatch;
 
 	private WebDriver driver;
 	private ElementUtil util;
 
 	// Batch Page Navigation
-
-	private By userLoc = By.id("username");
-	private By passwordLoc = By.id("password");
-	private By loginButton = By.xpath("//span[@class='mat-button-wrapper']");
 
 	// Batch Page Validation
 
@@ -51,19 +48,23 @@ public class BatchPage extends CommonAndPaginationFeatures {
 	private By batchEditSuccessMsg = By.xpath("//div[text()='batch Updated']");
 	private By batchProgramNameTextBox = By.xpath("//p-dropdown[@id='programName']");
 
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
+	private By closebtn = By.id("close-button");
+	private By dltbtn = By
+			.xpath("//button[contains(@class,'p-button-danger p-button p-component p-button-icon-only')]");
+	private By checkboxlist = By.xpath("//table/tbody/tr//div[@role='checkbox']");
+	private By editicons = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
+	private By alertbox = By.xpath("/html/body/app-root/app-batch/p-confirmdialog/div/div')]");
+
 	public BatchPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		util = new ElementUtil(this.driver);
 	}
 
-	public void login() {
-		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
-		util.doSendKeys(userLoc, "Sdet@gmail.com");
-		driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");
-		util.doClick(loginButton);
 
-	}
+
 
 	public boolean ischeckBoxDisplayedForEachRow() {
 
@@ -186,35 +187,117 @@ public class BatchPage extends CommonAndPaginationFeatures {
 	public boolean isPopupEditDisplayed() {
 		return util.isElementDisplayed(editBatchPopup);
 	}
-	
-    public boolean isProgramNameFieldDisabled() {
-    
-    	Boolean isContentEditable=util.isEditablefield(batchProgramNameTextBox);
-        return !isContentEditable;
-    }
-  
-    public boolean isBatchNameFieldDisabled() {
-    	Boolean isContentEditable=util.isEditablefield(editBatchNamePopup);
-    	
-        return !isContentEditable; 
-    }
-    
-    public String getBatchEditDescriptionError() throws InterruptedException {
-    	Thread.sleep(2000);
-    	System.out.println(util.getElementText(editBatchDescPopupErrMsg));
 
-        return util.getElementText(editBatchDescPopupErrMsg);
-    }
+	public boolean isProgramNameFieldDisabled() {
 
-    public String getEditNoOfClassesError() throws InterruptedException {
-    	Thread.sleep(2000);
-    	System.out.println(util.getElementText(editBatchNoOfClassPopupErrMsg));
-        return util.getElementText(editBatchNoOfClassPopupErrMsg);
-    }
-    
+		Boolean isContentEditable = util.isEditablefield(batchProgramNameTextBox);
+		return !isContentEditable;
+	}
+
+	public boolean isBatchNameFieldDisabled() {
+		Boolean isContentEditable = util.isEditablefield(editBatchNamePopup);
+
+		return !isContentEditable;
+	}
+
+	public String getBatchEditDescriptionError() throws InterruptedException {
+		Thread.sleep(2000);
+		System.out.println(util.getElementText(editBatchDescPopupErrMsg));
+
+		return util.getElementText(editBatchDescPopupErrMsg);
+	}
+
+	public String getEditNoOfClassesError() throws InterruptedException {
+		Thread.sleep(2000);
+		System.out.println(util.getElementText(editBatchNoOfClassPopupErrMsg));
+		return util.getElementText(editBatchNoOfClassPopupErrMsg);
+	}
 
 	public boolean isBatchEditSuccessfully() {
 		return util.isElementPresent(batchEditSuccessMsg);
 	}
+	
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
+
+	public void deleteenable() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(deleteIcons).isEnabled());
+
+	}
+
+	public void clickdelete() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		driver.findElement(deleteIcons).click();
+
+	}
+
+	public void alertwindow() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void Deletehasoptionyes() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void Deletehasoptionno() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void ClickDeleteYesBtn() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void BatchdeleteSucessAlert() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clicknextpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clicklastpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clickpreviouspage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void clickfirstpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
 
 }
