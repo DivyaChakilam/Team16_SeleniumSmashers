@@ -1,3 +1,89 @@
+
+  Feature: Delete batch feature
+
+  Background: Logged on the LMS portal
+   Given Admin is on Dashboard Page
+
+Scenario: Validate delete Icon on any row
+  Given Admin clicks "Batch" from navigation bar
+  And Admin is on Batch Page
+  When Admin clicks the delete Icon on any row
+Then Admin should see the confirm alert box with yes and no button
+
+
+Scenario:Validate yes button on the confirm alert box
+Given User is on the batch page for the confirm alert box
+When User clicks on the delete icon and click yes buttton
+Then User should see the successfull message and the batch should be deleted
+
+
+Scenario:validate no button on the confirm alert box
+Given User is on the batch confirm popup page
+When User clicks on the delete icon and click no buttton
+Then User should see the alert box closed and the batch is not deleted
+
+
+Scenario:validate close Icon on the alert box
+  Given User is on the batch confirm popup page
+  When User clicks on the close icon
+  Then User should be able to see the alert box closed
+
+
+
+
+    Scenario: Check for single row delete
+      Given One of the checkbox row is selected for batch
+      When Click delete icon below "Manage Batch" header for batch
+      Then The respective row in the data table is deleted for batch
+
+
+
+    Scenario: Check for multi row delete
+      Given Two or more checkboxes/row is selected for batch
+      When Click delete icon below "Manage Batch" header for multiple rows for batch
+      Then The respective rows in the data table are deleted for batch
+
+
+    Scenario:Validate next page link
+Given User is landed on the batch page
+When User landed on the next page link on the data table
+Then User should see the Next enabled link
+
+
+Scenario:validate last page link
+Given User clicks last page link on the data table
+When you clicks last page link on the data table
+Then User should see the last page link with next page link disabled on the table
+
+
+Scenario:user should see the last page link with next page link disabled on the table
+Given user is on the batch page
+When user clicks backward page link on the data table
+Then user should see the previous page on the table
+
+
+Scenario:validate the first page link
+Given user landed on the batch page
+When user clicks first page link on the data table
+Then user should see the very first page on the data table
+
+
+
+
+Scenario:validate search box functionality
+Given User is on the batch page
+When User enters the batch name in the serach text box
+Then User should see the filtered batches in the data table
+
+
+Scenario:Validate logout option in the header is visible and enabled from the batch page
+Given User is on the batch page
+When User clicks on the logout button
+Then User should see the Login screen Page
+
+
+
+
 @BatchPage
 Feature: Batch Page Functionality Verification
 
@@ -169,3 +255,4 @@ Feature: Batch Page Functionality Verification
     Given User editing a batch to Validate Cancel button
     When User click on the Cancel button after editing
     Then the changes should not be saved
+
