@@ -13,6 +13,7 @@ import lms.ui.hackathon.configs.CommonConfigs;
 import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.ProgramDetailsPage;
 import lms.ui.hackathon.pageobjects.ProgramPage;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 import lms.ui.hackathon.utilities.Utils;
 
@@ -23,9 +24,9 @@ public class ProgramSteps {
 	public ProgramDetailsPage programDetailsPage;
 	String programNameDeleted = "";
 	String invalidProgramName = "ljf5@1";
-	String programName = "SDETNew";
-	String programDescription = "SDETNew";
-	String ProgramPartialName = "SDET";
+//	String programName = "SDETNew";
+//	String programDescription = "SDETNew";
+	String partialProgramName = "";
 	List<String> originalList = new ArrayList<String>();
 	List<String> sortedList = new ArrayList<String>();
 	List<String> selectedProgramList = new ArrayList<String>();
@@ -53,11 +54,6 @@ public class ProgramSteps {
 
 	@When("Admin clicks on delete button for a program")
 	public void admin_clicks_on_delete_button_for_a_program() {
-		/*
-		 * programPage.searchText(programName);
-		 * programPage.clickDeleteBtnForProgram(programName);
-		 */
-		
 		programPage.searchText(CommonConfigs.getProgramCreated());
 		programPage.clickDeleteBtnForProgram(CommonConfigs.getProgramCreated());
 	}
@@ -73,6 +69,7 @@ public class ProgramSteps {
 		switch (option) {
 		case "yes":
 			// programPage.clickYes();
+			programNameDeleted = ProgramDetailsPage.getProgramName();
 			break;
 		case "no":
 			programPage.clickNo();
@@ -150,6 +147,7 @@ public class ProgramSteps {
 		String option = programColumns.toLowerCase().trim();
 		switch (option) {
 		case "programname":
+
 			programPage.searchText(CommonConfigs.getProgramCreated());
 			break;
 		case "ProgramDescription":
@@ -166,8 +164,8 @@ public class ProgramSteps {
 		List<WebElement> searchResults = programPage.getSearchResults();
 		// Check if results are found
 		Assert.assertFalse(searchResults.isEmpty(), "No search results found!");
-		boolean isValid = programPage.validateSearchResults(searchResults, programName, programDescription,
-				ProgramPartialName);
+		boolean isValid = programPage.validateSearchResults(searchResults, CommonConfigs.getProgramCreated(), CommonConfigs.getProgramDesCreated(),
+				"");
 		Assert.assertTrue(isValid, "Search results do not match expected criteria for: " + searchoption);
 	}
 
@@ -176,39 +174,6 @@ public class ProgramSteps {
 		programPage.searchText(invalidProgramName);
 	}
 
-	// @When("Admin clicks on Arrow next to {string}")
-	// public void admin_clicks_on_arrow_next_to(String columnName) {
-	// //String option = programColumns.toLowerCase();
-	// switch (columnName) {
-	// case "Program Name":
-	// originalList= programPage.clickSortIcon(2,columnName);;
-	// break;
-	// case "Program Description":
-	// originalList= programPage.clickSortIcon(3,columnName);
-	// break;
-	// case "Program Status" :
-	// originalList= programPage.clickSortIcon(4,columnName);
-	// break;
-	// }
-	// for(String str:originalList)
-	// {
-	// System.out.println("originalList for " +columnName+ " : " +str);
-	// }
-	//
-	// }
-	//
-	// @Then("Admin See the {string} is sorted in Ascending order\\/Descending
-	// order")
-	// public void
-	// admin_see_the_is_sorted_in_ascending_order_descending_order(String
-	// columnName) {
-	// sortedList = programPage.getSortedList();
-	// for(String str:sortedList)
-	// {
-	// System.out.println("sortedList" +str);
-	// }
-	// Assert.assertTrue(originalList.equals(sortedList));
-	// }
 
 	@When("Admin clicks on Arrow next to {string} to sort in asc")
 	public void admin_clicks_on_arrow_next_to_to_sort_in_asc(String columnName) {
@@ -226,15 +191,16 @@ public class ProgramSteps {
 			break;
 		}
 		for (String str : originalList) {
-			System.out.println("originalList for " + columnName + " : " + str);
+			LoggerLoad.info("originalList for " + columnName + " : " + str);
 		}
 	}
 
 	@Then("Admin See the {string} is sorted in Ascending order")
 	public void admin_see_the_is_sorted_in_ascending_order(String columnName) {
 		sortedList = programPage.get_Ascending_Order_List();
+
 		for (String str : sortedList) {
-			System.out.println("sortedList : " + str);
+			LoggerLoad.info("sortedList : " + str);
 		}
 		Assert.assertTrue(originalList.equals(sortedList));
 	}
@@ -255,16 +221,20 @@ public class ProgramSteps {
 			originalList = programPage.getOriginalList(4);
 			break;
 		}
-		for (String str : originalList) {
-			System.out.println("originalList for " + columnName + " : " + str);
+		for(String str:originalList)
+		{
+			LoggerLoad.info("originalList for " +columnName+ " : " +str);
+
 		}
 	}
 
 	@Then("Admin See the {string} is sorted in Descending order")
 	public void admin_see_the_is_sorted_in_descending_order(String string) {
 		sortedList = programPage.get_Descending_Order_List();
-		for (String str : sortedList) {
-			System.out.println("sortedList : " + str);
+		for(String str:sortedList)
+		{
+			LoggerLoad.info("sortedList : " +str);
+
 		}
 		Assert.assertTrue(originalList.equals(sortedList));
 	}
@@ -311,13 +281,20 @@ public class ProgramSteps {
 	public void admin_should_see_the_very_first_page_record_on_the_table_with_previous_page_link_are_disabled() {
 		Assert.assertEquals(!programPage.ispreviousPageActive(), true);
 	}
-
-	@When("Admin clicks Program {string} on the navigation bar")
+	
+//	@When("Admin clicks Program {string} on the navigation bar")
+//	public void admin_clicks_Program_on_the_navigation_bar(String menuName) throws Exception {
+//		LoggerLoad.info("Admins Clicks " + menuName);
+//		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
+//	}
+	
+	@When("Admin clicks {string} on the navigation bar")
 	public void admin_clicks_Program_on_the_navigation_bar(String menuName) throws Exception {
-		System.out.println("Admins Clicks " + menuName);
+		LoggerLoad.info("Admins Clicks " + menuName);
 		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
 	}
-
+	
+	
 	@Then("Admin should be navigated to Program module")
 	public void admin_should_be_navigated_to_program_module() {
 		boolean inPorgramPage = programPage.isInProgramPage();
@@ -369,16 +346,9 @@ public class ProgramSteps {
 
 	@Then("Admin should see a Delete button in left top is disabled")
 	public void admin_should_see_a_delete_button_in_left_top_is_disabled() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		Assert.assertEquals(programPage.isButtonDisabled(), false);
 	}
-
-	@Then("Admin should see Search bar with text as {string}")
-	public void admin_should_see_search_bar_with_text_as(String string) {
-		boolean searchbar = programPage.verifySearchbar();
-		Assert.assertEquals(searchbar, true);
-	}
-
+ 
 	@Then("Admin should see data table with column header on the Manage Program Page as  Program Name, Program Description, Program Status, Edit\\/Delete")
 	public void admin_should_see_data_table_with_column_header_on_the_manage_program_page_as_program_name_program_description_program_status_edit_delete() {
 		boolean verifyheader = programPage.verifyProgramHeader();
@@ -434,14 +404,14 @@ public class ProgramSteps {
 	@Then("Admin should see window title as {string}")
 	public void admin_should_see_window_title_as(String string) {
 		String title = programDetailsPage.getProgramDetailsTitle();
-		System.out.println("title is " + title);
+		LoggerLoad.info("title is " + title);
 		Assert.assertEquals(string, title);
 	}
 
 	@Then("Admin should see red {string} mark beside mandatory field {string}")
 	public void admin_should_see_red_mark_beside_mandatory_field(String string, String string2) {
 		String nameMandatoryText = programDetailsPage.ProgramDetailsNameMandatoryText();
-		System.out.println("nameMandatoryText is " + nameMandatoryText);
+		LoggerLoad.info("nameMandatoryText is " + nameMandatoryText);
 		Assert.assertEquals(string, nameMandatoryText);
 	}
 
@@ -480,14 +450,14 @@ public class ProgramSteps {
 
 	@When("Admin enters the Name {string} in the text box")
 	public void admin_enters_the_in_the_text_box(String value) {
-		System.out.println("string is " + value);
+		LoggerLoad.info("string is " + value);
 		programDetailsPage.SendKeys("Name", value);
 	}
 
 	@Then("Admin can see the text entered")
 	public void admin_can_see_the_text_entered() {
 		String name = programDetailsPage.getProgramNameText();
-		System.out.println("admin_can_see_the_text_entered " + name);
+		LoggerLoad.info("admin_can_see_the_text_entered " + name);
 
 		Assert.assertEquals(name != null, true);
 	}
@@ -506,21 +476,21 @@ public class ProgramSteps {
 
 	@When("Admin selects the status of the program by clicking on the radio {string} button {string}")
 	public void admin_selects_the_status_of_the_program_by_clicking_on_the_radio_button(String option, String string2) {
-		System.out.println("admin_selects_the_status_of_the_program_by_clicking_on_the_radio_button " + option);
+		LoggerLoad.info("admin_selects_the_status_of_the_program_by_clicking_on_the_radio_button " + option);
 		programDetailsPage.SendKeys(option, "");
 	}
 
 	@Then("Admin can see {string} status selected")
 	public void admin_can_see_status_selected(String option) {
-		System.out.println("admin_can_see_the_text_entered-option " + option);
+		LoggerLoad.info("admin_can_see_the_text_entered-option " + option);
 		if (option.equals("Active")) {
 			String name = programDetailsPage.getProgramActiveText();
-			System.out.println("admin_can_see_the_text_entered " + name);
+			LoggerLoad.info("admin_can_see_the_text_entered " + name);
 
 			Assert.assertEquals(name != null, true);
 		} else {
 			String name = programDetailsPage.getProgramInActiveText();
-			System.out.println("admin_can_see_the_text_entered1 " + name);
+			LoggerLoad.info("admin_can_see_the_text_entered1 " + name);
 
 			Assert.assertEquals(name != null, true);
 
@@ -535,7 +505,7 @@ public class ProgramSteps {
 		add_programDescription = description.trim();
 		add_programStatus = status.trim();
 
-		System.out.println(
+		LoggerLoad.info(
 				"name " + add_programName + ",description " + add_programDescription + ",option " + add_programStatus);
 		programPage = programDetailsPage.ProgramSave(add_programName, add_programDescription, add_programStatus);
 
@@ -573,7 +543,7 @@ public class ProgramSteps {
 	public void records_of_the_newly_created_program_is_displayed_and_match_the_data_entered() {
 		
 		if (programPage.doesTableRowsExists()) {
-			System.out.println("Table rows exists");
+			LoggerLoad.info("Table rows exists");
 			Assert.assertTrue(programPage.validateProgramDetailsInSearchResult(programPage.getSearchResults(),
 					CommonConfigs.getProgramCreated(), CommonConfigs.getProgramDesCreated(), CommonConfigs.getProgramStatusCreated()));
 			;
@@ -594,7 +564,7 @@ public class ProgramSteps {
 	public void admin_lands_on_program_details_form() {
 
 		String title = programDetailsPage.getProgramDetailsTitle();
-		System.out.println("title is " + title);
+		LoggerLoad.info("title is " + title);
 		Assert.assertEquals(title, "Program Details");
 	}
 
@@ -661,7 +631,8 @@ public class ProgramSteps {
 		programPage.editFirstProgram();
 		editedName = programDetailsPage.editName();
 		programDetailsPage.clickProgramDetailsSave();
-		System.out.println("editedName ->" + editedName);
+		LoggerLoad.info("editedName ->"+editedName);
+
 		programPage.searchText(editedName);
 	}
 

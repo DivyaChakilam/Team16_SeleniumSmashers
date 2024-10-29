@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class BatchDetailsPage {
 
@@ -68,7 +69,8 @@ public class BatchDetailsPage {
 
 	public String getBatchNameText()
 	{
-		System.out.println("Batch Name ->"+util.getElement(batchNameTextBox).getAttribute("value"));
+
+		LoggerLoad.info("Batch Name ->"+util.getElement(batchNameTextBox).getAttribute("value"));
 		return util.getElement(batchNameTextBox).getAttribute("value");
 	}
 	
@@ -112,10 +114,10 @@ public class BatchDetailsPage {
 
 	public boolean ValidateAddBtachFields() {
 		if (batchNameCode != null && batchNameTextField != null && batchDescTextBox != null) {
-			System.out.println("All required text box fields are present in the pop-up dialog.");
+			LoggerLoad.info("All required text box fields are present in the pop-up dialog.");
 			return true;
 		} else {
-			System.out.println("Some fields are missing in the pop-up dialog.");
+			LoggerLoad.info("Some fields are missing in the pop-up dialog.");
 			return false;
 		}
 	}
@@ -202,8 +204,8 @@ public class BatchDetailsPage {
 			util.doClick(saveBatchBtn);
 			//return new BatchPage(driver);
 		} catch (Exception e) {
-			System.out.println("Failed to click on the Save button: " + e.getMessage());
-			//throw new Exception("Failed to click on Save Button on Batch Details Page");
+			LoggerLoad.info("Failed to click on the Save button: " + e.getMessage());
+
 		}
 	}
 	

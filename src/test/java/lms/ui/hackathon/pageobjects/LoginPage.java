@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import numpy.seleniumsmasher.lms.constants.AppConstants;
 
 public class LoginPage {
@@ -103,7 +104,7 @@ public class LoginPage {
 			WebElement test = driver.findElement(usercolor);
 			String s = test.getCssValue("color");
 
-			System.out.println("Color is :" + s);
+			LoggerLoad.info("Color is :" + s);
 
 		      return s;
 		}
@@ -112,7 +113,7 @@ public class LoginPage {
 			WebElement test = driver.findElement(passwordcolor);
 			String s = test.getCssValue("color");
 
-			System.out.println("Color is :" + s);
+			LoggerLoad.info("Color is :" + s);
 
 		      return s;
 		}
@@ -120,18 +121,18 @@ public class LoginPage {
 
 		public String getLoginErrorMgs() {
 			if (driver.findElement(errorMessage).isDisplayed()) {
-				System.out.println("Expected error message 'invalid credentials' element exists");
+				LoggerLoad.info("Expected error message 'invalid credentials' element exists");
 				return driver.findElement(errorMessage).getText().trim();
 			} else if (driver.findElement(errorMessage1).isDisplayed()) {
-				System.out.println("Expected error message 'Enter username' element exists");
+				LoggerLoad.info("Expected error message 'Enter username' element exists");
 				return driver.findElement(errorMessage1).getText().trim();
 			} else if (driver.findElement(errorMessage2).isDisplayed()) {
-				System.out.println("Expected error message 'Enter password' element exists");
+				LoggerLoad.info("Expected error message 'Enter password' element exists");
 				return driver.findElement(errorMessage1).getText().trim();
 			}
 
 			else {
-				System.out.println("Expected error message element not exists");
+				LoggerLoad.info("Expected error message element not exists");
 				return null;
 			}
 		}
@@ -150,12 +151,12 @@ public class LoginPage {
 
 
 		public Object clickOnloginButton() throws Exception {
-			System.out.println("Inside login button function");
+			LoggerLoad.info("Inside login button function");
 			driver.findElement(loginbutton).click();
 			Thread.sleep(1000);
 			int errorMsgSize = driver.findElements(By.xpath("//mat-error")).size();
 			if(errorMsgSize>0) {
-				System.out.println("Error msg has been found after clicking login");
+				LoggerLoad.info("Error msg has been found after clicking login");
 				return getLoginErrorMgs(); //String
 			}else return new DashboardPage(driver); //DashboardPage reference
 		}

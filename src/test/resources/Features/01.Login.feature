@@ -43,7 +43,7 @@ Feature: Login Page Verification
      #| sdet@gmail.com |            | Please enter your password    |
      #|            |             | Please enter username and password Please try again |
 
-	#@login_positive
+	@login_positive
   Scenario Outline: Validate login with valid credentials by clicking Login button through Keypad
     When Admin enters valid credentials '<Uname>' and '<Pwd>' and clicks login button through keypad
     Then Admin should land on dashboard page

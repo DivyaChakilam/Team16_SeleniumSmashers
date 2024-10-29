@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import lms.ui.hackathon.pageobjects.BatchDetailsPage;
 import lms.ui.hackathon.pageobjects.BatchPage;
 import lms.ui.hackathon.pageobjects.DashboardPage;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 
 public class BatchSteps {
@@ -259,7 +260,6 @@ public class BatchSteps {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@When("User inputs {string}, {string}, {string}, {string}, and {string}")
@@ -277,7 +277,6 @@ public class BatchSteps {
 
 	@Then("User should be able to save successfully")
 	public void user_should_be_able_to_save_successfully() throws Exception {
-
 		batchDetailsPage.clickSaveButton();
 		Thread.sleep(3000);
 		Assert.assertTrue(batchDetailsPage.isBatchCreatedSuccessfully());

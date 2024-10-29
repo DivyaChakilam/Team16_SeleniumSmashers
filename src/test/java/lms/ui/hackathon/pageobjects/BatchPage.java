@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import org.openqa.selenium.interactions.Actions;
 import static org.testng.Assert.assertEquals;
 
@@ -13,7 +14,6 @@ import static org.testng.Assert.assertEquals;
 public class BatchPage extends CommonAndPaginationFeatures {
 
 	public String deltedBatch;
-
 	private WebDriver driver;
 	private ElementUtil util;
 
@@ -98,49 +98,49 @@ public class BatchPage extends CommonAndPaginationFeatures {
 	}
 
 	public boolean IsEditIconsDisplayed() {
-		boolean allEditIconsDisplayed = true;
-		List<WebElement> editiconsList = driver.findElements(editIcons);
-		for (WebElement editIcon : editiconsList) {
-			if (!editIcon.isDisplayed()) {
-				System.out.println("Edit icon is not Displayed: " + editIcon.getText());
-				allEditIconsDisplayed = false;
-			}
-		}
-		return allEditIconsDisplayed;
-	}
-
+        boolean allEditIconsDisplayed = true;
+    	List<WebElement> editiconsList = driver.findElements(editIcons);
+		for (WebElement editIcon: editiconsList) {
+            if (!editIcon.isDisplayed()) {
+                LoggerLoad.info("Edit icon is not Displayed: " + editIcon.getText());
+                allEditIconsDisplayed = false;
+            }
+        }
+        return allEditIconsDisplayed;
+    }
+    
 	public boolean IsdeleteIconsDisplayed() {
-		boolean alldeleteIconsDisplayed = true;
-		List<WebElement> deleteIconsList = driver.findElements(deleteIcons);
-		for (WebElement deleteIcon : deleteIconsList) {
-			if (!deleteIcon.isDisplayed()) {
-				System.out.println("Delete icon is not Displayed: " + deleteIcon.getText());
-				alldeleteIconsDisplayed = false;
-			}
-		}
-		return alldeleteIconsDisplayed;
-	}
-
+        boolean alldeleteIconsDisplayed = true;
+    	List<WebElement> deleteIconsList= driver.findElements(deleteIcons);
+		for (WebElement  deleteIcon: deleteIconsList) {
+            if (!deleteIcon.isDisplayed()) {
+                LoggerLoad.info("Delete icon is not Displayed: " + deleteIcon.getText());
+                alldeleteIconsDisplayed = false;
+            }
+        }
+        return alldeleteIconsDisplayed;
+    }
+	
 	public boolean IscheckBoxRowsDisplayed() {
-		boolean allcheckBoxDisplayed = true;
-		List<WebElement> checkBoxList = driver.findElements(checkBoxRows);
-		for (WebElement checkBox : checkBoxList) {
-			if (!checkBox.isDisplayed()) {
-				System.out.println("Edit icon is not Displayed: " + checkBox.getText());
-				allcheckBoxDisplayed = false;
-			}
-		}
-		return allcheckBoxDisplayed;
-	}
-
+        boolean allcheckBoxDisplayed= true;
+    	List<WebElement> checkBoxList = driver.findElements(checkBoxRows);
+    	for (WebElement checkBox: checkBoxList) {
+            if (!checkBox.isDisplayed()) {
+                LoggerLoad.info("Edit icon is not Displayed: " + checkBox.getText());
+                allcheckBoxDisplayed = false;
+            }
+        }
+        return allcheckBoxDisplayed;
+    }
+    
 	public boolean IsdataTableHeaderDisplayed() {
-
-		System.out.println("IsdataTableHeaderDisplayed");
+		
+		LoggerLoad.info("IsdataTableHeaderDisplayed");
 		return util.isElementDisplayed(dataTableHeader);
 	}
 
 	public boolean IsdataTableCheckBoxDisplayed() {
-		System.out.println("IsdataTableCheckBoxDisplayed");
+		LoggerLoad.info("IsdataTableCheckBoxDisplayed");
 		return util.isElementDisplayed(dataTableCheckBox);
 	}
 
@@ -150,14 +150,14 @@ public class BatchPage extends CommonAndPaginationFeatures {
 	}
 
 	public String getBatchSubMenu() {
-		System.out.println("In getBatchSubMenu");
-		System.out.println(util.getElementText(addNewBatchBtn));
+		LoggerLoad.info("In getBatchSubMenu");
+		LoggerLoad.info(util.getElementText(addNewBatchBtn));
 
 		return util.getElementText(addNewBatchBtn);
 	}
 
 	public boolean verifyBatchSortIcon() {
-		System.out.println("In verifyBatchSortIcon");
+		LoggerLoad.info("In verifyBatchSortIcon");
 		return (util.getElement(batchProgramNameSortIcon) != null ? true : false)
 				&& (util.getElement(batchDescriptionSortIcon) != null ? true : false)
 				&& (util.getElement(batchProgramNameSortIcon) != null ? true : false);
@@ -202,14 +202,14 @@ public class BatchPage extends CommonAndPaginationFeatures {
 
 	public String getBatchEditDescriptionError() throws InterruptedException {
 		Thread.sleep(2000);
-		System.out.println(util.getElementText(editBatchDescPopupErrMsg));
+		LoggerLoad.info(util.getElementText(editBatchDescPopupErrMsg));
 
 		return util.getElementText(editBatchDescPopupErrMsg);
 	}
 
 	public String getEditNoOfClassesError() throws InterruptedException {
 		Thread.sleep(2000);
-		System.out.println(util.getElementText(editBatchNoOfClassPopupErrMsg));
+		LoggerLoad.info(util.getElementText(editBatchNoOfClassPopupErrMsg));
 		return util.getElementText(editBatchNoOfClassPopupErrMsg);
 	}
 

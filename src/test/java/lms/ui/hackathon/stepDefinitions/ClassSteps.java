@@ -15,6 +15,7 @@ import lms.ui.hackathon.pageobjects.ClassDialoguePage;
 import lms.ui.hackathon.pageobjects.ClassPage;
 import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.ProgramPage;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 import lms.ui.hackathon.utilities.Utils;
 

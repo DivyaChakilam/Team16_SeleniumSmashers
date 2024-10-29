@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class ClassDetailsPage {
 
@@ -475,12 +476,12 @@ public class ClassDetailsPage {
 			
 		  //0) check if the date entered is a past date 
 		if(Integer.parseInt(formattedDate) < Integer.parseInt(getTodaysDateOnly())) {
-		  System.out.println("Cannot select a past date for class start date");
+		  LoggerLoad.info("Cannot select a past date for class start date");
 		  return;}
 		  
 		  //1) Current or future date: Check if it the input date falls on weekend:
 		  if(getAllWeekendDates().contains(formattedDate)) {
-		  System.out.println("Cannot select a weekend date for class"); return; }
+		  LoggerLoad.info("Cannot select a weekend date for class"); return; }
 		 
 		
 		
@@ -576,6 +577,35 @@ public class ClassDetailsPage {
 	
 	public static void main(String[] args) {
 		
+		// List of dates in string format
+		/*
+		 * List<String> dates = Arrays.asList("11/30/2024", "12/30/2024", "01/30/2025",
+		 * "10/30/2024");
+		 * 
+		 * 
+		 * // Define the date format DateTimeFormatter formatter =
+		 * DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		 * 
+		 * // Sort the dates List<String> sortedDates = dates.stream() .map(date ->
+		 * LocalDate.parse(date, formatter)) // Convert to LocalDate .sorted() // Sort
+		 * the dates .map(date -> date.format(formatter)) // Convert back to string
+		 * .collect(Collectors.toList());
+		 */             // Collect as a list
+
+        // Print the sorted dates
+		/*
+		 * LoggerLoad.info("Sorted Dates:"); for (String date : sortedDates) {
+		 * LoggerLoad.info(date); }
+		 */
+        
+       // LoggerLoad.info(sortedDates);
+
+		/*
+		 * LoggerLoad.info("========================================");
+		 * 
+		 * random("21/30/2024", "22/30/2024", "23/30/2025");
+		 */
+
 	}
 }
 
