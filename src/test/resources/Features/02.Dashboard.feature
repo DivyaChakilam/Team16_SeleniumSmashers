@@ -1,16 +1,13 @@
 @DashBoardPage
 Feature: Dashboard Page Validation
 
-  #Background: Admin gives the correct LMS portal URL
-  
-   @DashBoardtag1
-   Scenario: Admin gives the correct LMS portal URL
+  Background: Admin gives the correct LMS portal URL   
     Given Admin is in Home Page
     When Admin enter valid credentials and clicks login button
     
   @DashBoardtag2
   Scenario: Verify after login  admin lands on manage program as dashboard page
-    Then Admin should see "Manage Program" as header
+    Then Admin should see "LMS - Learning Management System" as header
     
   @DashBoardtag3
   Scenario: Verify the response time
@@ -22,7 +19,7 @@ Feature: Dashboard Page Validation
     
   @DashBoardtag5
   Scenario: Verify LMS title
-    Then Admin should see "LMS" Learning management system  as title in dashboard page
+    Then Admin should see "LMS - Learning Management System"  as title in dashboard page
     
   @DashBoardtag6
   Scenario: Verify LMS title allignment in Dashboard page

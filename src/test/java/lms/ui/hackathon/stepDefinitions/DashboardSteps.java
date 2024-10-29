@@ -25,8 +25,8 @@ public class DashboardSteps {
 	@Given("Admin is in Home Page")
 	public void admin_is_in_home_page() {
 		
-		//DriverFactory.getDriver().get(CommonConfigs.getUrl());
 
+		
 	}
 
 	@When("Admin enter valid credentials and clicks login button")
@@ -35,21 +35,20 @@ public class DashboardSteps {
 		try {
 			dashboardPage.login();
 			Thread.sleep(2000);
-		} catch (Exception e) {
+	   } catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Then("Admin should see {string} as header")
-	public void admin_should_see_as_header(String string) {
-		String actualTitle = dashboardPage.getLMSTitleText();
-		Assert.assertEquals("LMS", actualTitle.trim());
+	public void admin_should_see_as_header(String header) {
+		Assert.assertEquals(header, dashboardPage.getLMSTitleText());
 
 	}
 
 	@Then("Maximum navigation time in milliseconds, defaults to {int} seconds in dashboard page")
 	public void maximum_navigation_time_in_milliseconds_defaults_to_seconds_in_dashboard_page(Integer maxTime) {
-		Assert.assertTrue(dashboardPage.navigationResponseTime());
+	    Assert.assertTrue(dashboardPage.navigationResponseTime() < maxTime,"Navigation time exceeded 450 seconds");
 		
 	}
 
@@ -58,10 +57,11 @@ public class DashboardSteps {
 		Assert.assertFalse(dashboardPage.CheckBrokenLink(brokencode));
 	}
 
-	@Then("Admin should see {string} Learning management system  as title in dashboard page")
-	public void admin_should_see_learning_management_system_as_title_in_dashboard_page(String string) {
+	@Then("Admin should see {string}  as title in dashboard page")
+	public void admin_should_see_as_title_in_dashboard_page(String string) {
 		Assert.assertTrue(dashboardPage.LMSHeaderExists());
 	}
+	
 
 	@Then("LMS title should be on the top left corner of page in dashboard page")
 	public void lms_title_should_be_on_the_top_left_corner_of_page_in_dashboard_page() {
@@ -72,9 +72,8 @@ public class DashboardSteps {
 	@Then("Admin should see correct spelling in navigation bar text in dashboard page")
 	public void admin_should_see_correct_spelling_in_navigation_bar_text_in_dashboard_page() {
 		
-	       String actualText = dashboardPage.getNavigationBarText();
-	        String expectedText = "Expected Navigation Text"; 
-	        Assert.assertEquals("Navigation bar text does not match", expectedText, actualText);
+	       
+	        Assert.assertTrue(dashboardPage.validateNavigationBarText());
 	}
 
 	@Then("Admin should see correct spelling and space in LMS title in dashboard page")
