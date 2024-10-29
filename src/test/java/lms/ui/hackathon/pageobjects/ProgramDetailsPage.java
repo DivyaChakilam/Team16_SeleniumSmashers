@@ -28,7 +28,7 @@ public class ProgramDetailsPage {
 	private By activeRadio = By.xpath("(//div[@class='p-radiobutton-box'])[1]");
 	//private By inactiveRadio = By.xpath("//input[@id='Inactive']");
 	private By inactiveRadio = By.xpath("(//div[@class='p-radiobutton-box'])[2]");
-	private By successMsg = By.xpath("//div[text()='Program Created Successfully']");
+	//private By successMsg = By.xpath("//div[text()='Program Created Successfully']");
 	private By successEditMsg = By.xpath("//div[text()='Program Updated']");
 	
 	public ProgramDetailsPage(WebDriver driver) {
@@ -119,29 +119,32 @@ public class ProgramDetailsPage {
 		return util.getElement(inactiveRadio).getText();
 	}
 	
-	public void ProgramSave(String name,String desc,String option)
+	public ProgramPage ProgramSave(String name,String desc,String option)
+
 	{
 		util.doSendKeys(nameTextbox, name);
 		util.doSendKeys(descriptionTextbox, desc);
 		if (option.equals("Active"))
-		{
-			util.getElement(activeRadio).click();
-		}
+			{
+				util.getElement(activeRadio).click();
+			}
 		else
-		{
-			util.getElement(inactiveRadio).click();
-		}
+			{
+				util.getElement(inactiveRadio).click();
+			}
 		
 		util.getElement(saveButton).click();
 		programName = name;
         programDescription = desc;
         programStatus = option;
+		return new ProgramPage(driver);
 		
 	}
 	
-	public Boolean isProgramCreatedSuccessfully() {
-		return util.isElementPresent(successMsg);
-	}
+	/*
+	 * public Boolean isProgramCreatedSuccessfully() { return
+	 * util.isElementPresent(successMsg); }
+	 */
 	
 	public String editName()
 	{

@@ -27,7 +27,7 @@ public class BroswerOptionsManager {
 		if (Boolean.parseBoolean(prop.getProperty("headless").trim())) {
 			co.addArguments("--headless");
 		}
-		co.setBrowserVersion("129");
+		//co.setBrowserVersion("129");
 
 		return co;
 	}

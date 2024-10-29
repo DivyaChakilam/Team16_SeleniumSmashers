@@ -1,90 +1,102 @@
 package lms.ui.hackathon.pageobjects;
 
+import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import lms.ui.hackathon.utilities.ElementUtil;
 import lms.ui.hackathon.utilities.LoggerLoad;
+import org.openqa.selenium.interactions.Actions;
+import static org.testng.Assert.assertEquals;
 
-public class BatchPage extends CommonAndPaginationFeatures{
-	
+
+public class BatchPage extends CommonAndPaginationFeatures {
+
+	public String deltedBatch;
 	private WebDriver driver;
 	private ElementUtil util;
-	
-	//Batch Page Navigation 
-	
-	private By userLoc = By.id("username");
-	private By passwordLoc = By.id("password");
-	private By loginButton = By.xpath("//span[@class='mat-button-wrapper']");
-		
-	//Batch Page Validation
-	
+
+	// Batch Page Navigation
+
+	// Batch Page Validation
+
 	private By manageBatchHeader = By.xpath("//div[contains(text(),'Manage Batch')]");
-	//private By paginationtext= By.xpath("//p-paginator/div/span[1]");
 	private By DisDeleteIcon = By.xpath("//button[@class='p-button-danger p-button p-component p-button-icon-only']");
 	private By DeleteIcon = By.xpath("//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]/span[1]");
-	private By checkBoxRows=By.xpath("//table/tbody/tr//div[@role='checkbox']");
-	private By editIcons= By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
-	private By deleteIcons=By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]"); 
-    private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
+	private By checkBoxRows = By.xpath("//table/tbody/tr//div[@role='checkbox']");
+	private By editIcons = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
+
+	private By deleteIcons = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]");
+	private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
 	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']");
 	private By batchProgramNameSortIcon = By.xpath("//th[@psortablecolumn='programName']/p-sorticon");
-    private By batchDescriptionSortIcon = By.xpath("//th[@psortablecolumn='batchDescription']/p-sorticon");
+	private By batchDescriptionSortIcon = By.xpath("//th[@psortablecolumn='batchDescription']/p-sorticon");
 	private By NextPage = By.xpath("//span[contains(@class,'angle-right')]/..");
 
-	//Add New Batch
-	
-     private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
-     private By BatchPopupFrame=By.xpath("//div[contains(@role,'dialog')]"); 
-	
-	
+	// Add New Batch
+
+	private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
+	private By BatchPopupFrame = By.xpath("//div[contains(@role,'dialog')]");
+
+	private By batchEditIcon = By.xpath("//span[@class='p-button-icon pi pi-pencil']");
+
+	private By editBatchPopup = By.xpath("/html/body/app-root/app-batch/p-dialog[1]/div/div");
+	private By editBatchNamePopup = By.xpath("(//input[@id='batchName'])[2]");
+	private By editBatchDescPopupErrMsg = By.xpath("//small[@id='text-danger']");
+	private By editBatchNoOfClassPopupErrMsg = By.xpath("//small[text()='Number of classes is required.']");
+	private By batchEditSuccessMsg = By.xpath("//div[text()='batch Updated']");
+	private By batchProgramNameTextBox = By.xpath("//p-dropdown[@id='programName']");
+
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
+	private By closebtn = By.id("close-button");
+	private By dltbtn = By
+			.xpath("//button[contains(@class,'p-button-danger p-button p-component p-button-icon-only')]");
+	private By checkboxlist = By.xpath("//table/tbody/tr//div[@role='checkbox']");
+	private By editicons = By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
+	private By alertbox = By.xpath("/html/body/app-root/app-batch/p-confirmdialog/div/div')]");
+
 	public BatchPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		util = new ElementUtil(this.driver);
 	}
-	
-	public void login() {
-		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
-		util.doSendKeys(userLoc, "Sdet@gmail.com");
-		driver.findElement(passwordLoc).sendKeys("LmsHackathon@2024");	
-		util.doClick(loginButton);
-			
-	}
-	
+
+
+
+
 	public boolean ischeckBoxDisplayedForEachRow() {
-		
+
 		boolean flag = false;
 		int totalRows = util.getElementSize(By.xpath("//table/tbody/tr"));
-		if(util.getElementSize(checkBoxRows) == totalRows)
-		{
-			flag =true;
-		}else flag = false;
-		
+		if (util.getElementSize(checkBoxRows) == totalRows) {
+			flag = true;
+		} else
+			flag = false;
+
 		return flag;
 	}
-	
 
 	public Boolean BatchHeaderExists() {
 		return util.isElementDisplayed(manageBatchHeader);
-	}	
-		
+	}
+
 	public boolean IspaginationActive() {
-		
+
 		return driver.findElement(NextPage).isEnabled();
 	}
-	
+
 	public Boolean IsDisabledDeleteIcon() {
-		
-		return !util.isElementEnabled(DisDeleteIcon);	
+
+		return !util.isElementEnabled(DisDeleteIcon);
 	}
-	
+
 	public Boolean IsDeleteIconDisplayed() {
-		
-		return util.isElementDisplayed(DeleteIcon);	
+
+		return util.isElementDisplayed(DeleteIcon);
 	}
-	
+
 	public boolean IsEditIconsDisplayed() {
         boolean allEditIconsDisplayed = true;
     	List<WebElement> editiconsList = driver.findElements(editIcons);
@@ -125,41 +137,167 @@ public class BatchPage extends CommonAndPaginationFeatures{
 		
 		LoggerLoad.info("IsdataTableHeaderDisplayed");
 		return util.isElementDisplayed(dataTableHeader);
-    }
-	
+	}
+
 	public boolean IsdataTableCheckBoxDisplayed() {
 		LoggerLoad.info("IsdataTableCheckBoxDisplayed");
-		return util.isElementDisplayed(dataTableCheckBox);	
+		return util.isElementDisplayed(dataTableCheckBox);
 	}
-	
-	
-	public BatchDetailsPage AddNewBatch() {
-	    util.doClick(addNewBatchBtn);
-	    return new BatchDetailsPage(driver);
-	}
-	
-	public String getBatchSubMenu() {
-		LoggerLoad.info("In getBatchSubMenu");  
-		LoggerLoad.info(util.getElementText(addNewBatchBtn));  
 
-	    return util.getElementText(addNewBatchBtn);
+	public BatchDetailsPage AddNewBatch() {
+		util.doClick(addNewBatchBtn);
+		return new BatchDetailsPage(driver);
 	}
-	
-	public boolean verifyBatchSortIcon()
-	{
+
+	public String getBatchSubMenu() {
+		LoggerLoad.info("In getBatchSubMenu");
+		LoggerLoad.info(util.getElementText(addNewBatchBtn));
+
+		return util.getElementText(addNewBatchBtn);
+	}
+
+	public boolean verifyBatchSortIcon() {
 		LoggerLoad.info("In verifyBatchSortIcon");
-		return (util.getElement(batchProgramNameSortIcon) != null ? true:false) && (util.getElement(batchDescriptionSortIcon) != null ? true:false)
-				&&(util.getElement(batchProgramNameSortIcon) != null ? true:false);
+		return (util.getElement(batchProgramNameSortIcon) != null ? true : false)
+				&& (util.getElement(batchDescriptionSortIcon) != null ? true : false)
+				&& (util.getElement(batchProgramNameSortIcon) != null ? true : false);
+	}
+
+	public Boolean IsBatchDetailsPopupPageDisplayed() {
+
+		return util.isElementDisplayed(BatchPopupFrame);
+	}
+
+	public void clickEditIconButton() {
+		try {
+
+			WebElement bodyElement = driver.findElement(By.tagName("body"));
+
+			// Using Actions to click on the body element (vacant area)
+			Actions actions = new Actions(driver);
+			actions.moveToElement(bodyElement, 0, 0).click().perform();
+			util.doClick(batchEditIcon);
+			Thread.sleep(2000);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean isPopupEditDisplayed() {
+		return util.isElementDisplayed(editBatchPopup);
+	}
+
+	public boolean isProgramNameFieldDisabled() {
+
+		Boolean isContentEditable = util.isEditablefield(batchProgramNameTextBox);
+		return !isContentEditable;
+	}
+
+	public boolean isBatchNameFieldDisabled() {
+		Boolean isContentEditable = util.isEditablefield(editBatchNamePopup);
+
+		return !isContentEditable;
+	}
+
+	public String getBatchEditDescriptionError() throws InterruptedException {
+		Thread.sleep(2000);
+		LoggerLoad.info(util.getElementText(editBatchDescPopupErrMsg));
+
+		return util.getElementText(editBatchDescPopupErrMsg);
+	}
+
+	public String getEditNoOfClassesError() throws InterruptedException {
+		Thread.sleep(2000);
+		LoggerLoad.info(util.getElementText(editBatchNoOfClassPopupErrMsg));
+		return util.getElementText(editBatchNoOfClassPopupErrMsg);
+	}
+
+	public boolean isBatchEditSuccessfully() {
+		return util.isElementPresent(batchEditSuccessMsg);
 	}
 	
-	public Boolean IsBatchDetailsPopupPageDisplayed() {
-		
-		return util.isElementDisplayed(BatchPopupFrame);	
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
+
+	public void deleteenable() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(deleteIcons).isEnabled());
+
 	}
+
+	public void clickdelete() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		driver.findElement(deleteIcons).click();
+
+	}
+
+	public void alertwindow() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void Deletehasoptionyes() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void Deletehasoptionno() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void ClickDeleteYesBtn() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void BatchdeleteSucessAlert() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clicknextpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clicklastpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+	}
+
+	public void clickpreviouspage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+
+	public void clickfirstpage() {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+		assertEquals(true, driver.findElement(alertbox).isEnabled());
+		driver.findElement(closebtn).click();
+
+	}
+	// ***************************** From Aimans Delete Batch Program
+	// ******************************
 
 }
-	
-	
-
-
-

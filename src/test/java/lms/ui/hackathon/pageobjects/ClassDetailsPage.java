@@ -3,13 +3,15 @@ package lms.ui.hackathon.pageobjects;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import lms.ui.hackathon.utilities.ElementUtil;
 import lms.ui.hackathon.utilities.LoggerLoad;
@@ -34,6 +36,7 @@ public class ClassDetailsPage {
 	private By allDisabledDatesForCurrentMonth = By.cssSelector("span.p-disabled");
 	private By elementStoringEnteredDate = By.tagName("p-calendar");
 	
+	private By noOfClassesLabel = By.xpath("//label[text()='No of Classes']");
 	private By noOfClassField = By.id("classNo"); //attribute name holding value is ng-reflect-model
 	
 	private By staffNameField = By.xpath("//input[@placeholder='Select a Staff Name']"); 
@@ -49,6 +52,8 @@ public class ClassDetailsPage {
 	private By saveBtn = By.xpath("//span[text()='Save']/..");
 	private By crossBtn = By.xpath("//button[contains(@class,'p-dialog-header-close')]");
 
+	private By errMsgs = By.xpath("//*[contains(@class,'p-invalid')]");
+	
 	
 	public ClassDetailsPage(WebDriver driver) {
 		this.driver = driver;
@@ -58,7 +63,7 @@ public class ClassDetailsPage {
 	//***************** Element Validation Method ***************************
 	
 	/**
-	 * Checks if Class Details popu up has title
+	 * Checks if Class Details popuup has title
 	 * @return
 	 */
 	public Boolean isClassDetailsTitleExists() {
@@ -152,25 +157,82 @@ public class ClassDetailsPage {
 		return util.getElementSize(By.cssSelector("#batchName, #classTopic, #classDescription, #icon, #classNo, #staffId, #classComments, #classNotes, #classRecordingPath"));
 	}
 
-	//***************** Element Action Method ***************************
+	
+	/**
+	 * This method returns total number of err Msgs displayed
+	 * @return
+	 */
+	public int getErrMsgsCount() {
+		return util.getElementSize(errMsgs);
+	}
+	
+	/**
+	 * This method takes expected count of error msgs and verifies if all these error texts contain "red" in "style" attribute
+	 * @param errCount
+	 * @return
+	 */
+	public boolean checkRedTextForAllErrMsgTexts(int errCount, String color) {
+		
+		int counter =0;
+		List<WebElement> ele = util.getElements(errMsgs);
+		
+		/*
+		 * for(WebElement e: ele) { ) if(e.getAttribute("style").contains(color)){
+		 * //Syntax error on token ")", delete this token counter++; } }
+		 */
+		
+		if(counter==errCount) {
+			return true;}
+		else return false;
+	}
+	
+	/**
+	 * This method return List of Err Msg Texts in the form of List<String>
+	 * @return
+	 */
+	public List<String> getErrTextList() {
+		
+		List<String> errTextList = new ArrayList<String>();
+		
+		for(WebElement e: util.getElements(errMsgs)) {
+			errTextList.add(util.getElementText(e));
+		}
+		return errTextList;
+	}
+	
+	//***************** Form Element Action Method ***************************
 	
 	/**
 	 * This method enters text in text field
 	 * @param fieldName
 	 * @param text
+	 * @throws InterruptedException 
 	 */
-	public void enterTextInField(String fieldName, String text) {
+	public void enterTextInField(String fieldName, String text) throws InterruptedException {
+		
+		Thread.sleep(1000);
+		
 		switch (fieldName.toLowerCase().trim()) {
 		case "class topic": 
+			util.doClick(classTopicEditField);
 			util.doSendKeys(classTopicEditField, text);
+			break;
 		case "class description": 
+			util.doClick(classDescriptionField);
 			util.doSendKeys(classDescriptionField, text);
-		case "comments": 			
+			break;
+		case "comments": 	
+			util.doClick(commentsEditField);
 			util.doSendKeys(commentsEditField, text);
-		case "notes": 			
+			break;
+		case "notes": 	
+			util.doClick(notesEditField);
 			util.doSendKeys(notesEditField, text);
-		case "recording": 			
+			break;
+		case "recording": 
+			util.doClick(recordingEditField);
 			util.doSendKeys(recordingEditField, text);
+			break;
 		default:
 			throw new IllegalArgumentException("Incorrect field name: " + fieldName);
 		}
@@ -180,51 +242,178 @@ public class ClassDetailsPage {
 	 * This method selects option from dropdown menu
 	 * @param fieldName
 	 * @param text
+	 * @throws Exception 
 	 */
-	public void selectDropDownMenu(String fieldName, String text) {
+	public void selectDropDownMenu(String fieldName, String text) throws Exception {
+		
+		JavascriptExecutor js = ((JavascriptExecutor)driver);
+		Actions action = new Actions(driver);
+		
+		Thread.sleep(3000);
 		
 		if(fieldName.toLowerCase().trim().equalsIgnoreCase("batch name")) {
-			util.doClick(batchNameDropDownBtn);
-		}else 
-			util.scrollIntoView(staffNameDropDownBtn);
-			util.doClick(staffNameDropDownBtn);
-		
-		
-		if(util.isElementPresent(drodownMenuBody)) {
-			List<WebElement> menus = util.getElements(drodownMenus);
+			/*
+			 * while(util.getElementSize(drodownMenuBody)>0) {
+			 * util.mouseclickUsingAction(batchNameDropDownBtn);
+			 * //util.doClick(batchNameDropDownBtn); }
+			 */
+			util.doClick(batchNameField);
+			js.executeScript("arguments[0].click();",util.getElement(batchNameDropDownBtn));
 			
-			for(WebElement e: menus) {
-				if(util.getAttributeVal(e,"aria-label").equalsIgnoreCase(text)) {
-					e.click();
-				}
-			}
-		}
+		}else {
+			util.scrollIntoView(staffNameDropDownBtn);
+			util.doClick(staffNameField);
+			/*
+			 * while(util.getElementSize(drodownMenuBody)>0) {
+			 * util.doClick(staffNameDropDownBtn); }
+			 */
+			js.executeScript("arguments[0].click();",util.getElement(staffNameDropDownBtn));
+			
+			action.keyDown(Keys.DOWN).keyUp(Keys.DOWN)
+			  .keyDown(Keys.ENTER).keyUp(Keys.ENTER).build().perform();
+			
+			js.executeScript("arguments[0].click();",util.getElement(staffNameDropDownBtn));
+			js.executeScript("arguments[0].click();",util.getElement(staffNameDropDownBtn));
+
+		}	
 		
+		  //Actions action = new Actions(driver);
+			/*
+			 * action.keyDown(Keys.DOWN).keyUp(Keys.DOWN)
+			 * .keyDown(Keys.ENTER).keyUp(Keys.ENTER).build().perform();
+			 */
+		 
+		/*
+		 * if(util.isElementPresent(drodownMenuBody)) { List<WebElement> menus =
+		 * util.getElements(drodownMenus);
+		 * 
+		 * for(WebElement e: menus) {
+		 * if(util.getAttributeVal(e,"aria-label").equalsIgnoreCase(text)) { e.click();
+		 * } } }
+		 */
+		 		
 	}
 
 	/**
 	 * This method selects radio button
 	 * @param radioBtnName
+	 * @throws InterruptedException 
 	 */
-	public void selectRadioButton(String radioBtnName) {
+	public void selectRadioButton(String radioBtnName) throws InterruptedException {
+		
+		Thread.sleep(2000);
+		
 		switch (radioBtnName.toLowerCase().trim()) {
 		case "active":
 			util.doClick(radioBtnActive);
+			break;
 		case "inactive":
 			util.doClick(radioBtnInactive);
+			break;
 		default:
 			throw new IllegalArgumentException("Incorrect radio button name: " + radioBtnName);
 		}
 	}
 	
+	/**
+	 * This method enters only values in mandatory fields 
+	 * @param batchName
+	 * @param classTopic
+	 * @param date
+	 * @param staffName
+	 * @param status
+	 * @throws Exception 
+	 */
+	@SuppressWarnings("unchecked")
+	public void enterMandatoryFields(String batchName, String classTopic,
+			Object date, String staffName, String status) throws Exception {
+		
+		selectDropDownMenu("Batch Name", batchName);
+		enterTextInField("class topic",classTopic);
+		
+		Thread.sleep(3000);
+		openCalendar();
+		if(date instanceof String) {
+			selectCalendarDate((String)date); 
+		}else if(date instanceof List){
+			enterMultipleDates((List<String>) date);
+		}else {
+            throw new IllegalArgumentException("Invalid date type. Must be String or List<String>.");
+        }
+		
+		selectDropDownMenu("Staff Name", staffName);
+		selectRadioButton(status);
+	}
+	
+	/**
+	 * This method enters both mandatory and optional fields
+	 * @param batchName
+	 * @param classTopic
+	 * @param date
+	 * @param staffName
+	 * @param status
+	 * @param optClassDes
+	 * @param optComments
+	 * @param optNotes
+	 * @param optRecording
+	 * @throws Exception 
+	 */
+	@SuppressWarnings("unchecked")
+	public void enterAllFields(String batchName, String classTopic,String optClassDes,
+			Object date, String staffName, String status, 
+			 String optComments, String optNotes, String optRecording) throws Exception {
+		
+		selectDropDownMenu("Batch Name", batchName);
+		enterTextInField("class topic",classTopic);
+		enterTextInField("class description",optClassDes);
+		
+		openCalendar();
+		if(date instanceof String) {
+			selectCalendarDate((String)date); 
+		}else if(date instanceof List){
+			enterMultipleDates((List<String>) date);
+		}else {
+            throw new IllegalArgumentException("Invalid date type. Must be String or List<String>.");
+        }
+		
+		Thread.sleep(3000);
+		
+		selectDropDownMenu("Staff Name", staffName);
+		selectRadioButton(status);
+		enterTextInField("Comments",optComments);
+		enterTextInField("Notes",optNotes);
+		enterTextInField("Recording",optRecording);
+		
+	}
+	
+	//Incomplete!!!
+	public void sendEmptyForm() {
+		
+	}
+	
+	
+	public Object clickOnSaveButton() throws Exception {
+		System.out.println("Inside login button function");
+		util.doClick(saveBtn);
+		Thread.sleep(1000);
+		if(getErrMsgsCount()>0) {
+			return null;
+		}else return new ClassPage(driver);
+	}
+	
+	//
+	 public void clickOnNoOfClassesLabel() {
+			util.doClick(noOfClassesLabel);
+	 }
+	
 	
 	//************** Calendar related methods --- You can type date directly as well *****************
 	
-	/*Once date is selected, it is shown in the attribute "ng-reflect-model='Mon Oct 28 2024 00:00:00 GMT-0'"*/
 
-	public void openCalendar() {
-		util.scrollIntoView(selectDateCalenderBtn);
+	public void openCalendar() throws Exception {
+		//util.scrollIntoView(selectDateCalenderBtn);
 		util.doClick(selectDateCalenderBtn);
+		Thread.sleep(2000);
 	}
 	
 	private byte dynamicallyGetAnyDaysColumnNumber(String day) {
@@ -244,9 +433,7 @@ public class ClassDetailsPage {
 	}
 	
 	public List<String> getAllWeekendDates() {
-		
-		
-		
+				
 		List<String> weekendDates = new ArrayList<String>();
 		
 		By sundayDates = By.xpath("//table[contains(@class,'datepicker-calendar')]//tbody/tr/td["+dynamicallyGetAnyDaysColumnNumber("Su")+"]/span");
@@ -259,11 +446,11 @@ public class ClassDetailsPage {
 		for (WebElement e: sundayDatesList) {
 			weekendDates.add(e.getText());
 		}
-		
-		if(Integer.parseInt(weekendDates.get(0))>1) {
+				
+		if((Integer.parseInt(weekendDates.get(0))) > 1) {
 			weekendDates.remove(0);
 		}
-		
+				
 		return weekendDates;
 	}
 	
@@ -287,9 +474,6 @@ public class ClassDetailsPage {
 			formattedDate=String.valueOf(date.charAt(1));
 		}else formattedDate = date;
 			
-		
-		
-		
 		  //0) check if the date entered is a past date 
 		if(Integer.parseInt(formattedDate) < Integer.parseInt(getTodaysDateOnly())) {
 		  LoggerLoad.info("Cannot select a past date for class start date");
@@ -317,8 +501,14 @@ public class ClassDetailsPage {
 			util.doClick(day);
 		}
 				
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
+
 	public void enterMultipleDates(List<String> multipleDates) {
 		
 		//sort the dates
@@ -334,18 +524,34 @@ public class ClassDetailsPage {
         for(String dates: sortedDates) {
         	selectCalendarDate((dates.split("/"))[1]);
         }
+        
+        util.doClick(noOfClassesLabel);
+        
 	}
+	
+	
 	
 	public String getEnteredDateValueInEditBox() {
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return util.getAttributeVal(elementStoringEnteredDate, "ng-reflect-model");
 	}
+	
+	public String getUpdatedNoOfClasses() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		return util.getAttributeVal(noOfClassField, "ng-reflect-model");
+	}
+	
+	
 	
 	private static String getTodaysDate_MMDDYYY() {
 		  LocalDate today = LocalDate.now();
@@ -358,26 +564,33 @@ public class ClassDetailsPage {
 	        return formattedDate;
 	}
 	
+	
+	
 	private static  String getTodaysDateOnly() {
 		return getTodaysDate_MMDDYYY().split("/")[1];
 	}
 	
 	
+	
+	
+	
+	
 	public static void main(String[] args) {
 		
 		// List of dates in string format
-        List<String> dates = Arrays.asList("11/30/2024", "12/30/2024", "01/30/2025", "10/30/2024");
-
-		
-        // Define the date format
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        // Sort the dates
-        List<String> sortedDates = dates.stream()
-            .map(date -> LocalDate.parse(date, formatter))  // Convert to LocalDate
-            .sorted()                                         // Sort the dates
-            .map(date -> date.format(formatter))            // Convert back to string
-            .collect(Collectors.toList());                   // Collect as a list
+		/*
+		 * List<String> dates = Arrays.asList("11/30/2024", "12/30/2024", "01/30/2025",
+		 * "10/30/2024");
+		 * 
+		 * 
+		 * // Define the date format DateTimeFormatter formatter =
+		 * DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		 * 
+		 * // Sort the dates List<String> sortedDates = dates.stream() .map(date ->
+		 * LocalDate.parse(date, formatter)) // Convert to LocalDate .sorted() // Sort
+		 * the dates .map(date -> date.format(formatter)) // Convert back to string
+		 * .collect(Collectors.toList());
+		 */             // Collect as a list
 
         // Print the sorted dates
 		/*
@@ -392,6 +605,7 @@ public class ClassDetailsPage {
 		 * 
 		 * random("21/30/2024", "22/30/2024", "23/30/2025");
 		 */
+
 	}
 }
 

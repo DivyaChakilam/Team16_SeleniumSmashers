@@ -20,7 +20,6 @@ public class LoginSteps{
 	
 	
 	public LoginSteps(TestContextSetUp testContSetup) {
-		//driver = DriverFactory.getDriver();
 		this.testContSetup = testContSetup;
 		this.loginpage = testContSetup.pageObjManager.getLoginPage();
 	}
@@ -83,7 +82,7 @@ public class LoginSteps{
 		loginpage.EnterUserName(Uname);
 		loginpage.EnterPassword(Pwd);
 		LoggerLoad.info("Click Login Button");
-		loginpage.clickOnloginButton();
+		dashboardPage = (DashboardPage)loginpage.clickOnloginButton();
 	}
 
 	@When("Admin enters credentials {string} and {string} and clicks login button")
@@ -102,7 +101,7 @@ public class LoginSteps{
 		  LoggerLoad.info("Enter Valid Credentials");
 		  loginpage.EnterUserName(Uname); loginpage.EnterPassword(Pwd);
 		  LoggerLoad.info("Click Login Button");
-		 loginpage.clickOnloginButtonThroughKeypad();
+		  dashboardPage = loginpage.clickOnloginButtonThroughKeypad();
 		 
 	}
 

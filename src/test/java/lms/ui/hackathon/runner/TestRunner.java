@@ -19,6 +19,7 @@ import lms.ui.hackathon.configs.ConfigLoader;
 			"rerun:target/failed_scenarios.txt" },
 	 monochrome = true,
 	publish = true)
+
 public class TestRunner extends AbstractTestNGCucumberTests {
 
 	@Override

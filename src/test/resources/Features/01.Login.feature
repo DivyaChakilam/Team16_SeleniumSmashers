@@ -16,14 +16,19 @@ Feature: Login Page Verification
     When Admin gives the invalid LMS portal URL
     Then Admin should recieve 404 page not found error
 
-
-  Scenario Outline: Validate login with valid credentials
-    When Admin enters valid credentials '<Uname>' and '<Pwd>' and clicks login button
+@loginPositive
+ Scenario: Validate login with valid credentials
+    When Admin enters valid credentials and clicks login button
     Then Admin should land on dashboard page
-
-    Examples: 
-      | Uname                    | Pwd            |
-      | sdet@gmail.com | LmsHackathon@2024  |
+    
+#	@loginPositive
+  #Scenario Outline: Validate login with valid credentials
+    #When Admin enters valid credentials '<Uname>' and '<Pwd>' and clicks login button
+    #Then Admin should land on dashboard page
+#
+    #Examples: 
+      #| Uname                    | Pwd            |
+      #| sdet@gmail.com | LmsHackathon@2024  |
 
 #@login_negative
   Scenario Outline: Validate login page elements and invalid credentials
@@ -44,8 +49,8 @@ Feature: Login Page Verification
     Then Admin should land on dashboard page
 
     Examples: 
-      | Uname                    | Pwd            |
-      | sdet@gmail.com | LmsHackathon@2024 |
+      | Uname          | Pwd              |
+      | sdet@gmail.com | LmsHackathon@2024|
 
 
   Scenario Outline: Validate Fields are displayed in LoginPage
