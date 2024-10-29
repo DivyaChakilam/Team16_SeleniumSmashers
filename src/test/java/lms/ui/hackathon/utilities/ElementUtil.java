@@ -69,11 +69,11 @@ public class ElementUtil {
 					.until(ExpectedConditions.visibilityOf(getElement(locator)));
 			if(ele == null)
 			{
-				System.out.println("ele is null");
+				LoggerLoad.info("ele is null");
 			}
 			else
 			{
-				System.out.println("ele is not null"+ele.toString());
+				LoggerLoad.info("ele is not null"+ele.toString());
 			}
 
 			if (ele.isDisplayed()) {
@@ -389,7 +389,6 @@ public class ElementUtil {
 		else {
 			return false;
 		}
-
 	}
 
 	public boolean isElementPresent(By locator) {
@@ -403,7 +402,6 @@ public class ElementUtil {
 		}
         
     }
-
 	
 	public List<String> printWebElements(List<WebElement> options) {
 
@@ -413,7 +411,7 @@ public class ElementUtil {
 			texts.add(i,option.getText());
 			i++;
 		}
-		System.out.println("The number of items in the list are: "+ texts.size());
+		LoggerLoad.info("The number of items in the list are: "+ texts.size());
 		return texts;
 	}
 	
@@ -427,7 +425,7 @@ public class ElementUtil {
 			integ.add(i, Num);
 			i++;
 		}
-		System.out.println("The number of items in the list are: "+ integ.size());
+		LoggerLoad.info("The number of items in the list are: "+ integ.size());
 		return integ;
 	}
 	
@@ -437,37 +435,37 @@ public class ElementUtil {
 	
 	public List<String> getSortedList(List<String> originalList){
 		
-		System.out.println("Original List Before sorting is"+ originalList);
+		LoggerLoad.info("Original List Before sorting is"+ originalList);
         List<String> sortedList = new ArrayList<>(originalList);
         Collections.sort(sortedList, String.CASE_INSENSITIVE_ORDER);
-		System.out.println("Sorted List After sorting is"+ sortedList);
+		LoggerLoad.info("Sorted List After sorting is"+ sortedList);
         return sortedList;
 	}
 	
 	public ArrayList<Integer> getSortedNCList(ArrayList<Integer> originalNCList){
 		
-		System.out.println("Original List Before sorting is"+ originalNCList);
+		LoggerLoad.info("Original List Before sorting is"+ originalNCList);
         ArrayList<Integer> sortedList = new ArrayList<>(originalNCList);
         Collections.sort(sortedList);
-		System.out.println("Sorted List After sorting is"+ originalNCList);
+		LoggerLoad.info("Sorted List After sorting is"+ originalNCList);
         return sortedList;
 	}
 	
 	public List<String> getSortedListDescending(List<String> originalList){
 		
-		System.out.println("Original List Before sorting is"+ originalList);
+		LoggerLoad.info("Original List Before sorting is"+ originalList);
         List<String> sortedList = new ArrayList<>(originalList);
         Collections.sort(originalList, (s1, s2) -> s2.compareToIgnoreCase(s1));
-		System.out.println("Sorted List After sorting is"+ sortedList);
+		LoggerLoad.info("Sorted List After sorting is"+ sortedList);
         return sortedList;
 	}
 	
 	public ArrayList<Integer> getSortedListNCDescending(ArrayList<Integer> originalNCList){
 		
-		System.out.println("Original List Before sorting is"+ originalNCList);
+		LoggerLoad.info("Original List Before sorting is"+ originalNCList);
         ArrayList<Integer> sortedList = new ArrayList<>(originalNCList);
         Collections.sort(originalNCList, (s1, s2) -> s2.compareTo(s1));
-		System.out.println("Sorted List After sorting is"+ originalNCList);
+		LoggerLoad.info("Sorted List After sorting is"+ originalNCList);
         return sortedList;
 	}
 

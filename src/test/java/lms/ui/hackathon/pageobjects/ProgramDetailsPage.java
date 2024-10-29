@@ -4,11 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class ProgramDetailsPage {
 	
 	private WebDriver driver;
 	private ElementUtil util;
+	private static String programName;
+    private static String programDescription;
+    private static String programStatus;
+
 	
 	private By title = By.xpath("//span[contains(@class,'p-dialog-title')]");
 	private By nameAsterisk = By.xpath("//label[@for='programName']//span[1]");
@@ -60,7 +65,7 @@ public class ProgramDetailsPage {
 	
 	public void SendKeys(String key,String value)
 	{
-		System.out.println("key ->"+key);
+		LoggerLoad.info("key ->"+key);
 		switch(key)
 		{
 		case "Name":
@@ -84,7 +89,7 @@ public class ProgramDetailsPage {
 	public String getProgramNameText()
 	{
 		String aa=  util.getElement(nameTextbox).getText();
-		System.out.println("aa ->"+aa);
+		LoggerLoad.info("aa ->"+aa);
 		return util.getElement(nameTextbox).getText();
 	}
 	public String getProgramDescriptionText()
@@ -99,7 +104,7 @@ public class ProgramDetailsPage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("isElementDisplayed1 ->"+util.isElementDisplayed(activeRadio));
+		LoggerLoad.info("isElementDisplayed1 ->"+util.isElementDisplayed(activeRadio));
 		return util.getElement(activeRadio).getText();
 	}
 	public String getProgramInActiveText()
@@ -110,14 +115,14 @@ public class ProgramDetailsPage {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("isElementDisplayed1 ->"+util.isElementDisplayed(inactiveRadio));
+		LoggerLoad.info("isElementDisplayed1 ->"+util.isElementDisplayed(inactiveRadio));
 		return util.getElement(inactiveRadio).getText();
 	}
 	
-	public void ProgramSave(String name,String Desc,String option)
+	public void ProgramSave(String name,String desc,String option)
 	{
 		util.doSendKeys(nameTextbox, name);
-		util.doSendKeys(descriptionTextbox, Desc);
+		util.doSendKeys(descriptionTextbox, desc);
 		if (option.equals("Active"))
 		{
 			util.getElement(activeRadio).click();
@@ -128,6 +133,9 @@ public class ProgramDetailsPage {
 		}
 		
 		util.getElement(saveButton).click();
+		programName = name;
+        programDescription = desc;
+        programStatus = option;
 		
 	}
 	
@@ -167,6 +175,17 @@ public class ProgramDetailsPage {
 		}
 		
 	}
+	 public static String getProgramName() {
+	        return programName;
+	    }
+
+	    public static String getProgramDescription() {
+	        return programDescription;
+	    }
+
+	    public static String getProgramStatus() {
+	        return programStatus;
+	    }
 	
 
 }

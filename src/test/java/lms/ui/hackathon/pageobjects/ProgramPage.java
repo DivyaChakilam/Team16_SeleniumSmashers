@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class ProgramPage extends CommonAndPaginationFeatures {
 	private WebDriver driver;
@@ -28,7 +29,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	public String successMessage;
 	List<String> selectedProgramNames = new ArrayList<>();
 	boolean isValid = true ;
-
+	
 	/*******************************By Locators****************************************/
 	private By userLoc = By.id("username");
 	private By passwordLoc = By.id("password");
@@ -85,9 +86,9 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	private By searchResults = By.xpath("//table/tbody/tr");
 
 	 private By LMSHeadermodulesProgram = By.xpath("//div[@class='ng-star-inserted']/button[1]");
-	    private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
-	    private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
-	    private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
+	 private By LMSHeadermodulesBatch = By.xpath("//div[@class='ng-star-inserted']/button[2]");
+	 private By LMSHeadermodulesClass = By.xpath("//div[@class='ng-star-inserted']/button[3]");
+	 private By LMSHeadermodulesLogout = By.xpath("//div[@class='ng-star-inserted']/button[4]");
 
 	public ProgramPage(WebDriver driver) {
 		super(driver);
@@ -105,7 +106,6 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		By deleteIcon = By.xpath("//tbody/tr/td[text()='"+programName+"']/following-sibling::td//button[@id='deleteProgram']");
 		util.doClick(deleteIcon);	
 	}
-
 
 
 	public void login() { util.doSendKeys(userLoc, "Sdet@gmail.com");
@@ -146,7 +146,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	//		Actions action = new Actions(driver);
 	//		waitForElementToBeVisible(By.xpath("//tr["+rowNum+"]/td[5]//div[@class='action']//button[@id='deleteProgram']"));
 	//		String deletedProgram = driver.findElement(By.xpath("//tr["+rowNum+"]/td[2]")).getText();
-	//		//System.out.println("Program Deleted:" + deletedProgram);
+	//		//LoggerLoad.info("Program Deleted:" + deletedProgram);
 	//		WebElement deleteButtonOfRowToDelete = driver.findElement(By.xpath("//tr["+rowNum+"]/td[5]//button[@id='deleteProgram']"));//div[@class='action']//button[@id='deleteProgram']
 	//		action.moveToElement(deleteButtonOfRowToDelete).click().build().perform();
 	//		driver.switchTo().activeElement();	
@@ -166,7 +166,6 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 				selectedProgramNames.add(programName);
 			}
 		}
-
 		return selectedProgramNames;
 	}
 	public boolean validateCheckBoxSelection(int fromRowNum, int toRowNum) {
@@ -177,7 +176,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 			WebElement checkboxElement = checkboxEnable.get(i);
 			// Validate if the checkbox is selected
 			if (!checkboxElement.isSelected()) {
-				System.out.println("Checkbox in row " + (i + 1) + " is not selected as expected.");
+				LoggerLoad.info("Checkbox in row " + (i + 1) + " is not selected as expected.");
 				allSelected = false;
 			}
 		}
@@ -210,7 +209,7 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		String footerText = driver.findElement(footerLoc).getText();
 		if(footerText.contains("0"))
 		{
-			System.out.println("Contains zero records");
+			LoggerLoad.info("Contains zero records");
 			return true;
 		}
 		return false;
@@ -263,7 +262,6 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
-
 	public void programTabClick() {
 		driver.findElement(programLoc).click();		
 	}
@@ -289,26 +287,26 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	}
 	public boolean verifyProgramHeader()
 	{
-		System.out.println("In verifyProgramHeader");
+		LoggerLoad.info("In verifyProgramHeader");
 		return (util.getElement(headerprogramName) != null ? true:false) && (util.getElement(headerProgramDescription) != null ? true:false)
 				&&(util.getElement(headerProgramStatus) != null ? true:false) && (util.getElement(headerEditDelete) != null ? true:false);
 	}
 	public boolean verifySearchbar()
 	{
-		System.out.println("In verifySearchbar");
+		LoggerLoad.info("In verifySearchbar");
 		return util.getElement(searchBox) != null ? true:false;
 	}
 	//checking checkbox is selected or not
 	public boolean verifyCheckbox()
 	{
-		System.out.println("In verifyCheckbox");
+		LoggerLoad.info("In verifyCheckbox");
 		return util.getElement(headercheckbox).isSelected() ;
 	}
 	//loop through each checkbox webelement to see if the checkboxes are selected or not
 
 	public boolean verifyProgramCheckboxes()
 	{
-		System.out.println("In verifyProgramCheckboxes");
+		LoggerLoad.info("In verifyProgramCheckboxes");
 		List<WebElement> elements=util.getElements(programCheckboxes);
 		for(WebElement e : elements ) {
 
@@ -316,20 +314,18 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 			{
 				return true;
 			}
-
 		}
 		return false;
-
 	}
 	public boolean verifyProgramSortIcon()
 	{
-		System.out.println("In verifyProgramSortIcon");
+		LoggerLoad.info("In verifyProgramSortIcon");
 		return (util.getElement(ProgramNameSortIcon) != null ? true:false) && (util.getElement(ProgramDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(ProgramStatusSortIcon) != null ? true:false);
 	}
 
 	public ProgramDetailsPage goToAddNewProgramPage() {
-		System.out.println("In goToAddNewProgramPage");
+		LoggerLoad.info("In goToAddNewProgramPage");
 		util.doClick(addNewProgramBtn);
 		return new ProgramDetailsPage(driver);
 	}
@@ -346,12 +342,12 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 	{
 
 		for (WebElement row : searchResults) {
-			String programName = row.findElement(By.xpath("td[1]")).getText(); // Adjust based on actual column
-			String description = row.findElement(By.xpath("td[2]")).getText(); // Adjust based on actual column
-			String status = row.findElement(By.xpath("td[3]")).getText(); // Adjust based on actual column
+			String programName = row.findElement(By.xpath("td[2]")).getText(); 
+			String description = row.findElement(By.xpath("td[3]")).getText(); 
+			String status = row.findElement(By.xpath("td[4]")).getText(); 
 
 			if (!programName.contains(programName2) && !description.contains(programDescription2)) {
-				System.out.println("Unexpected result: " + programName + ", " + description + ", " + status);
+				LoggerLoad.info("Unexpected result: " + programName + ", " + description + ", " + status);
 				isValid = false;
 			}
 		}
@@ -376,8 +372,9 @@ public class ProgramPage extends CommonAndPaginationFeatures {
 				util.getElement(LMSHeadermodulesBatch).getText().equals("Batch")&&
 				util.getElement(LMSHeadermodulesClass).getText().equals("Class")&&
 				util.getElement(LMSHeadermodulesLogout).getText().equals("Logout");
-				
-				
+		}
+	public boolean isButtonDisabled() {
+		return util.isElementEnabled(multipleDeleteBtn);
+		
 	}
-
 }

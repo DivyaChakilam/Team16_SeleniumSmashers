@@ -14,6 +14,7 @@ import lms.ui.hackathon.pageobjects.ClassDetailsPage;
 import lms.ui.hackathon.pageobjects.ClassPage;
 import lms.ui.hackathon.pageobjects.DashboardPage;
 import lms.ui.hackathon.pageobjects.ProgramPage;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 import numpy.seleniumsmasher.lms.factory.DriverFactory;
 
@@ -86,14 +87,14 @@ public class ClassSteps {
 	@Given("Admin enters mandatory fields only")
 	public void admin_enters_mandatory_fields_only() {
 		//classDetailsPage.selectDropDownMenu("staff name","Getha Takur");
-		//System.out.println(classDetailsPage.selectCalendarDate("31"));;
+		//LoggerLoad.info(classDetailsPage.selectCalendarDate("31"));;
 		//classDetailsPage.selectCalendarDate("27");
         
 		classDetailsPage.openCalendar();
 		List<String> dates = Arrays.asList("10/30/2024", "10/29/2024", "10/31/2025", "10/28/2024");
 
 		classDetailsPage.enterMultipleDates(dates);
-		System.out.println(classDetailsPage.getEnteredDateValueInEditBox());;
+		LoggerLoad.info(classDetailsPage.getEnteredDateValueInEditBox());;
 
 	}
 	

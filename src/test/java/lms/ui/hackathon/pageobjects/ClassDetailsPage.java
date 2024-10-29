@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class ClassDetailsPage {
 
@@ -291,12 +292,12 @@ public class ClassDetailsPage {
 		
 		  //0) check if the date entered is a past date 
 		if(Integer.parseInt(formattedDate) < Integer.parseInt(getTodaysDateOnly())) {
-		  System.out.println("Cannot select a past date for class start date");
+		  LoggerLoad.info("Cannot select a past date for class start date");
 		  return;}
 		  
 		  //1) Current or future date: Check if it the input date falls on weekend:
 		  if(getAllWeekendDates().contains(formattedDate)) {
-		  System.out.println("Cannot select a weekend date for class"); return; }
+		  LoggerLoad.info("Cannot select a weekend date for class"); return; }
 		 
 		
 		
@@ -380,14 +381,14 @@ public class ClassDetailsPage {
 
         // Print the sorted dates
 		/*
-		 * System.out.println("Sorted Dates:"); for (String date : sortedDates) {
-		 * System.out.println(date); }
+		 * LoggerLoad.info("Sorted Dates:"); for (String date : sortedDates) {
+		 * LoggerLoad.info(date); }
 		 */
         
-        System.out.println(sortedDates);
+       // LoggerLoad.info(sortedDates);
 
 		/*
-		 * System.out.println("========================================");
+		 * LoggerLoad.info("========================================");
 		 * 
 		 * random("21/30/2024", "22/30/2024", "23/30/2025");
 		 */

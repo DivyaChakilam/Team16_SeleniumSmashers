@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class BatchPage extends CommonAndPaginationFeatures{
 	
@@ -89,7 +90,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
     	List<WebElement> editiconsList = driver.findElements(editIcons);
 		for (WebElement editIcon: editiconsList) {
             if (!editIcon.isDisplayed()) {
-                System.out.println("Edit icon is not Displayed: " + editIcon.getText());
+                LoggerLoad.info("Edit icon is not Displayed: " + editIcon.getText());
                 allEditIconsDisplayed = false;
             }
         }
@@ -101,7 +102,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
     	List<WebElement> deleteIconsList= driver.findElements(deleteIcons);
 		for (WebElement  deleteIcon: deleteIconsList) {
             if (!deleteIcon.isDisplayed()) {
-                System.out.println("Delete icon is not Displayed: " + deleteIcon.getText());
+                LoggerLoad.info("Delete icon is not Displayed: " + deleteIcon.getText());
                 alldeleteIconsDisplayed = false;
             }
         }
@@ -113,7 +114,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
     	List<WebElement> checkBoxList = driver.findElements(checkBoxRows);
     	for (WebElement checkBox: checkBoxList) {
             if (!checkBox.isDisplayed()) {
-                System.out.println("Edit icon is not Displayed: " + checkBox.getText());
+                LoggerLoad.info("Edit icon is not Displayed: " + checkBox.getText());
                 allcheckBoxDisplayed = false;
             }
         }
@@ -122,12 +123,12 @@ public class BatchPage extends CommonAndPaginationFeatures{
     
 	public boolean IsdataTableHeaderDisplayed() {
 		
-		System.out.println("IsdataTableHeaderDisplayed");
+		LoggerLoad.info("IsdataTableHeaderDisplayed");
 		return util.isElementDisplayed(dataTableHeader);
     }
 	
 	public boolean IsdataTableCheckBoxDisplayed() {
-		System.out.println("IsdataTableCheckBoxDisplayed");
+		LoggerLoad.info("IsdataTableCheckBoxDisplayed");
 		return util.isElementDisplayed(dataTableCheckBox);	
 	}
 	
@@ -138,15 +139,15 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	}
 	
 	public String getBatchSubMenu() {
-		System.out.println("In getBatchSubMenu");  
-		System.out.println(util.getElementText(addNewBatchBtn));  
+		LoggerLoad.info("In getBatchSubMenu");  
+		LoggerLoad.info(util.getElementText(addNewBatchBtn));  
 
 	    return util.getElementText(addNewBatchBtn);
 	}
 	
 	public boolean verifyBatchSortIcon()
 	{
-		System.out.println("In verifyBatchSortIcon");
+		LoggerLoad.info("In verifyBatchSortIcon");
 		return (util.getElement(batchProgramNameSortIcon) != null ? true:false) && (util.getElement(batchDescriptionSortIcon) != null ? true:false)
 				&&(util.getElement(batchProgramNameSortIcon) != null ? true:false);
 	}

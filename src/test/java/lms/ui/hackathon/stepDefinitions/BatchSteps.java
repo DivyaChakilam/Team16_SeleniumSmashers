@@ -10,6 +10,7 @@ import io.cucumber.java.en.When;
 import lms.ui.hackathon.pageobjects.BatchDetailsPage;
 import lms.ui.hackathon.pageobjects.BatchPage;
 import lms.ui.hackathon.pageobjects.DashboardPage;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 
 public class BatchSteps {
@@ -305,7 +306,7 @@ public class BatchSteps {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//System.out.println(batchDetailsPage.AddBatchTitleDisplayed());
+		//LoggerLoad.info(batchDetailsPage.AddBatchTitleDisplayed());
 	    
 	}
 
@@ -317,7 +318,7 @@ public class BatchSteps {
 		//String batchNameTestData = batchName + // Generate a random character between 'a' and 'z'
 		       // char randomChar = (char) (random.nextInt(26) + 'a'); 
 
-		        //System.out.println("Random character: " + randomChar());
+		        //LoggerLoad.info("Random character: " + randomChar());
 		
 		batchDetailsPage.enterBatchName(batchName);
 		batchDetailsPage.enterBatchCode(batchCode);
@@ -330,7 +331,7 @@ public class BatchSteps {
 	public void user_should_be_able_to_save_successfully() throws InterruptedException {
 		
 		String batchName = batchDetailsPage.getBatchProgramNameText();
-		System.out.println("admin_can_see_the_text_entered " + batchName);
+		LoggerLoad.info("admin_can_see_the_text_entered " + batchName);
 
 		Assert.assertEquals(batchName != null, true);
 

@@ -15,6 +15,7 @@ import io.cucumber.java.Scenario;
 import lms.ui.hackathon.configs.CommonConfigs;
 import lms.ui.hackathon.configs.ConfigLoader;
 import lms.ui.hackathon.configs.ConfigurationManager;
+import lms.ui.hackathon.utilities.LoggerLoad;
 import lms.ui.hackathon.utilities.TestContextSetUp;
 import numpy.seleniumsmasher.lms.factory.DriverFactory;
 
@@ -34,13 +35,13 @@ public class Hooks {
 	@Before
 	public void setUp() throws Throwable {
 		
-		System.out.println("Inside @Before");
+		LoggerLoad.info("Inside @Before");
 
 		String browserValueFromTestNG = null;
 		
 		if(ConfigLoader.getBrowserType() != null) {
 			browserValueFromTestNG = ConfigLoader.getBrowserType();
-			System.out.println("Value of browserValueFromTestNG = " + browserValueFromTestNG);
+			LoggerLoad.info("Value of browserValueFromTestNG = " + browserValueFromTestNG);
 		
 		//initializing properties file
 		prop = ConfigurationManager.initProp();
@@ -62,11 +63,11 @@ public class Hooks {
 	@Before("@programDelete")
 	public void quickLogin() {
 		
-		System.out.println("Inside Conditional @Before for the tag @programDelete");
+		LoggerLoad.info("Inside Conditional @Before for the tag @programDelete");
 		
 		if(driver == null)
 		{
-			System.out.println("driver is null @programDelete");
+			LoggerLoad.info("driver is null @programDelete");
 		}
 		driver.get("https://lms-frontend-hackathon-oct24-173fe394c071.herokuapp.com/login");
 		

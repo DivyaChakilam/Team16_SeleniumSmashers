@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import lms.ui.hackathon.utilities.ElementUtil;
+import lms.ui.hackathon.utilities.LoggerLoad;
 
 public class BatchDetailsPage {
 
@@ -71,7 +72,7 @@ public class BatchDetailsPage {
 	{
 		String batchName= util.getAttributeVal(batchNameTextField, "ng-reflect-model");
 		//String batchName=  util.getElement(batchProgramNameTextBox).getText();
-		System.out.println("batchName ->"+batchName);
+		LoggerLoad.info("batchName ->"+batchName);
 		return util.getElement(batchProgramNameTextBox).getText();
 	}
 
@@ -104,10 +105,10 @@ public class BatchDetailsPage {
 
 	public boolean ValidateAddBtachFields() {
 		if (batchNameCode != null && batchNameTextField != null && batchDescTextBox != null) {
-			System.out.println("All required text box fields are present in the pop-up dialog.");
+			LoggerLoad.info("All required text box fields are present in the pop-up dialog.");
 			return true;
 		} else {
-			System.out.println("Some fields are missing in the pop-up dialog.");
+			LoggerLoad.info("Some fields are missing in the pop-up dialog.");
 			return false;
 		}
 	}
@@ -216,7 +217,7 @@ public class BatchDetailsPage {
 		try {
 			util.doClick(saveBatchBtn);
 		} catch (Exception e) {
-			System.out.println("Failed to click on the Save button: " + e.getMessage());
+			LoggerLoad.info("Failed to click on the Save button: " + e.getMessage());
 		}
 	}
 	
