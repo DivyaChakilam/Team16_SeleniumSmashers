@@ -2,6 +2,8 @@ package lms.ui.hackathon.stepDefinitions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,9 +23,9 @@ public class ProgramSteps {
 	public ProgramDetailsPage programDetailsPage;
 	String programNameDeleted = "";
 	String invalidProgramName = "ljf5@1";
-	String programName = "piechart";
-	String programDescription = "SDET";
-	String ProgramPartialName = "pie";
+	String programName = "SDETNew";
+	String programDescription = "SDETNew";
+	String ProgramPartialName = "SDET";
 	List<String> originalList = new ArrayList<String>();
 	List<String> sortedList = new ArrayList<String>();
 	List<String> selectedProgramList = new ArrayList<String>();
@@ -136,7 +138,6 @@ public class ProgramSteps {
 	@Then("Admin can see Programs are still selected and not deleted")
 	public void admin_can_see_programs_are_still_selected_and_not_deleted() {
 		programPage.validateCheckBoxSelection(1, 4);
-
 	}
 
 	@When("Admin enter the program to search By {string}")
@@ -153,13 +154,17 @@ public class ProgramSteps {
 			programPage.searchText(ProgramPartialName);
 			break;
 		}
-
 	}
 
-	@Then("Admin should able to see Program name, description, and status for searched program name")
-	public void admin_should_able_to_see_program_name_description_and_status_for_searched_program_name() {
-
+	@Then("Admin should able to see Program name, description, and status for searched {string}")
+	public void admin_should_able_to_see_program_name_description_and_status_for_searched(String searchoption) {
+		List<WebElement> searchResults = programPage.getSearchResults();
+		// Check if results are found
+		Assert.assertFalse(searchResults.isEmpty(), "No search results found!");
+		boolean isValid = programPage.validateSearchResults(searchResults,programName,programDescription,ProgramPartialName);
+		Assert.assertTrue(isValid, "Search results do not match expected criteria for: " + searchoption);
 	}
+
 
 	@When("Admin enter the program to search By program name that does not exist")
 	public void admin_enter_the_program_to_search_by_program_name_that_does_not_exist() {
@@ -200,8 +205,8 @@ public class ProgramSteps {
 
 	@When("Admin clicks on Arrow next to {string} to sort in asc")
 	public void admin_clicks_on_arrow_next_to_to_sort_in_asc(String columnName) {
-	    programPage.click_On_SortIcon(columnName);
-	    switch (columnName) {
+		programPage.click_On_SortIcon(columnName);
+		switch (columnName) {
 		case "Program Name":
 			originalList= programPage.getOriginalList(2);;
 			break;
@@ -232,7 +237,7 @@ public class ProgramSteps {
 	public void admin_clicks_on_arrow_next_to_to_sort_in_desc(String columnName) {
 		programPage.click_On_SortIcon(columnName);
 		programPage.click_On_SortIcon(columnName);
-	    switch (columnName) {
+		switch (columnName) {
 		case "Program Name":
 			originalList= programPage.getOriginalList(2);;
 			break;
@@ -258,7 +263,7 @@ public class ProgramSteps {
 		}
 		Assert.assertTrue(originalList.equals(sortedList));
 	}
-	
+
 	@When("Admin clicks {string} link on the program table")
 	public void admin_clicks_link_on_the_program_table(String page) {
 		switch (page) {
@@ -330,8 +335,8 @@ public class ProgramSteps {
 
 	@Then("Admin should see the module names as in order {string}")
 	public void admin_should_see_the_module_names_as_in_order(String string) {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		Boolean LMSheaderModules=programPage.verifyLMSHeadermodulesProgram();
+		Assert.assertEquals(true, LMSheaderModules);
 	}
 
 	@Then("Admin should see Logout in menu bar")
@@ -547,12 +552,12 @@ public class ProgramSteps {
 
 	@Then("Records of the newly created  {string} is displayed and match the data entered")
 	public void records_of_the_newly_created_is_displayed_and_match_the_data_entered(String string) {
-		
+
 	}
 
 	@When("Admin Click on {string} button")
 	public void admin_click_on_button(String string) {
-		
+
 	}
 	@When("Admin clicks on Edit option for particular program")
 	public void admin_clicks_on_edit_option_for_particular_program() {
@@ -561,7 +566,7 @@ public class ProgramSteps {
 
 	@Then("Admin lands on Program details form")
 	public void admin_lands_on_program_details_form() {
-		
+
 		String title = programDetailsPage.getProgramDetailsTitle();
 		System.out.println("title is " + title);
 		Assert.assertEquals(title, "Program Details");
@@ -572,7 +577,7 @@ public class ProgramSteps {
 		programPage.editFirstProgram();
 		editedName= programDetailsPage.editName();
 		programDetailsPage.clickProgramDetailsSave();
-		
+
 	}
 
 	@Then("Updated program name is seen by the Admin")
@@ -623,22 +628,22 @@ public class ProgramSteps {
 		programPage.editFirstProgram();
 		programDetailsPage.clickProgramDetailsCancel();
 	}
-	
+
 
 	@When("Admin searches with newly updated {string}")
 	public void admin_searches_with_newly_updated(String string) {
 		programPage.editFirstProgram();
 		editedName= programDetailsPage.editName();
 		programDetailsPage.clickProgramDetailsSave();
-	    System.out.println("editedName ->"+editedName);
-	    programPage.searchText(editedName);
+		System.out.println("editedName ->"+editedName);
+		programPage.searchText(editedName);
 	}
 
 	@Then("Admin verifies that the details are correctly updated.")
 	public void admin_verifies_that_the_details_are_correctly_updated() {
 		boolean result = programPage.verifySearchResult();
 		Assert.assertEquals(result, true);
-	    
+
 	}
 
 

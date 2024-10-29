@@ -74,8 +74,10 @@ public class LoginSteps{
 	
 	@When("Admin enters valid credentials and clicks login button")
 	public void user_enters_valid_credentials() throws Exception {
-		String Uname = "sdetorganizers@gmail.com";
-		String Pwd = "UIHackathon@02";
+		
+		//
+		String Uname = "sdet@gmail.com";
+		String Pwd = "LmsHackathon@2024";
 		System.out.println("Enter Valid Credentials");
 		loginpage.EnterUserName(Uname);
 		loginpage.EnterPassword(Pwd);
