@@ -1,10 +1,16 @@
 package lms.ui.hackathon.pageobjects;
 
+import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import lms.ui.hackathon.utilities.ElementUtil;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 public class BatchPage extends CommonAndPaginationFeatures{
 	
@@ -25,6 +31,7 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	private By DeleteIcon = By.xpath("//tbody/tr[1]/td[7]/div[1]/span[2]/button[1]/span[1]");
 	private By checkBoxRows=By.xpath("//table/tbody/tr//div[@role='checkbox']");
 	private By editIcons= By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-pencil')]");
+	
 	private By deleteIcons=By.xpath("//table/tbody/tr//button[contains(@icon, 'pi-trash')]"); 
     private By dataTableCheckBox = By.xpath("//div[@class='p-checkbox-box']");
 	private By dataTableHeader = By.xpath("//thead[@class='p-datatable-thead']");
@@ -36,7 +43,16 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	
      private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
      private By BatchPopupFrame=By.xpath("//div[contains(@role,'dialog')]"); 
-	
+     
+ 	private By batchEditIcon=By.xpath("//span[@class='p-button-icon pi pi-pencil']");
+
+	private By editBatchPopup=By.xpath("/html/body/app-root/app-batch/p-dialog[1]/div/div"); 
+	private By editBatchNamePopup=By.xpath("(//input[@id='batchName'])[2]");
+	private By editBatchDescPopupErrMsg=By.xpath("//small[@id='text-danger']");
+	private By editBatchNoOfClassPopupErrMsg=By.xpath("//small[text()='Number of classes is required.']");
+	private By batchEditSuccessMsg = By.xpath("//div[text()='batch Updated']");
+	private By batchProgramNameTextBox=By.xpath("//p-dropdown[@id='programName']");
+
 	
 	public BatchPage(WebDriver driver) {
 		super(driver);
@@ -154,6 +170,57 @@ public class BatchPage extends CommonAndPaginationFeatures{
 	public Boolean IsBatchDetailsPopupPageDisplayed() {
 		
 		return util.isElementDisplayed(BatchPopupFrame);	
+	}
+	public void clickEditIconButton() {
+		try {
+		
+	        WebElement bodyElement = driver.findElement(By.tagName("body"));
+
+	        // Using Actions to click on the body element (vacant area)
+	        Actions actions = new Actions(driver);
+	        actions.moveToElement(bodyElement, 0, 0).click().perform();
+	        util.doClick(batchEditIcon);
+			Thread.sleep(2000);
+
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
+	public boolean isPopupEditDisplayed() {
+		return util.isElementDisplayed(editBatchPopup); 
+	}
+	
+    public boolean isProgramNameFieldDisabled() {
+    
+    	Boolean isContentEditable=util.isEditablefield(batchProgramNameTextBox);
+    	//WebElement programField = util.getElement(batchProgramNameTextBox);
+        return !isContentEditable;
+    }
+  
+    public boolean isBatchNameFieldDisabled() {
+    	Boolean isContentEditable=util.isEditablefield(editBatchNamePopup);
+    	
+        return !isContentEditable; 
+    }
+    
+    public String getBatchEditDescriptionError() throws InterruptedException {
+    	Thread.sleep(2000);
+    	System.out.println(util.getElementText(editBatchDescPopupErrMsg));
+
+        return util.getElementText(editBatchDescPopupErrMsg);
+    }
+
+    public String getEditNoOfClassesError() throws InterruptedException {
+    	Thread.sleep(2000);
+    	System.out.println(util.getElementText(editBatchNoOfClassPopupErrMsg));
+        return util.getElementText(editBatchNoOfClassPopupErrMsg);
+    }
+    
+	public boolean isBatchEditSuccessfully() {
+		return util.isElementPresent(batchEditSuccessMsg);
 	}
 
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import lms.ui.hackathon.utilities.ElementUtil;
@@ -25,11 +26,13 @@ public class BatchDetailsPage {
 
 	private By addNewBatchBtn = By.xpath("//button[text()='Add New Batch']");
 	private By addBatchTitle=By.xpath("//span[contains(text(),'Batch Details')]");
-	private By batchNameCode=By.xpath("//body//app-root//input[2]");
-	private By batchNameTextField= By.xpath("//input[@id='batchProg']");
+	private By batchNameTextField= By.xpath("//input[@placeholder='Select a Program name']");
+	private By batchNameCode=By.xpath("//input[@id='batchName']");
+
 	private By batchDescTextBox=By.xpath ("//input[@id='batchDescription']");
 	//private By batchName = By.xpath("//input[@*='batchDescription']");
 	private By batchProgramNameTextBox=By.xpath("//p-dropdown[@id='programName']");
+	private By batchNameTextBox=By.xpath("//input[@id='batchProg']");
 	//p-dropdown[@id='programName']
 	private By batchprogramNameFieldDropDownBtn= By.xpath("//div[@*='button']/span");
 	private By batchCodeErrMsg= By.xpath("//small[@id='text-danger']");	
@@ -46,16 +49,12 @@ public class BatchDetailsPage {
 	private By batchDescMissing = By.xpath("//small[normalize-space()='Batch Description is required.']");
 	private By batchStatusMissing = By.xpath("//small[text()='Status is required.']");
 	private By batchNoOfClassMissing = By.xpath("//small[text()='Number of classes is required.']");
+    private By firstOptionInDropdown = By.xpath("//*[@id=\"programName\"]/div/div[3]/div/ul/p-dropdownitem[1]/li");
+  
 
 	//Edit icon Validation
 
-	private By batchEditIcon=By.xpath("//span[@class='p-button-icon pi pi-pencil']");
-	private By editBatchPopup=By.xpath("//div[contains(@role, 'dialog')]"); 
-	private By editBatchNamePopup=By.xpath("//body//app-root//input[3]");
-	private By editBatchDescPopupErrMsg=By.xpath("//small[@id='text-danger']");
-	private By editBatchNoOfClassPopupErrMsg=By.xpath("//small[text()='Number of classes is required.']");
-	private By batchEditSuccessMsg = By.xpath("//div[text()='batch Updated']");
-
+	
 	
 	public Boolean isProgramDetailsTitleExists() {
 		return util.isElementPresent(addBatchTitle);
@@ -67,21 +66,31 @@ public class BatchDetailsPage {
 
 	}
 
-	public String getBatchProgramNameText()
+	public String getBatchNameText()
 	{
-		String batchName= util.getAttributeVal(batchNameTextField, "ng-reflect-model");
+		//String batchName= util.getAttributeVal(batchNameTextField, "ng-reflect-model");
 		//String batchName=  util.getElement(batchProgramNameTextBox).getText();
-		System.out.println("batchName ->"+batchName);
-		return util.getElement(batchProgramNameTextBox).getText();
+		System.out.println("Batch Name ->"+util.getElement(batchNameTextBox).getAttribute("value"));
+		return util.getElement(batchNameTextBox).getAttribute("value");
 	}
-
+	public String getProgramNameText()
+	{
+	    WebElement selectedTextElement = driver.findElement(batchNameTextField);
+	    //Select select = new Select(selectedTextElement);
+	    //System.out.println("batchNameTextField1-->"+select.getFirstSelectedOption().getText());
+		//String batchName=  util.getElement(batchProgramNameTextBox).getText();
+		System.out.println("ProgramNameText ->"+selectedTextElement.getAttribute("value"));
+		return selectedTextElement.getAttribute("value");
+	}
 	public boolean isBatchNamePrefixEditable() {
-		return util.isFieldEditable(batchNameTextField);
+		return util.isEditablefield(batchNameTextField);
 	}
 
 	//  New batch created Successfully
 	public void enterBatchName(String batchName) {
+
 		util.doSendKeys(batchNameTextField, batchName);
+		util.doSendKeys(batchNameTextField,Keys.ENTER);
 	}
 
 	public void enterBatchCode(String batchCode) {
@@ -135,27 +144,35 @@ public class BatchDetailsPage {
 		util.doClick(addNewBatchBtn); 
 	}
 
-	public void selectProgramName(String programName) {
+	public void selectProgramName() {
 		// Open the drop down
 		try {
-
-		util.doClick(batchprogramNameFieldDropDownBtn);
-		Thread.sleep(8000);
-		
-		Actions action = new Actions(driver);
-		
-		while(driver.findElements(By.xpath("//ul[contains(@class,'p-dropdown-items')]/p-dropdownitem//span[text()='"+programName+"']")).size()>0) {
 			
-			action.keyDown(Keys.DOWN).keyUp(Keys.DOWN).build().perform();
-			Thread.sleep(2000);
-		}
 
+			driver.findElement(batchprogramNameFieldDropDownBtn).click();
+
+	        // Wait until the first option is visible
+	        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+	        WebElement firstOption = wait.until(ExpectedConditions.visibilityOfElementLocated(firstOptionInDropdown));
+
+	        // Click the first option
+	        firstOption.click();
+	        // Click the first option
+
+
+//		util.doClick(batchprogramNameFieldDropDownBtn);
+//		Thread.sleep(2000);
+//		
+//		Actions action = new Actions(driver);
+//		
+//		while(driver.findElements(By.xpath("//ul[contains(@class,'p-dropdown-items')]/p-dropdownitem//span[text()='"+programName+"']")).size()>0) {
+//			
+//			action.keyDown(Keys.DOWN).keyUp(Keys.DOWN).build().perform();
+//			Thread.sleep(2000);
+//		}
+		
 		//  program name to the drop down input field
-		WebElement dropdownInput = new WebDriverWait(driver, Duration.ofSeconds(50))
-				.until(ExpectedConditions.visibilityOf(driver.findElement
-						(By.xpath("//ul[contains(@class,'p-dropdown-items')]/p-dropdownitem//span[text()='"+programName+"']"))));
-
-		dropdownInput.findElement(By.xpath("/../..")).click();
+		
 		//Thread.sleep(8000);
 		/*
 		//dropdownInput.sendKeys(programName);
@@ -196,15 +213,15 @@ public class BatchDetailsPage {
 
 		util.getElement(saveBatchBtn).click();
 		switch (Errormsg.toLowerCase().trim()) { 
-		case "Batchname":
+		case "batchname":
 			return util.getElementText(batchNameMissing);
-		case "BatchCode":
+		case "batchcode":
 			return util.getElementText(batchCodeMissing);
-		case "BatchDescription":
+		case "batchdescription":
 			return util.getElementText(batchDescMissing);
-		case "Status":
+		case "status":
 			return util.getElementText(batchStatusMissing);
-		case "NoOfClasses":
+		case "noofclasses":
 			return util.getElementText(batchNoOfClassMissing);
 		default:
 			return util.getElementText(batchSuccessMsg);
@@ -220,20 +237,42 @@ public class BatchDetailsPage {
 		}
 	}
 	
+	
+	
 	public boolean isBatchCreatedSuccessfully() {
-		return util.isElementPresent(batchSuccessMsg);
+		try {
+			Thread.sleep(1000);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		WebElement successMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(), 'Batch Created Successfully')]")));
+
+		System.out.println(successMessage);
+		if(successMessage.toString().toLowerCase().contains("batch created successfully"))
+			return true;
+		else
+			return false;
+		//return util.isElementPresent(batchSuccessMsg);
 	}
 
 	public void clickCancelButton() {
+		System.out.println(isPopupClosedClose());
 		util.doClick(cancelBatchBtn);
-	}
+		System.out.println(isPopupClosedClose());
 
-	public boolean isPopupClosedCancel() {
-		return util.isElementDisplayed(cancelBatchBtn); 
 	}
 
 	public boolean isPopupClosedClose() {
-		return util.isElementDisplayed(closeBatchIconWindow); 
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return !util.isElementAvailable(addBatchTitle); 
+		
 	}
 
 	public void clickClosebatchButton() throws InterruptedException {
@@ -241,38 +280,15 @@ public class BatchDetailsPage {
 		Thread.sleep(1000);
 	}
 	
+	public String getrandomalpha(int length) {
+		return(util.getRandomNumbers(length));
+	}
 // Edit icon Validation
 	
-	public void clickEditIconButton() {
-		util.doClick(batchEditIcon);
-	}
-
-	public boolean isPopupEditDisplayed() {
-		return util.isElementDisplayed(editBatchPopup); 
-	}
 	
-    public boolean isProgramNameFieldDisabled() {
-        WebElement programField = driver.findElement(batchProgramNameTextBox);
-        return !programField.isEnabled();
-    }
-  
-    public boolean isBatchNameFieldDisabled() {
-        WebElement batchNameElement = util.getElement(editBatchNamePopup);
-        return !batchNameElement.isEnabled(); 
-    }
-    
-    public String getBatchEditDescriptionError() {
-        return util.getElementText(editBatchDescPopupErrMsg);
-    }
 
-    public String getEditNoOfClassesError() {
-        return util.getElementText(editBatchNoOfClassPopupErrMsg);
-    }
-    
-	public boolean isBatchEditSuccessfully() {
-		return util.isElementPresent(batchEditSuccessMsg);
-	}
-    
+
+	
 }
 
 	
