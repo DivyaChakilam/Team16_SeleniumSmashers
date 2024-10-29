@@ -11,9 +11,10 @@ public class LogoutPage {
         
        private By logoutbutton = By.xpath("//span[normalize-space()='Logout']");
 
-	public LogoutPage(WebDriver driver) {
+	    public LogoutPage(WebDriver driver) {
 		this.driver = driver;
-	//util = new ElementUtil(this.driver);
+	
+		//util = new ElementUtil(this.driver);
 		
 	}
 	

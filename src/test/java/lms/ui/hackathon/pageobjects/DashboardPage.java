@@ -10,5 +10,5 @@ public class DashboardPage extends CommonAndPaginationFeatures{
 		this.driver = driver;
 	}
 	
-	
+	//title validation method that returns a boolean value
 }
