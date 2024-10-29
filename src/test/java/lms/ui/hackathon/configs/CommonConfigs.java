@@ -10,7 +10,34 @@ public class CommonConfigs {
 	//String url;
 	String loginUrl;
 	String registerUrl;
-	
+	private static String programCreated;
+	private static String programDesCreated;
+	private static String programStatusCreated;
+
+	public static String getProgramDesCreated() {
+		return programDesCreated;
+	}
+
+	public static void setProgramDesCreated(String programDesCreated) {
+		CommonConfigs.programDesCreated = programDesCreated;
+	}
+
+	public static String getProgramStatusCreated() {
+		return programStatusCreated;
+	}
+
+	public static void setProgramStatusCreated(String programStatusCreated) {
+		CommonConfigs.programStatusCreated = programStatusCreated;
+	}
+
+	public static String getProgramCreated() {
+		return programCreated;
+	}
+
+	public static void setProgramCreated(String programCreated) {
+		CommonConfigs.programCreated = programCreated;
+	}
+
 	public static ThreadLocal<String> tlUrl = new ThreadLocal<String>();
 
 	

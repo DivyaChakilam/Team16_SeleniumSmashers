@@ -42,14 +42,25 @@ public class ClassPage extends CommonAndPaginationFeatures {
 
 	private By headerEditDelete = By.xpath("//th[normalize-space()='Edit / Delete']");
 
-	private By tableRows = By.xpath("//tbody[@class='p-datatable-tbody']/tr");
+	//private By tableRows = By.xpath("//tbody[@class='p-datatable-tbody']/tr");
+	private By successfulCreateMsg = By.xpath("//div[normalize-space()='Class Created']");
+	private By successfulUpdateMsg = By.xpath("//div[normalize-space()='Class Update']");
 
+	
 	public ClassPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
 		util = new ElementUtil(this.driver);
 	}
 
+	//**************** Success Msg Methods ****************
+	
+	public String getClassCreationSuccessMsg() throws Exception {
+		if(util.isElementPresent(successfulCreateMsg)) {
+			return util.getElementText(successfulCreateMsg);
+		} else throw new Exception("Success Msg not found");
+	}
+	
 	// *************** Menu Banner Methods ***************************
 
 	/**
@@ -90,17 +101,17 @@ public class ClassPage extends CommonAndPaginationFeatures {
 
 	// *************** Table Body Methods ***************************
 
-	/**
-	 * This method checks if table rows exists
-	 * 
-	 * @return
-	 */
-	public boolean doesTableRowsExists() {
-		if (util.getElementSize(tableRows) > 0) {
-			return true;
-		} else
-			return false;
-	}
+//	/**
+//	 * This method checks if table rows exists
+//	 * 
+//	 * @return
+//	 */
+//	public boolean doesTableRowsExists() {
+//		if (util.getElementSize(tableRows) > 0) {
+//			return true;
+//		} else
+//			return false;
+//	}
 
 	/**
 	 * This method retrieves String Values for a given List<WebElement>
@@ -195,7 +206,8 @@ public class ClassPage extends CommonAndPaginationFeatures {
 	 * @return
 	 */
 	public ClassDialoguePage clickOnColumnValueInTableRow(String fieldValue) {
-		By fieldValueElement = By.xpath("//td[text()='"+fieldValue+"']");
+
+		By fieldValueElement = By.xpath("//td[normalize-space()='"+fieldValue+"']");
 		util.doClick(fieldValueElement);
 		return new ClassDialoguePage(driver);
 	}
@@ -233,6 +245,7 @@ public class ClassPage extends CommonAndPaginationFeatures {
 		List<String> sortedList = list.stream().sorted(String.CASE_INSENSITIVE_ORDER)
 				.collect(Collectors.toList());
 		return sortedList;
-	}
+
+	}	
 	
 }

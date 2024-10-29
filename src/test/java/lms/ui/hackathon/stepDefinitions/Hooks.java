@@ -54,7 +54,7 @@ public class Hooks {
 		driver = df.initDriver(prop, browserValueFromTestNG);
 		
 		//initializing POMManger
-		testContextSetUp = new TestContextSetUp();
+		//testContextSetUp = new TestContextSetUp();
 
 		}
 	}
@@ -77,7 +77,8 @@ public class Hooks {
 	{
 		//testContextSetUp.base.WebDriverManager().quit();
 		if(driver!=null) {
-			//driver.quit();
+			Thread.sleep(5000);
+			driver.quit();
 		}
 	}
 
