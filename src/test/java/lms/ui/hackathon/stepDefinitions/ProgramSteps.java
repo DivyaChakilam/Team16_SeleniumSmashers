@@ -282,17 +282,17 @@ public class ProgramSteps {
 		Assert.assertEquals(!programPage.ispreviousPageActive(), true);
 	}
 	
-//	@When("Admin clicks Program {string} on the navigation bar")
-//	public void admin_clicks_Program_on_the_navigation_bar(String menuName) throws Exception {
-//		LoggerLoad.info("Admins Clicks " + menuName);
-//		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
-//	}
-	
-	@When("Admin clicks {string} on the navigation bar")
+	@When("Admin clicks Program {string} on the navigation bar")
 	public void admin_clicks_Program_on_the_navigation_bar(String menuName) throws Exception {
 		LoggerLoad.info("Admins Clicks " + menuName);
 		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
 	}
+	
+//	@When("Admin clicks {string} on the navigation bar")
+//	public void admin_clicks_Program_on_the_navigation_bar(String menuName) throws Exception {
+//		LoggerLoad.info("Admins Clicks " + menuName);
+//		programPage = (ProgramPage) dashboardPage.goToMenu(menuName);
+//	}
 	
 	
 	@Then("Admin should be navigated to Program module")

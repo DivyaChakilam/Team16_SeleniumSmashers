@@ -11,7 +11,6 @@ import lms.ui.hackathon.configs.ConfigLoader;
 
 @CucumberOptions(features = "src/test/resources/Features/", 
 		glue = {"lms.ui.hackathon.stepDefinitions"},
-		tags = "@login_positive",
 		 dryRun=false,
 		plugin = { "pretty", "html:target/cucumber-Reports.html", "json:target/cucumber.json",
 			// "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm",
